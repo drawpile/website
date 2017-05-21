@@ -1,0 +1,14 @@
+[Unit]
+Description=gunicorn daemon for drawpile.net website
+After=network.target
+
+[Service]
+User=website
+Group=website
+WorkingDirectory=/home/website/website
+ExecStart=/home/website/.virtualenvs/drawpile.net/bin/gunicorn drawpile.wsgi
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
