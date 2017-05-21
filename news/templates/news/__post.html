@@ -1,0 +1,13 @@
+<article>{% load markdown %}
+	<h1 class="title">{{ post.title }}</h2>
+	<h2 class="subtitle">{{ post.publish }}</h3>
+	<div class="content">
+	{{ post.intro|markdown }}
+	{% if readmore %}
+	{{ post.readmore|markdown }}
+	{% else %}
+	<p><a href="{{ post.get_absolute_url }}">Read more...</a></p>
+	{% endif %}
+	</div>
+</article>
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>{% load static page_tags %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}Drawpile{% endblock %}</title>
+	<link rel="stylesheet" href="{% static "css/bulma.css" %}">
+	<link rel="stylesheet" href="{% static "css/styles.css" %}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	{% block extrahead %}{% endblock %}
+</head>
+<body>
+
+{# MAIN NAVIGATION BAR #}
+<div class="container">
+	<nav class="nav">
+		<div class="nav-left">
+			<h1><a href="/"><img src="{% static "images/logo.png" %}" alt="Drawpile" width="400" height="100"></a></h1>
+		</div>
+		<div id="nav-toggle" class="nav-toggle">
+			<span></span><span></span><span></span>
+		</div>
+		<div id="nav-menu" class="nav-right nav-menu">
+			{% navilink '/news/' 'News' classes='nav-item' %}
+			{% navilink '/about/' 'About' classes='nav-item' %}
+			{% navilink '/download/' 'Download' classes='nav-item' %}
+			{% navilink '/help/' 'Help' classes='nav-item' %}
+			{% navilink '/servers/' 'Servers' classes='nav-item' %}
+		</div>
+	</nav>
+</div>{# /.container #}
+
+{# MAIN CONTENT GOES HERE #}
+{% block main %}{% endblock %}
+
+{# FOOTER #}
+<footer class="footer">
+	<div class="container">
+		<div class="columns">
+			<div class="column">
+				<a href="https://github.com/drawpile/"><span class="icon"><i class="fa fa-github"></i></span> Github</a></a><br>
+				<a href="https://www.facebook.com/groups/drawpile/"><span class="icon"><i class="fa fa-facebook"></i></span> Facebook group</a></a><br>
+				<a href="https://plus.google.com/b/109582070093673841898/+DrawpileNet"><span class="icon"><i class="fa fa-google-plus"></i></span> Google+</a></a><br>
+			</div>
+			<div class="column is-narrow">
+				<p>&copy; 2014-2017 Calle Laakkonen</p>
+				<p>The content of this site (unless otherwise noted) is licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-SA 4.0</a>.</p>
+			</div>
+		</div>{# ./columns #}
+	</div>{# ./container #}
+</footer>
+
+<script type="text/javascript" src="{% static "js/jquery-3.2.1.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/basics.js" %}"></script>
+{% block extrascripts %}{% endblock %}
+</body>
+</html>
+

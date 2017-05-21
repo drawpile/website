@@ -1,0 +1,114 @@
+{% extends "pages/help/_base.html" %}
+
+{% load markdown %}
+
+{% block title %}Hosting - {{ block.super }}{% endblock %}
+
+{% block content %}
+<article class="content">
+{% filter markdown %}
+# Hosting sessions
+
+First, select the **Host...** action from the *Session* menu.
+
+<p class="has-text-centered">{% include "components/image.html" with name="hostmenu.png" alt="[host menu screenshot]" %}</p>
+
+You will see this dialog pop up:
+
+<p class="has-text-centered">{% include "components/image.html" with name="hostdialog-guide.png" alt="[host dialog screenshot]" %}</p>
+
+Fill in a **title**, your **username**, and optionally a **password** for the session.
+If you're hosting a long running or recurring session and want a nicer URL, you can add
+a custom ID alias. Typically you should leave this empty, though.
+
+If you're hosting a session that's open to the public, you can check the **List at** checkbox
+to announce the session at a list server. Listing a session also gives you a "room code": a five
+letter code that works like a short URL. If you're hosting a private session but still want to
+make use of the room code feature, select the **Private** listing type. This way, the session
+is not shown in the public list, but you still get the room code.
+
+Next, you must decide where to host the session. If you select the **built-in** option, the server
+will run on your computer and other users must connect to it directly. (It also means that when you
+quit Drawpile, the session ends.) This is best for sessions with just a few users at most.
+Using the built-in server means you may need to configure your firewall to allow incoming
+connections. See more below.
+
+Another option is to host on an external server. A [public server](/servers/) is hosted here
+on drawpile.net you can use: just enter `drawpile.net` in the **remote** option box. See also
+the [dedicated server](/help/server/) page on how to set up your own dedicated server.
+
+Click ***Host*** to start the session.
+
+Now, you just need to invite friends to join! If you announced the session this is easy: your
+session will appear in the *find* list in the join dialog. Also, take a look at the bottom
+right corner of the status bar. You should see something like: *Room code: ABCDE* there.
+This session can also be joined by entering this code in the join address box.
+
+Tip: Right click on the status bar address label for more options.
+
+### Additional settings
+
+<p class="has-text-centered">{% include "components/image.html" with name="hostdialog-settings.png" alt="[host dialog screenshot]" %}</p>
+
+The *Settings* tab contains various session settings that you usually don't need to change every time you host a session. All of these settings can be changed afterwards.
+
+When *Allow drawing by default* is not checked, users who log in to the session will be automatically locked. This is useful when hosting a livestream style session where most or all participants are just spectating.
+
+If *lock layer controls* is checked, only session operators are allowed to modify the layer stack (create, delete,reorder or rename layers.)
+
+Dedicated servers may support *persistent sessions*. Normally, the session is removed from the server as soon as the last user leaves it, but a persistent session will remain open for new users to join even after it has become vacant.
+
+Checking *preserve chat* makes chat messages part of the session history. This means users joining later will be able to see what was said before they logged in. See the [Chat](/help/chat/) page for details.
+
+## Dealing with firewalls
+
+Due to the shortage of IPv4 addresses, home routers typically come with a [NAT](http://en.wikipedia.org/wiki/Network_address_translation) firewall enabled by default.
+This means all the computers in the network are hidden behind a single IP address.
+For basic web surfing this is not a problem, but it makes it difficult for others to connect to you since the router doesn't know which machine on the internal
+network the incoming connection should be directed to.
+
+<p class="has-text-centered">{% include "components/image.html" with name="nat-router.png" alt="[NAT router illustration]" %}</p>
+
+The above picture is complicated a little by the fact that some ISPs deploy <a href="https://en.wikipedia.org/wiki/Carrier-grade_NAT">Carrier-grade NAT</a>.
+If the ISP does not have enough addresses for their customers,
+they may add another layer of NAT so that even your router does not
+get a public address. In this case, port forwarding will not work and your
+only option is to use a dedicated server hosted elsewhere. (At least until IPv6
+becomes widely available.)
+
+Note that even a bridging router may have a firewall that blocks incoming connections! In this case, the port used by Drawpile (by default 27750) should be
+allowed.
+
+There are a few ways the NAT problem can be worked around:
+
+* [Check if you can use IPv6](http://test-ipv6.com/)
+* Have someone who is not behind a NAT host the session
+* Run a dedicated server on a machine not behind a NAT
+* Use a [public server](/servers/)
+* Use a virtual private network
+* Set up port forwarding
+
+Using IPv6 (if available) is the best solution, but it has the downside that all other users connecting
+to you must also have IPv6.
+Note that Drawpile currently always shows your IPv4 address, even if you have a
+public IPv6 address. (This is actually a bug, but the behavior is OK for the moment, since IPv6 is not
+universally available yet.)
+
+How to set up port forwarding depends on your router, but it typically goes something like this:
+
+1. Go to the router configuration site (Often 192.168.1.1 or 10.0.0.1)
+2. Go to the "forwarding" or "virtual servers" page
+3. Create a new forwarding entry: port 27750, TCP protocol and the IP address of your computer. (It helps to assign a static IP to your computer, so you don't need to change the forwarding entry later)
+
+If you have a local firewall (Windows firewall, Comodo, McAfee, F-secure, etc.), you need to configure that as well. For more detailed guides, check out [portforward.com](http://portforward.com/).
+
+When hosting from behind a NAT, the address in the status bar is your private network address. For people from the outside Internet to join your session, you need to give out your public IP address. Drawpile 0.7.2 can look up your externally visible IP address automatically using ipecho.net service.
+
+<p class="has-text-centered">{% include "components/image.html" with name="netstatus-ctx.png" alt="[status bar screenshot]" %}</p>
+
+Right click on the address and select "Get externally visible IP address" to replace the internal address with the public one.
+
+{% endfilter %}
+</article>
+{% endblock %}
+

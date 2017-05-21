@@ -1,0 +1,26 @@
+Slug: release-1.0.6
+Title: Drawpile 1.0.6 released
+Publish: 2016-12-16 00:00:00
+Visible: True
+---
+Drawpile 1.0.6 is now out!
+
+This release introduces a couple of new features to help session moderation,
+as well as a few bugfixes.
+
+The new features are:
+
+ * Server: session expiration time now works as an idle timeout
+ * Server: added /opword command (see the [session moderation tips](/help/mod-tips/) page for details)
+ * Name of the user who created an annotation is now displayed next to the text edit box
+ * Server now sends log messages for every operator command
+ * Docks can now be locked in place
+
+Bug fixes and other changes:
+
+ * Fill and paste commands are now correctly enabled/disabled when user's operator status changes
+ * Fixed freeform selection fill blending mode
+ * Cut and fill operations now only work on selections to make it less easy to accidentally erase whole layers
+ * User cursor is now shown for paste and fill operations
+ * Server: kicked users are now immediately removed from the session, without waiting for the connection to gracefully terminate.
+

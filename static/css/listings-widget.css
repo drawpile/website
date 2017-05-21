@@ -1,0 +1,35 @@
+.session-list {
+	width: 100%;
+	background: #fff;
+	border: 1px solid #1abc9c;
+	border-collapse: collapse;
+
+	color: #000;
+	font-family: sans-serif;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.session-list th {
+	text-align: left;
+	background: #1abc9c;
+	color: #fff;
+}
+
+.session-list th, .session-list td {
+	padding: 3px;
+}
+
+.session-list abbr {
+	border-bottom: 1px dotted #000;
+}
+
+.session-list .empty>td {
+	text-align: center;
+	padding: 8px 0;
+}
+
+.session-list tr:nth-child(even) {
+	background: #EDF6F5;
+}
+

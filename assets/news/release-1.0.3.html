@@ -1,0 +1,30 @@
+Slug: release-1.0.3
+Title: Drawpile 1.0.3 released
+Publish: 2016-07-02 00:00:00
+Visible: True
+---
+Afer a long wait, Drawpile 1.0.3 is finally ready!
+
+As a stable branch release, this version is fully compatible with all 1.0.x versions, including future ones.
+Although this is a bugfix focused release, two interesting new features are introduced:
+
+**Session templates** allow you to prepopulate a server with sessions.
+Once a template session ends, it resets to its initial state and continues to be available for joining. (See <a href="/help/server/">dedicated server help page</a> for more info.)
+
+**Chat message pinning** lets you pin a message to the chat window so it is always visible.
+For example, "/pin Visit drawpile.net" will attach "Visit <a href="http://drawpile.net">drawpile.net</a>" to the top of the chat box.
+Currently, only one message can be pinned at a time and only session operators can pin messages.
+
+This is also the first version for which official Linux binaries packaged with <a href="http://appimage.org">AppImage</a> are provided. In the future, I am also planning on providing <a href="http://flatpak.org">Flatpaks</a>.
+
+Other changes in this version are:
+
+ * Bugfix: the save dialog now remebers the last used path
+ * Compatiblity with new miniupnpc library version
+ * Fixed selection content stretching if selection was partially outside the canvas
+ * Fixed saving of last edited keyboard shortcut in preferences dialog
+ * Removed default canvas size limit
+ * Recording buffer is now periodically flushed to minimize data loss in case of a crash
+ * Selection mirror & flip buttons now automatically cut the selection
+ * Flipbook playback range can now be selected
+

@@ -1,0 +1,362 @@
+{% extends "pages/help/_base.html" %}
+
+{% load markdown %}
+
+{% block title %}Dedicated server - {{ block.super }}{% endblock %}
+
+{% block content %}
+<article class="content">
+{% filter markdown %}
+# Dedicated server
+
+The client application has a builtin server for quickly hosting drawing sessions,
+but a dedicated server is also included. The dedicated server has the following extra features:
+
+* Headless mode for server boxes (with remote administration API)
+* Can serve multiple sessions simultaneously
+* Sessions that do not terminate when last user leaves
+* File backed sessions that survive server restarts and crashes
+* SSL support
+* User accounts
+* More configuration options
+
+Typical use cases where the dedicated server works better than the built-in one:
+
+* Home network is behind a NAT firewall, but you have access to a virtual server
+* A public or private server for a group of users
+* Hosting long running sessions
+
+## Installing the server (on Linux)
+
+The easiest way to install the server is to download the AppImage.
+The server will not run as root, so it's a good idea to create a new username just for it.
+Copy the AppImage onto the server and give it execute permissions (`chmod a+x Drawpile-srv-2.0.0.AppImage`)
+
+You can then simply run the AppImage to start the server with default settings:
+`./Drawpile-srv-2.0.0.AppImage`. (Although in practice, you most likely want to use a configuration file or database. See more below.)
+
+Tip: make a symlink (`ln -s Drawpile-srv-2.0.0.AppImage drawpile-srv`) to always refer to the latest version.
+
+
+## Compatibility
+
+Server version 1.0.6 is compatible with all 1.x.x series clients.
+
+The 2.x series servers are compatible with all 2.x.x series clients,
+with the caveat that features introduced in newer servers may not be accessible from older clients.
+
+Run `drawpile-srv --version` to see the protocol version number of the server.
+See the [compatibility chart](/help/compatibility/) for details.
+
+## Graphical mode
+
+When the application is started with no command line options, or explicitly
+with the option `--gui`, it will run in graphical mode. The GUI makes it easy
+to manage a server that is running on a desktop computer and also works
+as a remote management tool for headless servers.
+
+
+## Starting from the command line
+
+Run `drawpile-srv -h` to get a list of supported command line parameters.
+The most commonly used ones are:
+
+ * `--port <port>` selects the port on which the server will listen
+ * `--listen <address>` restricts the server to listening on just the specified address
+ * `--local-host <address>` set the hostname of the server to use in announcements
+ * `--ssl-cert <file>` and `--ssl-key <file>` set the SSL certificate and key files to use
+ * `--record <path>` set session recording path
+ * `--web-admin-port <port>` set the remote admin API port (enables remote admin, see more below)
+ * `--config <file>` use a configuration file
+ * `--database <file>` use a configuration database
+ * `--sessions <path>` directory to store sessions in (see more below)
+ * `--templates <path>` where to look for session templates (see more below)
+
+Simply running `drawpile-srv` will start the server with reasonable defaults. However,
+using a configuration file or database is highly recommended.
+
+
+## Configuration file and database
+
+There are two options for storing server configuration:
+a plaintext configuration file and an SQLite database.
+
+When using the configuration file, the settings can only be changed by
+changing the file directly (the server reloads the file automatically.)
+If you want to use the remote admin API, you should choose the
+configuration database.
+
+The configuration file uses a simple INI style format.
+
+Example:
+
+    [config]
+	sessionSizeLimit = 15MB
+	sessionCountLimit = 25
+    idleTimeLimit = 3h
+	title = Welcome to my test server!
+	announceWhiteList = true
+
+	[announceWhitelist]
+	https://drawpile.net/api/sessions/
+
+	[ipbans]
+	192.168.1.1
+	10.0.0.1/16
+
+	[users]
+	moderator:plain;qwerty123;MOD,HOST
+
+### [config] section
+
+The following settings can be set here:
+
+ * `clientTimeout=60s` - connection timeout for clients
+ * `sessionSizeLimit=15mb` - size limit for session history. Set to zero to allow sessions of unlimited size.
+ * `sessionCountLimit=25` - maximum number of simultaneous sessions.
+ * `persistence=false` - allow sessions to exist without any logged in users
+ * `idleTimeLimit=0` - if larger than zero, sessions where nothing happens for this time are terminated
+ * `serverTitle` - title shown in the login dialog
+ * `welcomeMessage` - message sent to users who have just logged in
+ * `announceWhitelist=false` - use the announcement server whitelist.
+ * `privateUserList=false` - if set to true, list of logged in users is not included in session announcements
+ * `allowGuests=true` - allow unauthenticated users
+ * `allowGuestHosts=true` - if set to false, only authenticated users with the `HOST` flag can create new sessions
+ * `archiveMode=false` - when using file backed sessions, rename session file to `oldname.archived` instead of deleting it on termination
+
+See `src/shared/server/serverconfig.h` for the up to date list of supported settings.
+
+### [announceWhiteList] section
+
+In this section you can list the acceptable announcement server URLs. Remember to also add `announceWhitelist=true`
+to the `[config]` section as well!
+
+Tip: Leaving this section empty but setting `announceWhitelist` to `true` will disable session announcements entirely.
+
+### [ipbans] section
+
+In this section you can list the IP addresses and subnets that are banned from the server.
+Both IPv4 and IPv6 style addresses are supported.
+
+Note: Write the IP in the form it appears in the server log.
+
+### [users] section
+
+In this section you can list registered user accounts.
+The syntax is `username:password:FLAGS`
+
+Currently, the following password formats are supported:
+
+ * plaintext: `plain;my password here`
+ * Salted SHA1: `s+sha1;salt;hash`, where `salt` and `hash` are hex encoded bytestrings and `hash` is SHA1(salt+hash)
+
+Prefixing the password field with `*`will mark the username as banned. E.g. `admin:*plain;abc123;MOD`
+
+Supported user flags are:
+
+ * MOD - user is a moderator (can enter locked and password protected sessions and has permanent OP status)
+ * HOST - may host sessions when `allowGuestHosts` is set to `false`
+
+### Database
+
+The configuration database is similar to the configuration file, but each section is a table
+in an SQLite database. It can be edited manually with the `sqlite3` command, but its real
+strength is that it can be easily modified by scripts and the server itself at runtime.
+
+The database contains the following tables:
+
+ * settings (equivalent to the `[config]` section)
+ * listingservers
+ * ipbans
+ * users
+ * serverlog
+
+When started in graphical mode, the server always uses a configuration database.
+The location of the database depends on the operating system:
+
+ * Linux: `~/.local/share/drawpile/drawpile-srv/guiserver.db` (or `$XDG_DATA_HOME/drawpile/drawpile-srv/guiserver.db`)
+ * Windows: `C:\Users\%USERNAME%\AppData\Local\drawpile-srv\guiserver.db`
+ * macOS: `~/Library/Application Support/drawpile-srv/guiserver.db`
+
+## TLS
+
+The dedicated server supports TLS encrypted connections.
+
+Currently, Drawpile is optimized for use with self signed certificates.
+The client does not verify that the cert has been signed by a Certificate Authority.
+Instead, on first access the server's certificate is saved.
+ If the certificate changes later, the client alerts the user. (The same way SSH works.)
+
+A certificate can be generated with OpenSSL:
+
+    $ openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -days 365 
+
+Enter your hostname as the Common Name.
+(Note: when using an IP address rather than a hostname, Drawpile will not check the CN.)
+
+The key.pem file must be kept private.
+The cert.pem file contains the public certificate which is used to authenticate the server identity:
+
+    $ drawpile-srv --ssl-cert cert.pem --ssl-key key.pem
+
+You can additionally use the `--secure` flag to disallow unencrypted connections.
+
+## Using systemd
+
+Drawpile server can be started in two ways using systemd.
+The server can be started directly with `systemctl start drawpile-srv` or
+by socket activation using `systemctl start drawpile-srv.socket`.
+When socket activation is used, the server is started on-demand when the first client connects.
+Note that when using SA, the `--port` and `--listen` parameters are ignored.
+The listening address is configured in the `drawpile-srv.socket` unit file.
+
+Use `systemctl enable drawpile-srv` or `systemctl enable drawpile-srv.socket` to automatically start the server on boot.
+
+The current server AppImage does not have systemd support compiled in, so it does not support socket activation. Here is a sample
+unit file that works with it (place in `/etc/systemd/system/drawpile-srv.service`):
+
+    [Unit]
+    Description=Drawpile dedicated server
+    After=network.target
+    Documentation=man:drawpile-srv
+    
+    [Service]
+    ExecStart=/home/my_server/drawpile-srv -d /home/my_server/settings.db
+    Type=simple
+    Restart=always
+    User=my_server
+    
+    [Install]
+    WantedBy=multi-user.target
+
+Replace `my_server` with the username you will run the server as.
+Best practice is to create a user just for running the server.
+Note that for security reasons, the server will not run as root!
+
+## Persistent sessions
+
+A session is normally deleted after the last user logs out.
+When the `persistence` configuration setting is set to `true`, sessions are allowed
+to continue even after the last user has left. Persistence must also be enabled by
+the user hosting the session.
+
+To prevent old sessions from piling up, it is a good idea to set an idle time limit.
+Setting this option will cause sessions that have been idle for more than the allowed
+time to automatically terminate. (Note that this applies to sessions with users still in them
+as well, if no-one is drawing anything or even chatting.)
+
+It is generally a good idea to use file backed sessions when persistence is enabled,
+as it allows the sessions to survive a server restart and frees up memory when
+no one is logged in.
+
+## Session recording
+
+If a recording path is set, the server will make a recording of every session.
+For example: `drawpile-srv --record ~/sessions/%a.dprec` will save each session
+in the ´sessions` directory under the user's home directory.
+
+The following placeholders can be used in the recording path:
+
+ * `%d` - current date (YYYY-MM-DD)
+ * `%h` - current time (HH.MM.SS)
+ * `%i` - session ID
+ * `%a` - session Alias (or ID if alias is not set)
+
+If a file with the same name already exists, a number is added to the end of the name.
+A new recording is started every time the session is reset.
+
+Tip: when using file backed sessions, enabling archive mode has the same effect as recording
+sessions.
+
+## File backed sessions
+
+When a session directory (`--sessions` or equivalent from the GUI settings dialog) is set,
+sessions will be stored in files instead of just kept in memory. This allows sessions to
+survive server restarts and crashes. It also saves some memory, since only parts immediately
+needed have to be kept in RAM.
+
+When the server is shut down, active sessions are not deleted automatically, even if not
+marked as persistent.
+
+A session on disk consists of two or more files:
+
+ * `id.session` - session metadata
+ * `id (x).dprec` - session history
+
+A new `dprec` is created each time the session is reset. If archive mode is enabled,
+session files are never deleted. Instead, `.archived` is added to the end of the filename
+when a session is terminated. This is a more efficient alternative to recording sessions.
+
+## Session templates
+
+Session templates allow you to provide default sessions that always exist on the server.
+Templates are looked for in the directory specified by the `--templates` command line parameter.
+
+Template files are session recordings (`.dprec`) or hand written `.dptxt` files. For example:
+
+    # Create a 3200x3200 canvas and two layers
+    !version=dp:4.20.1
+    !title=Template Session Demo
+    !founder=Admin
+    !password=plain;qwerty123
+    
+    0 owner users=1
+    # Note: the owner command is needed to grant rights to these commands below.
+    # The server will append the up to date owner list automatically.
+    1 resize right=3200 bottom=3200
+    1 newlayer id=0x0101 fill=#ffffff title=Background
+    1 newlayer id=0x0102 title=Foreground
+
+The following header metadata attributes can be used:
+
+ * `version` - protocol version (default=server's version)
+ * `title` - session title
+ * `founder` - name of the user who created the session
+ * `nsfm` - content not suitable for minors (default=false)
+ * `preserveChat` - include chat in session history (default=false)
+ * `persistent` - persistent session (default=false)
+ * `maxUsers` - maximum number of simultaneous users (default=25)
+ * `password` - password hash
+ * `opword` - opword hash
+ * `announce` - announce the session at this URL
+
+Note: when using a `dptxt` template, the first two numbers in the server's protocol version
+must match those in the `version` header.
+For binary `dprec` templates, it's enough that the first number matches.
+
+The name of the template file will be used as the session alias.
+Sessions created from the template still get unique IDs, but share the same alias.
+
+Tip: The `dprectool` utility can convert a binary recording to the text format and vice versa.
+
+## Remote admin
+
+The server provides a RESTful HTTP API for remote administration. It is enabled by
+setting the HTTP server port: `--web-admin-port 8080`.
+By default, only connections from localhost are accepted and no authentication is needed.
+
+Use `--web-admin-access` to grant access to the wider network and `--web-admin-auth` to set the
+HTTP BASIC Auth username/password pair.
+
+However, directly exposing the server's admin API to the Internet is not recommended. A better
+way is to put a reverse proxy, such as nginx, in between and have it handle the authentication.
+
+Example nginx configuration:
+
+    location /serveradmin/ {
+	    proxy_pass http://127.0.0.1:8080/;
+		proxy_redirect default;
+		auth_basic "Server Administration";
+		auth_basic_user_file /etc/nginx/passwords;
+	}
+
+This way, the reverse proxy provides a layer of security against possible exploits against
+the server.
+
+The GUI frontend can act as a remote administration tool by starting it with command line
+arguments `drawpile-srv --gui --remote APIURL` or by right clicking on the status tray icon.
+
+{% endfilter %}
+</article>
+{% endblock %}
+

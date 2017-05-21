@@ -1,0 +1,56 @@
+{% extends "pages/help/_base.html" %}
+
+{% load markdown %}
+
+{% block title %}Shortcuts - {{ block.super }}{% endblock %}
+
+{% block content %}
+<article class="content">
+{% filter markdown %}
+
+## Customizable shortcuts
+
+All menu and action button shortcuts can be customized. Go to *Edit/Preferences*
+and select the *Shortcuts* tab to get a list of all modifiable shortcuts.
+
+## Canvas shortcuts
+
+**Scrolling:** There are three scrolling shortcuts:
+
+* Hold the middle mouse button and drag
+* Hold `spacebar` and drag
+* Hold the lower stylus rocker button and drag
+
+**Rotating the view:**
+
+1. Hold `Ctrl+space` and drag to rotate the view
+2. `Shift+,` and `Shift+.` to rotate in 5&deg; increments (customizable)
+
+**Zooming**: There are three zooming methods:
+
+1. Zoom in/out with `Ctrl++` and `Ctrl+-` (customizable)
+2. Zoom with `Ctrl`+mouse wheel up&down
+3. Hold `Ctrl`+middle mouse button (or stylus button) and drag up & down.
+
+**Brush size adjustment**: The brush size can be adjusted quickly in three ways:
+
+1. Press `[` or `]` (customizable)
+2. Mouse wheel up&down while holding `Shift`
+{#3. Hold `Shift`+middle mouse button (or stylus button) and drag up & down.#}
+
+**Quick color picking**: Hold down `control` and click to pick the color under the cursor.
+
+**Brush slots**: Quickly activate a tool brush slot with the number keys `1`-`5`.
+
+**Temporary tool switching**: Hold down tool shortcut key to temporarily switch to that tool or brush slot. Once the key is released, the previous tool will be automatically reselected.
+
+**Eraser mode**: Toggle the current tool's eraser mode by `Ctrl+E` (customizable)
+
+**Show/hide chat**: Press `Alt+C` (customizable)
+
+**Switch layers**: Quickly switch to the layer above or below with `Ctrl+Up` and `Ctrl+Down` (customizable)
+
+{% endfilter %}
+</article>
+{% endblock %}
+

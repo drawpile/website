@@ -1,0 +1,67 @@
+{% extends "pages/help/_base.html" %}
+
+{% load markdown %}
+
+{% block title %}Frequently Asked Questions - {{ block.super }}{% endblock %}
+
+{% block content %}
+<article class="content">
+{% filter markdown %}
+# Frequently Asked Questions
+
+### No pressure sensitivity
+
+First, make sure you have the Wintab drivers installed. If you have the
+drivers, but pressure still doesn't work, try the 32 bit version.
+
+### Wonky/unusable lines when using a graphics tablet
+
+This problem is most likely caused by an incompatibility between Qt and the
+graphics tablet driver. Try enabling "bug workarounds" in the preferences dialog.
+If that fails, you can disable tablet support entirely.
+This causes Drawpile to treat the tablet like a mouse, meaning invalid data in the tablet
+events get ignored. A downside is that you will also lose support for stylus pressure sensitivity.
+
+Version 2.0.5 includes a built-in tablet test tool (under the *Help* menu)
+that may help with diagnosing tablet related problems. 
+
+### "Connection timed out" when connecting
+
+A "connection timed out" error (when you know the server should be up) is typically caused by firewalls.
+
+(Another common cause is trying to connect to a 1.x server using a 2.x client.)
+
+First, check that the hosting user is not behind a NAT. Drawpile can use UPnP,
+which is supported by most home routers, to automatically set up port forwarding.
+If the port forwarding works, the private IP address displayed in the status bar
+(typically starts with 10. or 192.) gets replaced by the public address a few seconds after the session is started.
+
+If the address does not change, you must set up port forwarding manually.
+See the [hosting](/help/hosting/) page for more info.
+
+Note. If the public address starts with "100.64.", it means your ISP doesn't
+have enough addresses to go around and you're behind carrier-grade NAT.
+In this case, you must use a remote server to host. (Or use an IPv6 address, if available.)
+
+If you're sure NAT is not the problem, check if the operating system's firewall
+is not blocking Drawpile's port (27750 by default.) This includes the standard
+firewall as well as any 3rd party firewalls.
+
+### Cannot export video: ffmpeg executable not found
+
+This message is shown in the video export dialog if Ffmpeg is not found.
+Ffmpeg can be downloaded at [ffmpeg.org](https://www.ffmpeg.org/).
+Set the path to the ffmpeg executable in Drawpile's preferences dialog.
+
+### Can I use Drawpile on my Android tablet or iPad?
+
+An Android port should be technically possible and may be created in the future.
+(The limiting factor being developer time.)
+
+An iOS version is unfeasible, however, as the App Store terms of service are
+not compatible with the license used by Drawpile and many of the libraries
+it depends on.
+{% endfilter %}
+</article>
+{% endblock %}
+

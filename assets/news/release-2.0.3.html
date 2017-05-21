@@ -1,0 +1,29 @@
+Slug: release-2.0.3
+Title: Drawpile 1.0.3 Release
+Publish: 2017-04-17 13:00:00
+Visible: True
+---
+
+Version 2.0.3 is now out. This release fixes some more bugs and restores some UI features. If you've been holding back from the 2.0 series because of the missing brush choice buttons, this is the release for you!
+
+This release introduces the following changes to the UI:
+
+ * Brush selection buttons (1-5) are back!
+ * Brushes and the tools that use them are now decoupled: any brush can now be used with any tool
+ * Any brush can now be switched into eraser mode
+ * Consequently, the Pen, Brush, Watercolor and Eraser tools have been merged into a single Freehand tool. Which mode it works in now depends on the selected brush.
+ * The maligned tool preset pie menu is now replaced with a brush preset dock
+ * Restored 'X' shortcut key to swap between primary/alternative colors
+ * Smoother behavior now matches version 1.0.6
+
+This release also fixes many bugs:
+
+ * Fixed application crash when merging layers
+ * Fixed invisibly locked layers (strokes would disappear after drawing)
+ * Fixed empty canvas after reset (caused by mixing of non-reset and reset messages during auto-reset)
+ * Fixed missing ctrl/alt modifiers when using a tablet stylus
+ * Fixed server crash when a new user joins
+ * Fixed lockup when squishing selections
+ * Fixed "connection error" when username contains non-ASCII characters (server AppImage specific bug)
+ * Session timeout setting now works as it should
+

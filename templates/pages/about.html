@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}About Drawpile{% endblock %}
+
+{% load markdown %}
+
+{% block main %}
+<section class="section">
+<div class="container content">
+
+<div class="columns">
+<div class="column is-three-quarters">
+<h2>About Drawpile</h2>
+
+<p class="is-pulled-left rd-margin">
+	{% include "components/thumbnail.html" with name="screenshot1.png" %}
+</p>
+
+{% filter markdown %}
+Drawpile is a [Free/Libre](https://www.gnu.org/philosophy/free-sw.html) networked
+drawing program that allows multiple people to sketch on the same image simultaneously.
+It supports the [OpenRaster](http://www.freedesktop.org/wiki/Specifications/OpenRaster/)
+image file format and thus works well with applications such as 
+[MyPaint](http://mypaint.org/), [Krita](https://krita.org/) and [GIMP](GIMP).
+
+<h2 style="clear: left">Feature Highlights</h2>
+
+<p class="is-pulled-left rd-margin">
+	{% include "components/image.html" with name="tooldock.png" %}
+</p>
+
+### Brushes and Layers
+
+You can paint with a pixel pen, soft brush or a watercolor brush.
+Brushes can be organized into presets and quick access tabs.
+Use a dedicated eraser tool or turn any brush into an ad hoc eraser. 
+
+Both brushes and layers support various color blending modes.
+
+<h3 style="clear: left">Collaboration and User Management</h3>
+
+Host drawing sessions locally with the built-in server or using a dedicated server.
+Discover public sessions with the [list server](/servers/) or join a friend with
+a handy private room code.
+
+Drawpile provides a wide variety of tools to help manage sessions:
+
+ * Lock or mute individual users
+ * Lock individual layers or allow per-user access
+ * Restrict certain application features, such as image uploads, layer management and text box creation
+ * Revert session to an earlier state in case of vandalism
+ * Kick and ban troublemakers
+ * Password protect sessions and set user count limits
+ * Server supports password protected usernames
+ * Session templates provide always available sessions for dedicated servers
+
+### Recording and Animation
+
+Record a whole drawing session using Drawpile's recording feature. The recording
+can later be played back and exported into video, or used as a backup. Drawpile also
+has basic support for creating short animations, using layers as frames. Animation
+specific features like onionskin layer mode and a flipbook preview are supported.
+
+<h2 style="clear: both">Free/Libre Software</h2>
+
+You can follow Drawpile's development over at [GitHub](https://github.com/drawpile/Drawpile).
+Help is always appreciated, but you don't need to be a programmer to participate!
+Ways to help include:
+
+ * [Reporting bugs](https://github.com/drawpile/Drawpile/issues)
+ * [Translating Drawpile to your language](https://github.com/drawpile/Drawpile/wiki/Translating)
+ * [Commenting on design discussions](https://github.com/drawpile/Drawpile/issues?q=is%3Aopen+is%3Aissue+label%3ADiscussion)
+
+If you know C++, help with application development is very welcome,
+especially things related to Windows and Mac compatiblity.
+
+If you're a web developer interested in helping out, the [source code for this website](https://github.com/drawpile/Website/) is up on Github!
+Another project (which I haven't yet started), that I could use help with is rewriting the old server
+[web admin site](https://github.com/drawpile/Drawpile/tree/stable-1.x/server/webadmin) for version 2.0.
+
+{% endfilter %}
+
+</div<{# ./column #}
+
+</div>{# ./columns #}
+</div>{# ./container #}
+</section>
+
+{% endblock main %}
+

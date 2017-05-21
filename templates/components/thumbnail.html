@@ -1,0 +1,4 @@
+{% load page_tags thumbnail %}
+{% image name %}{% if image %}
+<a class="thumbnail-link" href="{{ image.image.url }}"><img src="{% thumbnail image.image thumbnail_size|default:"128x128" %}" alt="{{ alt|default:image.alt_text }}"></a>
+{% else %}({{ name }} not found){% endif %}{% endimage %}

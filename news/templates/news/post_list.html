@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}News - {{ block.super }}{% endblock %}
+
+{% block main %}
+
+<section class="section">
+<div class="container">
+
+{% for post in page_obj %}
+	{% include "news/__post.html" %}
+{% endfor %}
+
+{% include "components/paginator.html" %}
+
+</div>{# ./container #}
+</section>
+
+{% endblock %}
+

@@ -1,0 +1,198 @@
+Slug: release-2.0.0
+Title: Drawpile 2.0 stable release
+Publish: 2017-03-18 22:00:00
+Visible: True
+---
+The 2.0.0 stable release is finally here! Version 2.0 has finally reached the
+level of quality where I feel it is ready to replace version 1.0.6 as the official
+stable release.
+
+Version 2.0 is unfortunately incompatible with 1.x versions. For this reason, version
+1.0.6 is still available on the download page as a ZIP package (Windows) that does not
+require installation, so that it can be used in parallel with the new version.
+
+The public server will be switched over to version 2.0 later today. Privately run
+1.x servers will of course continue to function, and the public listing server
+will continue to accept announcements from the old version.
+
+**Compatibility notice:** If you get an error saying "this is not a drawpile server"
+when you connect to a server, that means you're running version 1.0.6 and the
+server requires 2.0. If you try to connect to a 1.0 server with the 2.0 client,
+the client will just sit there until the connection times out. (It's waiting for
+a message in the new format that will not arrive.)
+
+When upgrading from 1.0.6, I recommend first uninstalling the previous version to make sure
+no old libraries are left over. The Windows version now comes in 64 and 32 bit varieties.
+If the 64 bit version does not work for you, try the 32 bit one.
+
+So, what's new in version 2.0? Read on to find out. (TL;DR at the end.)
+
+---
+
+## New client features
+
+While most of the changes in version 2.0 are behind the scenes architectural
+improvements, there are quite a few new features as well.
+
+Perhaps the most visible change is that the tool slot buttons are now gone.
+In their place is a tool preset pie menu that pops up with the Z key.
+(Mouse/stylus button configuration is coming in the next version)
+
+The IRC style commands for changing session options are also gone. They've
+been (finally) replaced by a settings dialog where you can easily
+change and see all session properties. Only commands directly related to chat,
+such as `/!`, `/me` and `/pin` remain.
+
+Session event log entries have been moved away from the chat box into a
+window of their own. More events are also logged than before, including
+all operator actions (op, kick, ban, etc.)
+
+Users can now be banned from the session. This is a session specific ban and does not
+prevent the user from joining other sessions. The autoban script has been updated to
+take advantage of the server's improved logging. It now adds a serverwide ban when a
+user has been banned from multiple different sessions in a short time period.
+Kicks no longer count toward bans.
+
+There is now a GUI for session resetting. This replaces the old `/force_snapshot`
+command. This is useful for cutting down session history size so that new users
+can join faster, but it also makes it possible to revert the session to an earlier
+state, making it easy to recover the damage if a griefer comes in and defaces the
+canvas.
+(A more fine grained "region revert" feature is on the TODO list as well.)
+
+The recording playback dialog has been overhauled too. Instead of the rather
+technical looking sequence diagram, it now shows a filmstrip preview of the session,
+which makes finding specific moments a snap.
+
+One big final feature is integrated support for parental controls. All sessions can
+now be tagged as "not safe for minors". Previously, only session listings could
+be tagged, and the tagging was based on the session title. Now, setting (or removing)
+the tag is done just by clicking on a checkbox. Title based autotagging is still
+available too, and the tag trigger words can be configured in the client.
+
+The client can be configured to hide NSFM sessions or even block access to them.
+On Windows, if parental controls are enabled for the user account, Drawpile will
+lock the out the configuration and always block access.
+
+Other new features include:
+
+ * Selections can now be moved when cut&paste is blocked
+ * Shape tool (line, rectangle, ellipse) previews are now drawn with real brushes 
+ * New laser pointer trail style
+ * The session announcement list now includes a Server column
+ * A layer can be marked as default for new users
+ * Faster login time
+ * Annotations can be aligned vertically
+ * Annotations can be locked like layers
+ * Users can be blocked from sending chat messages
+ * Many more small fixes and improvements
+
+## New protocol and almost completely rewritten server
+
+Drawpile 2.0 introduces a radical change to the network protocol and recording
+file format. This unfortunately breaks compatibilty with the current 1.x versions,
+but the upside is that in the future, breakages will be more limited as the new
+protocol has been designed with forward compatibility in mind.
+
+The protocol has now been divided into two parts: the part the server must understand
+and the part that is only relevant to clients. The server part is fairly small and simple.
+This means all Drawpile 2.x versions will be able to use the same server.
+This is in contrast to the 1.x versions where changes, such as adding a new brush type,
+would require changes to the server as well, and different client versions (like 0.9.9 and 1.0.0)
+could not share the same server. (Versions 1.0.0 to 1.0.6 could use the same one
+due to a policy decision: no compatibility breaking features could be added.)
+
+The server has also seen many improvements that make hosting large or public
+sessions easier. Perhaps the most visible change is the new *session reset*
+feature. This feature replaces the old snapshot system. In version 1.0.6,
+session snapshotting was a way of replacing the session history with a more
+compact one, so new clients could join faster. Unfortunately, it was a source
+of many difficult to diagnose bugs and complexity.
+
+The new session reset feature is similar, but more explicit.
+When a session is reset, it's history is replaced with a new one.
+All connected users must also download the new history. While this may be
+slightly inconvenient compared to the old system, it is what makes
+session revert possible. Luckily, joining a session is much faster
+in the new version and no longer locks up the application like before,
+so the session does not need to be reset/snapshotted as often.
+
+Another important feature is *file backed sessions*. This is superficially similar
+to the old session hibernation feature. When a session was hibernated, it was written
+out to disk so it could survive server restarts. The hibernated session was then automatically
+reloaded when needed. However, this had one major flaw:
+if the server crashed, all non-hibernated sessions would be lost.
+
+The new system writes the session to file continuously. This means sessions will
+survive server crashes, even if someone yanks the power cable! (Due to buffering,
+some data at the end of the session may be lost.) It also allows the server to keep
+just the most recent parts of the session in memory, thus allowing more sessions
+to be hosted simultaneously with less RAM.
+
+User management is also improved in the new server:
+If user accounts are enabled, it will remember the Op
+status of authenticated users. When the user log back in, the op status
+is automatically restored. If the opword has been set, or the session has
+had authenticated operators, the server will not auto-op random users
+when the last operator leaves.
+
+Since user accounts are not available on all servers, I have included a placeholder
+in the protocol for anonymous user authentication.
+I have not yet decided how that feature will work, but having the the placeholder makes
+it possible to implement it later in a backward compatible manner.
+
+The new server now also has an optional graphical user interface. 
+While the headless mode is still ideal for running on a VPS,
+the graphical mode makes server management easy when running it on a desktop
+computer. Not only that, but it also doubles as a remote admin tool
+for headless servers!
+
+The server's REST admin API has been greatly expanded. Everything that can
+be changed via the GUI can also be changed via the API. (The GUI even uses
+the REST API internally.) Any webdevs out there interested in writing a web admin tool?
+
+Other server improvements include:
+
+ * Session templates can now be written in text format
+ * Changes made via the admin API are now persisted in a database
+ * The server event log is now viewable via the admin API
+ * In-session bans are now supported
+ * Better autoban script: kicks no longer count towards serverwide ban. Instead, the number of bans from different sessions is used.
+ * New settings file format (alternative to the settings database): all settings (including user accounts and IP bans) are now set in a single configuration file
+
+## Session recording format changes
+
+Version 2.0 cannot read recordings made with older versions.
+I recommend keeping 1.0.6 around if you need to access old recordings. If there
+is enough demand for it, I could also write a tool for upgrading recordings
+from the old format to the new one.
+
+The text mode recording format has also changed in the new version. The new format
+is now a fully supported alternative encoding of the binary format. All message
+attributes are now named, making the format fairly future-proof. The text format
+is designed for easy parsing, while still being as human readable as possible.
+A sample Python script for reading and writing text mode recordings is provided.
+
+The original text format was written as a testing tool and, as such,
+had some convenience features like stateful brush property changing and the
+ability to load images from files. Since the new format is just an alternative
+encoding of the protocol, these feature have been lost.
+
+The `dprec2txt` and `txt2dprec` tools have been merged into a single `dprectool`
+utility. Currently, it can convert between the text mode and binary encodings,
+but in the future it will probably gain additional features, such as various
+filtering modes.
+
+## TL;DR
+
+ * Not compatible with version 1.0.6
+   * Public server requires 2.0 from now on
+   * Cannot open old recordings. Keep 1.0.6 around if you need to.
+   * Version 1.0.6 now available in a ZIP package, just unpack anywhere to use.
+ * `/force_snapshot` replaced with session resetting
+ * IRC style admin commands replaced with session settings dialog
+ * Sessions can now be op-less if the Opword is set
+ * Sessions can now survive server crashes
+ * In-session bans now supported. Kicks no longer cause autobans.
+ * Many other new features added
+

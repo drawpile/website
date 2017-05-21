@@ -1,0 +1,43 @@
+{% extends "pages/help/_base.html" %}
+
+{% load markdown %}
+{% block title %}Chat - {{ block.super }}{% endblock %}
+
+{% block content %}
+<article class="content">
+{% filter markdown %}
+# Chat
+
+The built-in chat panel can be toggled on and off via the *View&rarr;Chat* menu item (Alt+C) or by dragging dragging the separator handle.
+
+The chat messages are sent to the current users of the session. If you want to make an announcement that will be shown to users logging in later, prefix the message with `/!`. For example:
+
+    /!Hello and welcome to a Drawpile test session!
+
+It is also possible to configure the session to record all chat messages as part of the history. When that is the case, the chat prompt will read "Chat (recorded)..." instead of just "Chat...", and the separator bar will be red instead blue.
+
+Session operators can **pin** messages so they are always visible. For example:
+
+    /pin Visit drawpile.net
+
+Will attach the message "visit <a href="http://drawpile.net/">drawpile.net</a>" to the top of the chat box. Only session operators can pin messages and only one message can be pinned at a time.
+
+Other supported comands:
+
+    /clear - clear the chat window
+    /me    - send an action message (e.g. `/me waves hello`)
+    /unpin - remove currently pinned message
+    /roll  - generate a dice roll
+
+The `/roll` command is useful when using Drawpile for online tabletop gaming.
+It accepts standard dice notation (AdX±B, where A is the number of dice thrown,
+X is the number of faces and B is a constant added to the result.)
+For example, `/roll 3d6` will roll 3 6-sided dice. Note that with the current
+implementation, dice rolls are easy to fake, so only rely on it when you
+trust the other users.
+
+{% endfilter %}
+</article>
+
+{% endblock %}
+

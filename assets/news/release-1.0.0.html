@@ -1,0 +1,79 @@
+Slug: release-1.0.0
+Title: Drawpile 1.0.0 released
+Publish: 2015-07-12 00:00:00
+Visible: True
+---
+Drawpile 1.0.0 is here!
+
+After about 3 years of development (or 8 if you count the hiatus), Drawpile is
+finally out of Beta and the first stable release is ready!
+
+The most important changes in this version are:
+
+ * Fixed UI lockup and disconnection when joining a session
+ * New "behind" and "color erase" blending modes
+ * Gestures now work on touchscreens
+ * Automatic port forwarding setup with UPnP
+ * Improvements to the selection tool
+ * Lots of bugs fixed, including one that could crash the application
+
+Version 1.0 is the beginning of the first stable branch: there will be
+no more protocol changes until version 2.0.  All 1.x version will be fully interoperable.
+
+---
+
+This release marks the completion of the original roadmap, and then some.
+In the past two years of development Drawpile gained support for layers,
+the OpenRaster file format, multiuser undo and session recording,
+just to name a few features. Even some features originally planned for
+version 2.0 or later, such as the watercolor brush, the lag-free
+"retroactively consistent" synchronization method, public session listings
+and animation export were added.
+
+With 1.0 now out, does this mean Drawpile is now all done and bug free?
+Far from it. Development of version 2.0 will start next, with lots of interesting
+new features planned. Since 2.0 will be a fairly major reworking of the
+application's internals, the 1.X branch will continue to get bug fix
+releases until 2.0 is finished.
+
+### Roadmap for 2.0 and beyond
+
+So, what's planned for the 2.x series?
+
+**[Redesigned protocol]**: the new protocol will make it possible
+to implement a dedicated server that support a variety of client versions
+and, meaning it will be possible to add new features (e.g. new brushes
+and tools) without having to update the server as well.
+The new protocol better separates the responsibilities of
+the client and server, which will greatly simplify the server code.
+
+**New dedicated server**: a server written from scratch to take
+advantage of the new possibilities offered by the redesigned protocol.
+This will be a separate project designed primarily for long running public servers.
+
+The bundled dedicated server will still be supported, since
+it is basically just a wrapper around the built-in server with some extra
+features. Some of those features will probably be moved to the
+new server, though.
+
+**[Encrypted sessions]**: Drawpile can use TLS to protect the
+connection to the server, but does not offer true end-to-end security.
+In the new protocol, it will be possible to encrypt the session content itself,
+so that even the server cannot snoop in!
+
+**Tablet PC optimized UI**: a separate simplified UI designed to be
+usable with pen and touch input only. Possibly also for Android tablets.
+This will be an additional UI to complement the traditional desktop
+application and will not replace it. (Although the desktop UI will
+be freshened up a bit too.)
+
+On a more technical note, the new tablet UI will be written in QML,
+which means the old QGraphicsView based canvas must be ported to Qt Quick.
+Since maintaining both Qt Quick and QGraphicsView versions would
+be a chore and a surefire way to introduce annoying inconsistencies, the
+Qt Quick based canvas will be adopted on the desktop side as well.
+
+[Redesigned protocol]: https://github.com/callaa/Drawpile/wiki/Protocol-v4
+[Encrypted sessions]: https://github.com/callaa/Drawpile/wiki/Session-encryption
+
+

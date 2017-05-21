@@ -2,13 +2,9 @@ import os
 
 from .local_settings import *
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-ALLOWED_HOSTS = ['drawpile.net']
+ALLOWED_HOSTS = ['drawpile.net', 'localhost']
 
 # Application definition
 
@@ -19,6 +15,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'easy_thumbnails',
+    'templatepages',
+    'news',
 ]
 
 MIDDLEWARE = [
@@ -36,7 +35,7 @@ ROOT_URLCONF = 'drawpile.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,5 +78,11 @@ USE_L10N = True
 USE_TZ = True
 
 
-STATIC_URL = '/media/'
+STATIC_URL = '/media/s/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/media/d/'
 

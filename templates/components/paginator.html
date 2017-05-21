@@ -1,0 +1,12 @@
+{% if paginator.num_pages > 1 %}
+<nav class="pagination">
+	{% if page_obj.has_previous %}<a class="pagination-previous" href="?page={{ page_obj.number|add:-1 }}">Previous</a>{% endif %}
+	{% if page_obj.has_next %}<a class="pagination-next" href="?page={{ page_obj.number|add:1 }}">Next</a>{% endif %}
+	<ul class="pagination-list">
+		{% for pagenum in paginator.page_range %}
+			<li><a href="?page={{ pagenum }}" class="pagination-link{% if pagenum == page_obj.number %} is-current{% endif %}">{{ pagenum }}</a></li>
+		{% endfor %}
+	</ul>
+</nav>
+{% endif %}
+

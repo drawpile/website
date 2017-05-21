@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load page_tags %}
+
+{% block title %}Help - {{ block.super }}{% endblock %}
+
+{% block main %}
+
+<section class="section">
+<div class="container">
+<div class="columns">
+
+<div class="column is-three-quarters">
+{% block content %}{% endblock %}
+</div>
+
+<div class="column is-one-quarter">
+<aside class="menu">
+	<p class="menu-label">Getting Started</p>
+	<ul class="menu-list">
+		<li>{% navilink '/help/hosting/' 'Hosting sessions' %}</li>
+		<li>{% navilink '/help/joining/' 'Joining sessions' %}</li>
+		<li>{% navilink '/help/compatibility/' 'Version compatibility' %}</li>
+		<li>{% navilink '/help/FAQ/' 'FAQ' %}</li>
+	</ul>
+	<p class="menu-label">User Interface</p>
+	<ul class="menu-list">
+		<li>{% navilink '/help/brushes-tools/' 'Brushes and Tools' %}</li>
+		<li>{% navilink '/help/chat/' 'Chat' %}</li>
+		<li>{% navilink '/help/recording/' 'Recording' %}</li>
+		<li>{% navilink '/help/shortcuts/' 'Shortcuts' %}</li>
+	</ul>
+	<p class="menu-label">Server Hosting</p>
+	<ul class="menu-list">
+		<li>{% navilink '/help/server/' 'Dedicated server' %}</li>
+		<li>{% navilink '/help/mod-tips/' 'Mod tips' %}</li>
+	</ul>
+</aside>
+</div>
+
+</div<{# ./columns #}
+</div>{# ./container #}
+</section>
+
+{% endblock %}
+

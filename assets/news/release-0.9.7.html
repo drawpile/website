@@ -1,0 +1,28 @@
+Slug: release-0.9.7
+Title: Drawpile 0.9.7 released
+Publish: 2015-01-16 00:00:00
+Visible: True
+---
+Version 0.9.7 of Drawpile is now [available for download](/download/)</a>, a bit earlier than planned.
+
+This release fixes two major bugs discovered in the previous version:
+
+* The remote host selection dropdown would not work correctly if it contained more than one address
+* Drawpile would crash when reordering layers in certain circumstances
+
+Additionally, this release adds one very interesting new feature: **lag-free painting in network mode**.
+Previously, network latency was hidden (with varying success) by painting to a temporary layer
+while the drawing commands were making their way to the server and back. This worked OK for the basic brushes,
+but poorly with certain blending modes and not at all with the new Watercolor brush.
+
+The new version now lets local drawing happen immediately without waiting for the commands to finish
+their roundtrip. Of course, this open up the chance that brush strokes get applied in different order
+on different computers. This is where the new synchronization method comes in: when an inconsistency is detected
+(we draw something, but later find out someone else had drawn in the same spot earlier) the program will automatically
+undo the actions and then redo them in the correct order! In practice, this should happen very rarely, so this new method
+should actually be more efficient than the old preview based one. Those interested in the technical details can read more
+<a href="https://github.com/callaa/Drawpile/wiki/Retroactive-consistency">here</a>.
+
+While this new feature fixes some old bugs/problems, there is a chance that it introduces new ones.
+If you find any, <a href="https://github.com/callaa/Drawpile/issues">reports</a> are much appreciated!
+

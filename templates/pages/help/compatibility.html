@@ -1,0 +1,115 @@
+{% extends "pages/help/_base.html" %}
+
+{% load markdown %}
+
+{% block extrahead %}
+<style type="text/css">
+html, body {
+	font-family: sans-serif;
+}
+table.compat-chart {
+	border-collapse: collapse;
+	float: right;
+	margin: 0 0 1em 1em;
+	box-shadow: 0 0 6px rgba(0,0,0,0.3);
+	width: auto;
+}
+table.compat-chart thead tr {
+	background: #34495e;
+	color: #fff;
+}
+table.compat-chart th, table.compat-chart td {
+	font-weight: normal;
+	padding: 6px;
+	color: #fff;
+}
+table.compat-chart td, table.compat-chart th { text-align: center; vertical-align: middle }
+table.compat-chart td:first-child { text-align: left; color: #000; }
+
+table.compat-chart .version-group.even { background: #ecf0f1 }
+table.compat-chart .version-group.odd { background: #bdc3c7 }
+
+table.compat-chart .version-group>.srv.even { background-color: #3498db }
+table.compat-chart .version-group.even>.proto { background-color: #9b59b6 }
+table.compat-chart .version-group.even>.rec { background-color: #f1c40f }
+table.compat-chart .version-group>.srv.odd { background-color: #2980b9 }
+table.compat-chart .version-group.odd>.proto { background-color: #8e44ad }
+table.compat-chart .version-group.odd>.rec { background-color: #f39c12 }
+
+table.compat-chart .tip:after {
+	content: "*"
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<article>
+<h1 class="title">Version compatibility</h1>
+
+<table class="compat-chart">
+	<thead>
+		<tr>
+			<th>Client</th>
+			<th>Server</th>
+			<th>Protocol</th>
+			<th>Recording</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="version-group even">
+			<td>2.0.0&ndash;2.0.4</td>
+			<td class="srv even">2.x.x</td>
+			<td class="proto">dp:4.20.1</td>
+			<td class="rec even">20.1</td>
+		</tr>
+		<tr class="version-group odd">
+			<td>1.0.5, 1.0.6</td>
+			<td rowspan=4 class="srv odd">1.0.x</td>
+			<td rowspan=4 class="proto">15.6</td>
+			<td rowspan=4 class="rec odd">&leq;15.6</td>
+		</tr>
+		<tr class="version-group odd">
+			<td><span class="tip" title="New feature: cut&amp;paste restriction (requires 1.0.4 server to use, tool UI does not lock in older clients)">1.0.4</span></td>
+		</tr>
+		<tr class="version-group odd">
+			<td><span class="tip" title="New feature: chat message pinning (shown as a regular a chat message to older clients)">1.0.3</span></td>
+		</tr>
+		<tr class="version-group odd">
+			<td>1.0.0&ndash;1.0.2</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="content">
+{% filter markdown %}
+### Notes about compatiblity
+
+ * All clients in the *same session* must share the *exact* protocol version number (e.g. `dp:4.20.1`)
+ * A client can use any server that supports the same *server protocol version* (`4` in case of Drawpile 2.0)
+ * The (new style) protocol version number consists of four parts:
+    1. namespace (`dp`)
+    2. server version (`4`, indicates change to client&harr;server protocol)
+    3. major version(`20`, indicates change to client&harr;client message structure)
+    4. minor version (`1`, indicates change to client&harr;client message semantics)
+ * See the <a href="https://github.com/drawpile/Drawpile/blob/master/doc/protocol.md#protocol-revision-history">protocol version history</a> for details
+
+### Stability promises
+
+ * Compatibility is never broken in patch releases (e.g. 2.0.0 &rarr; 2.0.1)
+ * Client compatability may only be broken between minor number bumps (e.g. 2.0.0 &rarr; 2.1.0)
+ * Server compatibility may only be broken between major number bumps (e.g. 2.0.0 &rarr; 3.0.0)
+ * Any new feature added without a protocol version bump must be backward/forward compatible
+
+### Notes about recording compatiblity
+
+ * Version 1.0.6 can play recordings made with all previous versions (exact reproduction not guaranteed)
+ * Version 2.0.0 cannot play recordings made with older versions
+ * Opening recordings with a newer *minor* number will likely produce unexpected results
+ * Opening recordings with a newer *major* number will likely result in missing drawing actions
+
+{% endfilter %}
+</div>
+</article>
+{% endblock %}
+

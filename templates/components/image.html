@@ -1,0 +1,1 @@
+{% load page_tags %}{% image name %}{% if image %}<img src="{{ image.image.url }}" alt="{{ alt|default:image.alt_text }}">{% else %}({{ name }} not found){% endif %}{% endimage %}

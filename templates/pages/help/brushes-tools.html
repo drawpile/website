@@ -1,0 +1,102 @@
+{% extends "pages/help/_base.html" %}
+
+{% load markdown %}
+
+{% block title %}Brushes and Tools - {{ block.super }}{% endblock %}
+
+{% block content %}
+<article class="content">
+{% filter markdown %}
+
+## Freehand and eraser tool
+
+The freehand tool is the basic drawing tool.
+
+<p class="has-text-centered">{% include "components/image.html" with name="tooldock.png" alt="[brush settings screenshot]" %}</p>
+
+You can adjust the settings of the selected brush in the tool dock.
+A brush can work in three different modes: hard-edged pen (useful for pixel art), soft edged brush (normal mode) and watercolor mode. In watercolor mode, the brush picks up color from the canvas as you paint.
+
+Other settings you can change are the brush blending mode and whether it works in direct or indirect mode.
+
+Every brush also has an eraser mode. This can be toggled by clicking on the little eraser button.
+
+There are five tool slots for storing different brush settings and one extra slot dedicated for a brush in
+eraser mode. When using the eraser tool, only the eraser slot is available.
+
+See also the *input* dock. From there you can adjust the strength of the pen motion smoother as well
+as the pen pressure response curve.
+
+There is also a brush preset dock that lets you save and restore brush presets. Unlike the brush slots (1-5),
+changes to the selected brush does not automatically change the preset.
+
+## Straight line, Rectangle and Ellipse
+
+These brush tools let you draw geometric shapes. Certain extra buttons are available for use with these:
+
+When holding down `shift`, the line is constrained to an angle that is multiple of 45&deg;. With
+the rectangle tool, the shape is constrained to a square and with the ellipse tool a circle.
+
+When holding down `alt`, the starting point of the shape becomes the center point.
+
+## Bezier curve
+
+This tool lets you draw bezier curves. Click and drag to add a curve segment and
+adjust the new segments control points. Right click (or undo) to cancel a segment.
+Adding a straight segment ends the curve. The curve can also be ended by hitting `Return`,
+in which case the unfinished segment is not added.
+
+## Flood fill
+
+This is a tool for filling closed areas.
+The tolerance slider adjusts the color matching tolerance.
+The expand slider controls how much the fill will expand outside the original borders.
+It is useful for filling in areas bounded by smooth strokes.
+You can also set a size limit: the fill will be cancelled if it would fill more than this area.
+The size limit helps prevent accidental layer fills in online mode that would annoy other users.
+
+When fill under is checked, the color fill is blended as if it were on a layer below.
+It is only used when filling a transparent area.
+The picture on the left was filled with fill-under enabled, and the right one without it:
+
+<p class="has-text-centered">{% include "components/image.html" with name="fill-under-sample.png" alt="[example of the fill under mode]" %}</p>
+
+## Annotation
+
+Annotations are floating text layers.
+Annotation content, font and color can be edited in the tool dock.
+
+Checking the *protect* box will prevent other users from modifying an annotation you have created.
+Session operators can also limit the creation of new annotations.
+
+Clicking on the merge button will convert the annotation to an image and merge it with the current layer.
+Note that due to differences in fonts and operating systems, unmerged annotations may look entirely different to different users!
+
+## Color picker
+
+The color picker is used to pick colors from the image.
+Its an easy way to build palettes by sampling colors from a picture, then dragging them onto a new palette.
+
+You can also pick colors quickly when using any tool by holding down the `Control` key.
+
+## Laser pointer
+
+This is a virtual laser pointer for pointing at things on the canvas.
+When track hovering pointer is checked, the pointer location is updated even when the mouse button/stylus is not pressed.
+Painting with the laser pointer draws an animated laser trail that fades away after a while.
+Laser trails and user pointers can be disabled from the View menu.
+
+## Selection
+
+There are two selection tools: rectangular and freeform (lasso).
+These allow you to select regions for copy & pasting and transformation.
+
+The selected region can be resized and rotated.
+Drag the handles to resize or hold Alt and drag to rotate.
+
+Hitting `Del` will delete the selected layer content without dismissing the selection.
+
+{% endfilter %}
+</article>
+{% endblock %}
+

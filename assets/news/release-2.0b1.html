@@ -1,0 +1,64 @@
+Slug: release-2.0b1
+Title: Double release 1.0.4 and 2.0 beta 1
+Publish: 2016-08-06 15:00:00
+Visible: True
+---
+
+Two new releases today: stable branch version 1.0.4 and the
+first beta of the new 2.0 series.
+
+Changes in **version 1.0.4** are:
+
+ * Username length is now limited to 22 characters
+ * Correct error message is now shown if the server is full
+ * An error message is shown if the user's IP address has been banned
+ * Cut&paste and fill operations can now be limited to session owners
+ * User list can be included in session announcement
+ * Undo override can now be used while session is locked
+
+Version 1.0.4 is mostly compatible with previous versions, the exception
+being the cut&paste restriction. In older versions, the tools will not
+be disabled in the user interface, but will just fail to work.
+
+**Version 2.0.0 beta 1** is the first release of the 2.0 branch. It is not
+compatible with 1.0 branch versions and might not be compatible with the
+final 2.0.0 version.
+
+Version 2.0.0 mostly lays groundwork for future development, but does have
+some new features visible to the end user. These include:
+
+ * True live previews for line, rectangle and ellipse tools
+ * New simplified session playback dialog
+ * Session resetting
+
+---
+
+Behind the scenes, the code has been cleaned up and the separation between the
+user interface and engine code improved. This will make it possible to implement
+alternative UIs (mobile/tablet interface, for example) that share the same
+paint engine and networking code.
+
+Another important change is an update to the network protocol. The redesigned
+protocol better defines the roles of the client and the server and makes
+server implementation simpler. A new standalone server designed
+especially for running public servers is already in the works. Another benefit is that
+the protocol allows the server to be largely version-agnostic. In contrast, the
+current server is is very tightly coupled to the client version, so changing or adding
+certain features (such as new tool types) is impossible without breaking compatibility.
+
+Now, this being the first beta release, expect bugs! Version 2.0 is not compatible
+with 1.x versions, and cannot be used on the drawpile.net public server.
+Once 2.0 stabilizes enough to become the new default,
+the public server will be switched over to it.
+There are also no protocol stability promises until the final 2.0 release.
+
+The following features are missing from this release, but will be restored later:
+
+ * Session hibernation
+ * Server web-admin UI
+ * Session administration via IRC style commands
+
+To get 2.0 stabilized quickly, your help is needed!
+If you find a bug or a feature that is missing or not working anymore,
+please report it on the <a href="https://github.com/callaa/Drawpile/issues">issue tracker</a>, the Facebook group or even just by email.
+

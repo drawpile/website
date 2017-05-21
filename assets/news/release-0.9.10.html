@@ -1,0 +1,32 @@
+Slug: release-0.9.10
+Title: Drawpile 0.9.10 released
+Publish: 2015-05-21 00:00:00
+Visible: True
+---
+Version 0.9.10 of Drawpile is now available for download!
+
+This release adds support for making simple animations!
+Related new features are:
+
+ * New layer view modes (solo and onionskin) for working with layers as frames
+ * An animation preview window
+ * Animation export
+ * Support for loading animated GIFs (each frame is loaded as a layer)
+
+Other new features are:
+
+ * Layers can now be inserted above the current layer, instead of always at the top
+ * LAN server discovery using Bonjour or Avahi (not yet enabled in the Windows version)
+ * Moving a selection now automatically moves the content too
+ * Autosaving (works well with Krita's [file-backed layers](https://userbase.kde.org/Krita/Manual/FileLayers)!)
+ * Japanese and Russion translations
+
+And a couple important bug fixes too:
+
+ * Fixed loading of recordings made with older versions
+ * Fixed filling of selections partially outside the canvas
+
+Unfortunately, this release breaks protocol compatability yet again.
+The next version will most likely be 1.0.0 and the start of the stable branch, meaning no more
+protocol breakage until version 2.0!
+

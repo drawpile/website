@@ -1,0 +1,37 @@
+Slug: release-2.0b3
+Title: Drawpile 2.0 beta 3 released
+Publish: 2017-02-04 13:00:00
+Visible: True
+---
+The third and final beta of 2.0 is now out!
+
+This release adds all the remaining features that were planned for 2.0, including
+many features that went missing during the big rewrite at the start of the 2.0 development
+cycle.
+
+New features include:
+
+ * File backed sessions (replaces session hibernation)
+ * GUI for adding and removing session announcements
+ * GUI for setting an operator password
+ * GUI for viewing session event log
+ * Session settings are now shown in a dialog window
+ * Login dialog now shows a progress bar until caught up. Login performance is also improved
+ * Annotations can now be aligned vertically
+ * Annotations access controls: protect individual annotations and limit annotation creation to operators
+ * Individual users can now be blocked from sending chat messages
+ * Chat message pinning fixed
+ * Tool slots replaced with a tool preset pie menu
+ * User accounts can now be configured in the server settings file
+ * Session template feature is back
+ * Improved server GUI
+
+This version also introduced another few protocol changes, making it incompatible with beta2. The *dptxt*
+text format was also overhauled. This unfortunately breaks compatibility with all existing dptxt files.
+However, the new format is easier to read and more future proof, meaning files made with the new version
+should remain compatible with almost all future versions.
+
+The next release will be 2.0 Release Candidate, and (if all goes well,) the next one after that
+will be the 2.0 stable. Please give the new version a try and report any bugs you might find at
+<a href="https://github.com/callaa/Drawpile/issues?q=is%3Aopen+is%3Aissue+milestone%3A2.0.0">the issue tracker</a>, the Facebook group or even just by email.
+

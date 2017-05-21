@@ -1,0 +1,44 @@
+{% extends "pages/help/_base.html" %}
+
+{% load markdown %}
+
+{% block title %}Joining sessions - {{ block.super }}{% endblock %}
+
+{% block content %}
+<article class="content">
+{% filter markdown %}
+
+# Joining a drawing session
+
+<p class="has-text-centered">{% include "components/image.html" with name="joindialog.png" alt="[join dialog screenshot]" %}</p>
+
+To join a session, select the **Join** action from the *Session* menu.
+
+Enter the address given by the hosting user and your username, then click Join.
+You can also enter a five letter room code (like `ABCDE`). If the code is valid,
+it is automatically replaced by the full address.
+
+If the server is running on a port other than the default (27750),
+the port number should be included in the address.
+
+Note: When connecting to an IPv6 address, the address must be enclosed in square brackets (e.g. `[fe80::0202:1234:4567:89ab]`)
+
+Checking the *record session* box will automatically start recording. The recording will be placed in the *My documents* (or equivalent) folder.
+
+<p class="has-text-centered">{% include "components/image.html" with name="find-sessions.png" alt="[session discovery dialog screenshot]" %}</p>
+
+Press *Find* to browse public sessions listed via the *announce* feature.
+
+When Zeroconf/Bonjour support is enabled, the listing server list contains the special entry "Nearby" which
+lists all running servers discovered in the local network.
+
+By default, the *drawpile.net* list server is included.
+You can also add more lists in the Preferences dialog.
+
+It may take some time to get up to speed with the session.
+If you start drawing and your strokes disappear, it is probably because you haven't caught up yet.
+The strokes will reappear once the whole session has been synchronized.
+
+{% endfilter %}
+{% endblock %}
+

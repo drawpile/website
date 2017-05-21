@@ -1,0 +1,19 @@
+{% extends "pages/help/_base.html" %}
+
+{% load markdown %}
+{% block content %}
+
+<div class="content">
+{% filter markdown %}
+
+## How do I...
+
+ * [Host a session?](/help/hosting/)
+ * [Join a session?](/help/joining/)
+ * [Run my own dedicated server?](/help/server/)
+
+{% endfilter %}
+</div>
+
+{% endblock %}
+

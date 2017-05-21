@@ -1,0 +1,32 @@
+Slug: release-2.0.4
+Title: Drawpile 2.0.4 Release
+Publish: 2017-04-25 20:00:00
+Visible: True
+---
+
+Version 2.0.4 is now out! This release introduces new features, but also fixes a couple of bugs.
+
+Bugs fixed in this release:
+
+ * Fixed user lock and OP status getting out of sync with the server when joining back to a session
+ * Added missing error reporting if image saving fails
+
+New features and improvements:
+
+ * There is now a dedicated brush slot for an eraser (eraser mode is permantenly active in this slot)
+ * Eraser as a separate tool is back. The eraser tool works works just like the freehand tool, but it only uses the new eraser slot
+ * Switching the currently selected brush into eraser mode is now done with a new shortcut: `Ctrl+E`
+ * Added a new tool for drawing Bezier curves
+ * A size limit can now be set for the flood fill tool to protect against accidental fills.
+ * Flood fill tool now has an erase mode
+
+And last, but not least, is the new *Room Code* feature.
+
+When you announce a session, the list server assigns a random five letter code to it.
+This code can be entered into the server address box in the Join dialog in place of
+the full session address. All listed sessions get a room code, but it is most useful
+with the new *private* session type. When the listing mode is set to private, the session will not appear
+in the public list, but you still get a room code. This way, when you want to invite friends to a session
+but do not want to make it visible to the general public, just set the listing type to private and send
+them the room code.
+

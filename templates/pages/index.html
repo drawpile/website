@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load news_tags %}
+
+{% block main %}
+
+{# Hero section #}
+<section class="hero is-light">
+	<div class="hero-body">
+		<div class="columns">
+			<div class="column is-narrow">
+				{% include "components/thumbnail.html" with name="screenshot2.png" %}
+			</div>
+			<div class="column">
+				Drawpile is a Free software collaborative drawing program that allows multiple users to sketch on the same canvas simultaneously.
+			</div>
+			<div class="column is-narrow">
+				<a href="/download/#Windows"><span class="icon is-large" title="Windows"><i class="fa fa-windows"></i></span></a>
+				<a href="/download/#OSX"><span class="icon is-large" title="macOS"><i class="fa fa-apple"></i></span></a>
+				<a href="/download/#Linux"><span class="icon is-large" title="Linux"><i class="fa fa-linux"></i></span></a>
+			</div>
+		</div> {# ./columns #}
+	</div>{# ./hero-body> #}
+</section>
+
+{# Show latest news post #}
+<section class="section">
+<div class="container">
+
+{% news_article '_latest' %}
+{% include "news/__post.html" %}
+{% endnews_article %}
+
+</div>
+</section>
+
+{% endblock main %}
+

@@ -1,0 +1,16 @@
+.nav img {
+	margin: 5px 0
+}
+
+article {
+	margin-bottom: 20px;
+}
+
+.thumbnail-link>img {
+	box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.2);
+}
+
+.rd-margin {
+	margin: 0 1em 1em 0;
+}
+

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - {{ block.super }}{% endblock %}
+
+{% block main %}
+
+<section class="section">
+<div class="container">
+
+	{% include "news/__post.html" with readmore='True' %}
+
+</div>{# ./container #}
+</section>
+
+{% endblock main %}
+

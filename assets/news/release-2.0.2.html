@@ -1,0 +1,37 @@
+Slug: release-2.0.2
+Title: Drawpile 2.0.2 Release
+Publish: 2017-03-27 21:00:00
+Visible: True
+---
+Version 2.0.2 is now out. This release fixes the bug that would lock up the application
+when a session was reset, and many other bugs. It also adds a new logo contributed by
+Leandro Pacheco. In many ways, this is the release [version 2.0.0](/news/release-2.0.0)
+should have been.
+
+Changes in this version include:
+
+ * Fixed returning from fullscreen mode to maximized window
+ * Fixed server crash when terminating an announced session
+ * Restored missing "lock dock positions" feature
+ * Messages received during reset while session history is full are now dropped (mitigates auto-reset loop of death)
+ * Fixed layer selection after current layer is deleted
+ * Separated layer delete & merge menu items
+ * Various session template related fixes
+ * Session history size is now displayed in the status bar
+ * Fixed lockup on reset when navigator was visible
+ * Reset no longer clears pinned chat message
+ * Fixed "hide from self" layer menu item
+ * Fixed selection moving when selection is partially (or completely) outside the canvas
+ * Fixed Windows XP and Vista compatibility (32 bit version)
+
+---
+
+### Errata
+
+Known bugs that are fixed in the next release:
+
+ * Application can crash when merging layers. Workaround: avoid merging layers.
+ * Strokes disappear on a newly created layer (after deleting a layer.) Workaround: lock and unlock the layer.
+ * Canvas disappears after a reset. Workaround: disable automatic resets. In some cases, a *redo* by the user who performed the reset may also fix the canvas.
+ * Only one template session is shown in the join dialog. No workaround, but the hidden sessions can still be joined with their full URLs (drawpile://server/templatename)
+
