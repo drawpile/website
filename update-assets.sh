@@ -10,5 +10,5 @@ do
 	./manage.py news import "$post"
 done
 
-./manage.py templatevar VERSION 2.0.4 --no-overwrite
+./manage.py templatevar VERSION 2.0.5 --no-overwrite
 

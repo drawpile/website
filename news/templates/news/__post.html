@@ -1,6 +1,6 @@
 <article>{% load markdown %}
 	<h1 class="title">{{ post.title }}</h2>
-	<h2 class="subtitle">{{ post.publish }}</h3>
+	<h2 class="subtitle">{{ post.publish|date }}</h3>
 	<div class="content">
 	{{ post.intro|markdown }}
 	{% if readmore %}
