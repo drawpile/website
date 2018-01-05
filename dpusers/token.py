@@ -51,7 +51,7 @@ def _parse_token(token, salt):
     if mac != urlsafe_base64_decode(sig):
         raise ValidationError("Corrupted signup link!")
 
-    content = json.loads(urlsafe_base64_decode(payload))
+    content = json.loads(urlsafe_base64_decode(payload).decode('utf-8'))
 
     if content['ts'] < calendar.timegm(time.gmtime()) - (60 * 60 * 1):
         raise ValidationError("Link has expired!")
