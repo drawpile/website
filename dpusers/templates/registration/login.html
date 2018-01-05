@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}Sign in - {{ block.super }}{% endblock %}
+
+{% block main %}
+
+<section class="section">
+<div class="container">
+
+<div class="columns">
+<div class="column is-half is-offset-one-quarter">
+
+	<h2 class="title has-text-centered">Sign in</h2>
+
+	<form method="POST" action="{% url 'users:login' %}">
+		{% if form.non_field_errors %}
+		<div class="notification is-danger">{{ form.non_field_errors }}</div>
+		{% endif %}
+
+		<div class="field">
+			<div class="control has-icons-left">
+				{% render_field form.username class+="input is-large" placeholder=form.username.label %}
+				<span class="icon is-small is-left"> <i class="fa fa-at"></i> </span>
+			</div>
+			{% if form.errors.username %}<p class="help is-danger">{{ form.errors.username }}</p>{% endif %}
+		</div>
+
+		<div class="field">
+			<div class="control has-icons-left">
+				{% render_field form.password class+="input is-large" placeholder="Password" %}
+				<span class="icon is-small is-left"> <i class="fa fa-lock"></i> </span>
+			</div>
+			{% if form.errors.password %}<p class="help is-danger">{{ form.errors.password }}</p>{% endif %}
+		</div>
+
+		<div class="field">
+			<p>If you do not already have a drawpile.net account, you can <a href="{% url 'users:signup' %}">sign up here</a>.
+			By creating an account, you can reserve a username to use on the public server and upload
+			pictures to the gallery.</p>
+			<p>If you have forgotten your password, you can <a href="{% url 'users:password_reset' %}">reset it here</a>.</p>
+		</div>
+
+		<input type="submit" class="button is-fullwidth is-link is-large" value="Sign in">
+		{% csrf_token %}
+	</form>
+
+</div> {# ./column #}
+
+</div> {# ./columns #}
+
+</div>{# ./container #}
+</section>
+
+{% endblock %}
+

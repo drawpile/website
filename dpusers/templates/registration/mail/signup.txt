@@ -1,0 +1,6 @@
+You have signed up for a user account at drawpile.net.
+
+To confirm, please visit this link and choose a password:
+
+{{ SIGNUP_URL }}
+

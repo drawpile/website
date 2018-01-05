@@ -1,5 +1,5 @@
-.nav img {
-	margin: 5px 0
+.navbar-item img{
+	max-height: 100px;
 }
 
 article {

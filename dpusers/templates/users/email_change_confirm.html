@@ -1,0 +1,63 @@
+{% extends "users/base.html" %}
+
+{% load widget_tweaks %}
+
+{% block profile_subtitle %}Account details{% endblock %}
+
+{% block profile_main %}
+
+<div class="message">
+	<div class="message-header">Email address</div>
+	<div class="message-body">
+		{% if noToken %}
+		A confirmation link has been sent to the new email address.
+		Click on the link to confirm the change.
+		{% else %}
+
+		<form method="post">
+			{% if form.non_field_errors %}
+				<div class="notification is-danger">{{ form.non_field_errors }}</div>
+			{% elif tokenError %}
+				<div class="notification is-danger">{{ tokenError }}</div>
+			{% endif %}
+		
+		<div class="field">
+			<label class="label">Current email address</label>
+			<div class="control">
+				<input class="input" type="text" value="{{ user.email }}" disabled>
+			</div>
+		</div>{# /.field #}
+
+		<div class="field">
+			<label class="label">New email address</label>
+			<div class="control">
+				<input class="input" type="text" value="{{ token.email }}" disabled>
+			</div>
+		</div>{# /.field #}
+
+		<div class="field">
+			<label class="label" for="{{ form.password.auto_id }}">Enter your password to confirm email change</label>
+			<div class="control">
+				{% render_field form.password class+="input" %}
+			</div>
+			{% if form.errors.password %}<div class="help is-danger">{{ form.errors.password }}</div>{% endif %}
+		</div>{# /.field #}
+
+		<div class="field is-grouped">
+			<div class="control">
+				<input type="submit" class="button is-danger" value="Change">
+			</div>
+			<div class="control">
+				<a href="{% url 'users:profile-account' %}" class="button is-text">Cancel</a>
+			</div>
+		</div>{# /.field #}
+
+		{{ form.token }}
+		{% csrf_token %}
+		</form>
+		{% endif %}
+	</div>{# /.message-body #}
+</div>
+
+{% endblock %}
+

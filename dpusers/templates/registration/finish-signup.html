@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}Sign up - {{ block.super }}{% endblock %}
+
+{% block main %}
+
+<section class="section">
+<div class="container">
+
+<div class="columns">
+<div class="column is-half is-offset-one-quarter">
+
+	{% if noToken %}
+	<div class="message is-link">
+		<div class="message-body">
+			A confirmation link has been sent to your email address.
+			Click on the link to finish the signup process.
+		</div>
+	</div>
+
+	{% else %}
+	<h2 class="title has-text-centered">Create a Drawpile.net account</h2>
+
+	<form method="POST" action="{% url 'users:finish-signup' %}">
+		{% if form.non_field_errors %}
+		<div class="notification is-danger">{{ form.non_field_errors }}</div>
+		{% elif tokenError %}
+		<div class="notification is-danger">{{ tokenError }}</div>
+		{% endif %}
+
+		{% if not tokenError %}
+
+		<div class="field">
+			<label class="label">Username</label>
+			<div class="control">
+				<input class="input" type="text" disabled value="{{ token.name }}">
+			</div>
+		</div>{# /.field #}
+
+		<div class="field">
+			<label class="label">Email address</label>
+			<div class="control">
+				<input class="input" type="text" disabled value="{{ token.email }}">
+			</div>
+		</div>{# /.field #}
+
+		<div class="field">
+			<label class="label" for="{{ form.password.auto_id }}">Choose a password</label>
+			<div class="control">
+				{% render_field form.password class+="input" %}
+			</div>
+			{% if form.errors.password %}<div class="help is-danger">{{ form.errors.password }}</div>{% endif %}
+		</div>{# /.field #}
+
+		{{ form.token }}
+		<input type="submit" class="button is-fullwidth is-link is-large" value="Create account">
+		{% csrf_token %}
+
+		{% endif %}
+	</form>
+	{% endif %}
+</div> {# ./column #}
+
+</div> {# ./columns #}
+
+</div>{# ./container #}
+</section>
+
+{% endblock %}
+

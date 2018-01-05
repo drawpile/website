@@ -15,7 +15,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
     'easy_thumbnails',
+    'widget_tweaks',
+
+    'dpauth',
+    'dpusers',
     'templatepages',
     'news',
 ]
@@ -50,7 +56,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'drawpile.wsgi.application'
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -66,6 +71,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGOUT_REDIRECT_URL = '/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -86,4 +92,8 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'allstatic', 'd')
 MEDIA_URL = '/media/d/'
+
+DEFAULT_FROM_EMAIL = 'no-reply@drawpile.net'
+SERVER_EMAIL = 'server@drawpile.net'
+EMAIL_SUBJECT_PREFIX = '[drawpile.net] '
 

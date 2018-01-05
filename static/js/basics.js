@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
-	$("#nav-toggle").click(function() {
+	$("#navbar-toggle").click(function() {
 		$(this).toggleClass("is-active");
-		$("#nav-menu").toggleClass("is-active");
+		$("#navbar-menu").toggleClass("is-active");
 	});
 
 	$(".thumbnail-link").click(function(e) {

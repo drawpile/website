@@ -1,0 +1,67 @@
+{% extends "users/base.html" %}
+
+{% block profile_subtitle %}Usernames{% endblock %}
+
+{% block profile_main %}
+
+<div class="message">
+	<div class="message-body">
+		<div class="content">
+			<p>Here you can manage the names to use on the public server and this web site.
+			Setting the Mod flag activates moderator privileges ({% if perms.dpauth.moderator %}you have a global mod status{% else %}you currently do not have any{% endif %}) for that username.</p>
+			<p>Note that alternative usernames are not hidden! If you need alts for privacy, you must register
+			a separate account with another email address.</p>
+		</p>
+		<form method="post" action="{% url 'users:profile-usernames' %}">
+		{% for username in usernames %}
+		<div class="field is-horizontal">
+			<div class="field-label is-normal">
+				{% if forloop.first %}<label class="label">Main:</label>
+				{% elif forloop.counter == 2 %}<label class="label">Alts:</label>{% endif %}
+			</div>
+			<div class="field-body">
+				<div class="field is-grouped">
+					<div class="control">
+						<input type="text" value="{{ username.name }}" class="input" disabled>
+					{% if forloop.first and username.name != user.username %}
+						<p class="help is-danger">Database inconsistency: account primary name is "{{ user.username }}"</p>
+					{% endif %}
+					</div>
+					<div class="control">
+						<button class="button" name="action" value="mod-{{ username.id }}"><span class="icon"><i class="fa fa-{% if username.is_mod %}check-{% endif %}square-o"></i></span>&nbsp; Mod</button>
+						{% if not forloop.first %}
+							<button class="button is-primary" title="Make this your main username" name="action" value="primary-{{ username.id }}"><span class="icon"><i class="fa fa-arrow-up"></i></span></button>
+							<button class="button is-danger" title="Remove" name="action" value="remove-{{ username.id }}" ><span class="icon"><i class="fa fa-times"></i></span></button>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>{# /.field #}
+		{% endfor %}
+
+		{% if can_add %}
+		<div class="field is-horizontal">
+			<div class="field-label">
+				{% if usernames|length <= 1 %}<label class="label">Alts:</label>{% endif %}
+			</div>
+			<div class="field-body">
+				<div class="field is-grouped">
+					<div class="control">
+						<input type="text" value="{{ new_username }}" name="username" class="input">
+						{% if name_error %}<p class="help is-danger">{{ name_error }}</p>{% endif %}
+					</div>
+					<div class="control">
+						<button class="button is-info" name="action" value="add-0" >Add</button>
+					</div>
+				</div>
+			</div>
+		</div>{# /.field #}
+		{% endif %}
+
+		{% csrf_token %}
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+

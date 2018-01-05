@@ -1,0 +1,47 @@
+{% extends "users/base.html" %}
+
+{% load widget_tweaks %}
+
+{% block profile_subtitle %}Account details{% endblock %}
+
+{% block profile_main %}
+
+<div class="message">
+	<div class="message-header">Email address</div>
+	<div class="message-body">
+		<form method="post">
+		<div class="field">
+			<label class="label">Current email address</label>
+			<div class="control">
+				<input class="input" type="text" value="{{ user.email }}" disabled>
+			</div>
+		</div>{# /.field #}
+
+		<div class="field">
+			<label class="label" for="{{ form.email.auto_id }}">New email address</label>
+			<div class="control">
+				{% render_field form.email class+="input" %}
+			</div>
+			{% if form.errors.email %}<div class="help is-danger">{{ form.errors.email }}</div>{% endif %}
+		</div>{# /.field #}
+
+		<div class="field">
+			A confirmation link will be sent to the new address.
+		</div>
+
+		<div class="field is-grouped">
+			<div class="control">
+				<input type="submit" class="button is-danger" value="Change">
+			</div>
+			<div class="control">
+				<a href="{% url 'users:profile-account' %}" class="button is-text">Cancel</a>
+			</div>
+		</div>{# /.field #}
+
+		{% csrf_token %}
+		</form>
+	</div>{# /.message-body #}
+</div>
+
+{% endblock %}
+

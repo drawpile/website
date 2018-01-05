@@ -4,4 +4,5 @@
 __pycache__
 drawpile/local_settings.py
 uploads/
+allstatic/
 

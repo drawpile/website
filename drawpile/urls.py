@@ -8,7 +8,9 @@ from templatepages.views import TemplatePageView
 
 urlpatterns = [
     url(r'^_admin/', admin.site.urls),
+    url(r'^api/', include('drawpile.api_urls', namespace='api')),
     url(r'^news/', include('news.urls', namespace='news')),
+    url(r'^accounts/', include('dpusers.urls', namespace='users')),
     url(r'^$', TemplateView.as_view(template_name='pages/index.html')),
 ]
 

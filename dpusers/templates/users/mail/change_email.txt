@@ -1,0 +1,4 @@
+Click here to set this as your new account email address:
+
+{{ CHANGE_URL }}
+

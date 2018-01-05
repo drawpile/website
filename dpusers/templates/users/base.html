@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}User account - {{ block.super }}{% endblock %}
+
+{% block main %}
+
+<section class="hero is-light">
+	<div class="hero-body">
+		<div class="container">
+			<h2 class="title">User profile</h2>
+			<p class="subtitle">
+				{% block profile_subtitle %}{% endblock %}
+			</p>
+		</div>
+	</div>
+</section>
+
+<section class="section">
+<div class="container">
+
+	<div class="columns">
+		<div class="column is-one-fifth">
+			<aside class="menu">
+				<ul class="menu-list">
+					<li><a href="{% url 'users:profile-account' %}" {% if profile_page == 'account' %}class="is-active"{% endif %}>Account</a></li>
+					<li><a href="{% url 'users:password_change' %}" {% if profile_page == 'password_change' %}class="is-active"{% endif %}>Password</a></li>
+					<li><a href="{% url 'users:profile-usernames' %}" {% if profile_page == 'usernames' %}class="is-active"{% endif %}>Usernames</a></li>
+				</ul>
+			</aside>
+		</div>{# /.column #}
+		<div class="column">
+			{% block profile_main %}{% endblock %}
+		</div>{# /.column #}
+	</div>{# /.columns #}
+
+</div>{# ./container #}
+</section>
+
+{% endblock %}
+

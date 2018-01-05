@@ -14,19 +14,44 @@
 
 {# MAIN NAVIGATION BAR #}
 <div class="container">
-	<nav class="nav">
-		<div class="nav-left">
-			<h1><a href="/"><img src="{% static "images/logo.png" %}" alt="Drawpile" width="400" height="100"></a></h1>
-		</div>
-		<div id="nav-toggle" class="nav-toggle">
-			<span></span><span></span><span></span>
-		</div>
-		<div id="nav-menu" class="nav-right nav-menu">
-			{% navilink '/news/' 'News' classes='nav-item' %}
-			{% navilink '/about/' 'About' classes='nav-item' %}
-			{% navilink '/download/' 'Download' classes='nav-item' %}
-			{% navilink '/help/' 'Help' classes='nav-item' %}
-			{% navilink '/servers/' 'Servers' classes='nav-item' %}
+	<nav class="navbar">
+		<div class="navbar-brand">
+			<h1 class="navbar-item"><a href="/"><img src="{% static "images/logo.png" %}" alt="Drawpile" width="400" height="100"></a></h1>
+			<button id="navbar-toggle" class="button navbar-burger">
+				<span></span><span></span><span></span>
+			</button>
+		</div>{# /.navbar-brand #}
+
+		<div id="navbar-menu" class="navbar-menu">
+			<div class="navbar-start">
+				{% navilink '/news/' 'News' classes='navbar-item' %}
+				{% navilink '/about/' 'About' classes='navbar-item' %}
+				{% navilink '/download/' 'Download' classes='navbar-item' %}
+				{% navilink '/help/' 'Help' classes='navbar-item' %}
+				{% navilink '/servers/' 'Servers' classes='navbar-item' %}
+			</div>
+			<div class="navbar-end">
+				{% if user.is_authenticated %}
+					<div class="navbar-item has-dropdown is-hoverable">
+						<a class="navbar-link">
+							<span class="icon"><i class="fa fa-user-circle"></i></span>
+							{{ user.username }}
+						</a>
+						<div class="navbar-dropdown">
+							<a class="navbar-item" href="/accounts/profile">Profile</a>
+							{% if user.is_staff %}<a class="navbar-item" href="/_admin/">Site Admin</a>{% endif %}
+							<a class="navbar-item" href="/accounts/logout">Log out</a>
+						</div>
+					</div>{# /.has-dropdown #}
+				{% else %}
+					{% comment EXPERIMENTAL FEATURE - NOT YET OPEN FOR PUBLIC %}
+					<div class="navbar-item">
+						<a href="/accounts/login/" class="button">Log in</a>
+					</div>
+					{% endcomment %}
+				{% endif %}
+				</div>{# /.navbar-end #}
+			</div>
 		</div>
 	</nav>
 </div>{# /.container #}

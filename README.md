@@ -16,6 +16,9 @@ edit to suit your environment.
 Run `./manage.py migrate` to initialize the database.  
 Run `./update-assets.sh` to populate the database with the basic content.
 
+Run './manage.py dpauth' to generate a keypair for external authentication. Copy&paste
+the output into your `local_settings.py` file.
+
 You should now have a local copy of the website, ready for development!
 
 ### Deployment
@@ -65,6 +68,27 @@ Finally, remember to run `./manage.py collectstatic` to gather all static files 
 ## Django apps
 
 This project is made up of the following custom Django apps.
+
+### Dpauth
+
+This app contains the external authentication/single sign on implementation.
+Other than the external deps listed below, it is completely self contained
+and is custom user model aware, so it can be easily used in other projects
+with no modification.
+
+The management command `dpauth` will generate a random public
+and private keypair for signing login tokens. See also `dpauth/settings.py`
+for adjustable settings.
+
+This app has the following external dependencies:
+
+ * Django Rest Framework
+ * Ed25519
+ * Confusable_homoglyphs
+
+### Dpusers
+
+User account related stuff. Login, signup and profile editing views.
 
 ### Templatepages
 

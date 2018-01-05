@@ -1,0 +1,60 @@
+{% extends "users/base.html" %}
+
+{% block profile_subtitle %}Account details{% endblock %}
+
+{% block profile_main %}
+
+<div class="message">
+	<div class="message-header">Email address</div>
+	<div class="message-body">
+		<div class="field is-grouped">
+			<div class="control">
+				<input type="email" value="{{ user.email }}" class="input" disabled>
+			</div>
+			<div class="control">
+				<a href="{% url 'users:profile-emailchange' %}" class="button is-danger">Change</a>
+			</div>
+		</div>{# /.field #}
+	</div>
+</div>
+
+{% comment %}TODO
+<div class="message">
+	<div class="message-header">Email notifications</div>
+	<div class="message-body">
+		<form method="post">
+			<div class="field">
+				<div class="control">
+					<label class="checkbox">
+						<input type="checkbox" name="notification" value="{{ user.email }}">
+						Send notifications
+					</label>
+				</div>
+			</div>{# /.field #}
+			<div class="field">
+				<div class="control">
+					<input type="submit" value="Save" class="button is-info">
+				</div>
+			</div>{# /.field #}
+			{% csrf_token %}
+		</form>
+	</div>
+</div>
+{% endcomment %}
+
+<div class="message">
+	<div class="message-header">Delete account</div>
+	<div class="message-body">
+		<div class="content">
+			<p>Delete your account and all its associated data.</p>
+		</p>
+		<div class="field">
+			<div class="control">
+				<a href="{% url 'users:delete-account' %}" class="button is-danger">Delete account</a>
+			</div>
+		</div>{# /.field #}
+	</div>
+</div>
+
+{% endblock %}
+
