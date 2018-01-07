@@ -37,6 +37,10 @@ You can then simply run the AppImage to start the server with default settings:
 
 Tip: make a symlink (`ln -s Drawpile-srv-2.0.0.AppImage drawpile-srv`) to always refer to the latest version.
 
+Note that when using the AppImage version, the working directory is inside the
+image so relative paths in command line arguments will not work as you expect.
+So instead of `-c config.cfg`, use `-c /home/user/config.cfg`
+
 
 ## Compatibility
 
