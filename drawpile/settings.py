@@ -84,15 +84,22 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Static files
 STATIC_URL = '/media/s/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'allstatic', 's')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+# Uploaded files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'allstatic', 'd')
 MEDIA_URL = '/media/d/'
 
+THUMBNAIL_BASEDIR = 'thumbnails'
+
+# Email
 DEFAULT_FROM_EMAIL = 'no-reply@drawpile.net'
 SERVER_EMAIL = 'server@drawpile.net'
 EMAIL_SUBJECT_PREFIX = '[drawpile.net] '
