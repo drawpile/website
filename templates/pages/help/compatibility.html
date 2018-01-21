@@ -37,7 +37,8 @@ table.compat-chart .version-group.odd>.proto { background-color: #8e44ad }
 table.compat-chart .version-group.odd>.rec { background-color: #f39c12 }
 
 table.compat-chart .tip:after {
-	content: "*"
+	content: "*";
+	cursor: help;
 }
 </style>
 {% endblock %}
@@ -58,10 +59,13 @@ table.compat-chart .tip:after {
 	</thead>
 	<tbody>
 		<tr class="version-group even">
-			<td>2.0.0&ndash;2.0.4</td>
-			<td class="srv even">2.x.x</td>
-			<td class="proto">dp:4.20.1</td>
-			<td class="rec even">20.1</td>
+			<td><span class="tip" title="Ext-auth feature added. Older clients will see the error &quot;invalid state&quot; when logging in with a reserved username">2.0.6</span></td>
+			<td class="srv even" rowspan=2>2.x.x</td>
+			<td class="proto" rowspan=2>dp:4.20.1</td>
+			<td class="rec even" rowspan=2>20.1</td>
+		</tr>
+		<tr class="version-group even">
+			<td>2.0.0&ndash;2.0.5</td>
 		</tr>
 		<tr class="version-group odd">
 			<td>1.0.5, 1.0.6</td>
