@@ -127,8 +127,14 @@ The following settings can be set here:
  * `allowGuests=true` - allow unauthenticated users
  * `allowGuestHosts=true` - if set to false, only authenticated users with the `HOST` flag can create new sessions
  * `archiveMode=false` - when using file backed sessions, rename session file to `oldname.archived` instead of deleting it on termination
+ * `extauth=false` - enable external authentication (you must also set the server URL with  the `--extauth` command line parameter`
+ * `extauthkey=key string` - external authentication token validation key
+ * `extauthgroup=group name` - external authentication user group (default is no group)
+ * `extauthfallback=true` - permit guest logins when ext-auth server is not reachable
+ * `extauthmod=true` - respect ext-auth user's MOD flag
+ * `reporttoken=token` - authentication token for abuse report server (you must also set the `--report-url` command line parameter)
 
-See `src/shared/server/serverconfig.h` for the up to date list of supported settings.
+See [serverconfig.h](https://github.com/drawpile/Drawpile/blob/master/src/shared/server/serverconfig.h) for the up to date list of supported settings.
 
 ### [announceWhiteList] section
 
@@ -160,6 +166,8 @@ Supported user flags are:
 
  * MOD - user is a moderator (can enter locked and password protected sessions and has permanent OP status)
  * HOST - may host sessions when `allowGuestHosts` is set to `false`
+
+See also *external authentication* for an alternative way to have user accounts.
 
 ### Database
 
@@ -332,6 +340,38 @@ The name of the template file will be used as the session alias.
 Sessions created from the template still get unique IDs, but share the same alias.
 
 Tip: The `dprectool` utility can convert a binary recording to the text format and vice versa.
+
+## External authentication
+
+Ext-auth is a user authenticatio mechanism that delegates the actual authentication to
+an external server. It is an easy way to integrate Drawpile login with the existing
+user account system of a website. With ext-auth, the user's password is never sent
+to the Drawpile server, so untrusted 3rd party servers can still use it.
+
+To enable ext-auth, three settings must be set on the server side:
+
+1. The ext auth server URL (set with `--extauth` command line argument`)
+2. The `extauth` setting must be set to `true`
+3. The `extauthkey` setting must be set to the server's validation key
+
+If guest logins are enabled, the server will query the ext-auth server for guest
+login permission. If guest logins are disabled, this
+step is skipped. By default, if guest logins are enabled but the auth server is
+unreachable, guest login will be permitted for all usernames not on the server's
+built-in user list. (The built-in user list always takes precedence over ext-auth
+users.) If guest logins should not be permitted, set `extauthfallback` to `false`.
+
+The ext-auth server URL is sent to the client, which prompts the user for a password.
+The password is then sent to the ext-auth server which will return a signed login token.
+The client sends the login token back to the Drawpile server, which checks it using
+the ext-auth validation key.
+
+To enable logins using drawpile.net accounts on your server, use these settings:
+
+ * `--extauth https://drawpile.net/api/ext-auth/`
+ * `extauthkey = 9eJ2tMJlqgSqHOIK/GI/qzS14WqIxHeB1Im5Hs/CCCk=`
+
+If you wish to implement your own authentication server, refer to the [ext-auth wiki page](https://github.com/drawpile/Drawpile/wiki/External-authentication)
 
 ## Remote admin
 
