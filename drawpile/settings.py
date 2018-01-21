@@ -104,3 +104,21 @@ DEFAULT_FROM_EMAIL = 'no-reply@drawpile.net'
 SERVER_EMAIL = 'server@drawpile.net'
 EMAIL_SUBJECT_PREFIX = '[drawpile.net] '
 
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    },
+}
+

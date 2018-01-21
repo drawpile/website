@@ -22,6 +22,9 @@ from .token import (
 from .mail import send_template_mail
 from .deletion import get_cascade_deletion_list
 
+import logging
+logger = logging.getLogger(__name__)
+
 class SignupView(FormView):
     """New user signup: first phase.
 
@@ -53,6 +56,7 @@ class SignupView(FormView):
             'email_template_name': 'registration/mail/reset_password.txt',
             'request': self.request,
         }
+        logger.info("Sending password recovery mail to %s", email)
         form = PasswordResetForm({'email': email})
         form.is_valid()
         form.save(**opts)
@@ -61,6 +65,7 @@ class SignupView(FormView):
         token = make_signup_token(username, email)
         protocol = 'https' if self.request.is_secure() else 'http'
         domain = self.request.get_host()
+        logger.info("Sending signup token mail to %s", email)
         send_template_mail(
             email,
             'registration/mail/signup.txt',
@@ -107,6 +112,7 @@ class FinishSignupView(FormView):
         cd = form.cleaned_data
         token = parse_signup_token(cd['token'])
 
+        logger.info("%s (%s) signup complete", token['name'], token['email'])
         with transaction.atomic():
             user = get_user_model().objects.create_user(
                 token['name'],
@@ -173,6 +179,7 @@ class EmailChangeView(FormView):
         protocol = 'https' if self.request.is_secure() else 'http'
         domain = self.request.get_host()
 
+        logger.info("Sending email change (from %s) confirmation message to", user.email, token['email'])
         send_template_mail(
             cd['email'],
             'users/mail/change_email.txt',
@@ -228,6 +235,7 @@ class ConfirmEmailChangeView(FormView):
         cd = form.cleaned_data
         token = parse_emailchange_token(cd['token'])
 
+        logger.info("Changing user #%s email to", token['user'], token['email'])
         get_user_model().objects.filter(id=token['user']).update(email=token['email'])
 
         return super().form_valid(form)
@@ -307,6 +315,7 @@ class DeleteAccountView(FormView):
     def form_valid(self, form):
         user = self.request.user
         logout(self.request)
+        logger.info("Deleting user #%d %s (%s)", user.id, user.username, user.email)
         user.delete()
         return super().form_valid(form)
 
