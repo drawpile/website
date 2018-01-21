@@ -71,6 +71,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+if DEBUG:
+    AUTH_PASSWORD_VALIDATORS = []
+
 LOGOUT_REDIRECT_URL = '/'
 
 # Internationalization
