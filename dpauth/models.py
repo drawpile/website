@@ -20,7 +20,7 @@ class Username(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='+'
+        related_name='drawpilename_set'
     )
 
     name = models.CharField(max_length=22,
@@ -89,5 +89,5 @@ class Username(models.Model):
         if self.is_mod and self.user.has_perm('dpauth.moderator'):
             flags.append('MOD')
 
-        return make_login_token(self.name, flags, nonce, key=key)
+        return make_login_token(self.name, self.user_id, flags, nonce, key=key)
 

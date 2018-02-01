@@ -7,12 +7,13 @@ import time
 import calendar
 import json
 
-def make_login_token(username, flags, nonce, key=None):
+def make_login_token(username, user_id, flags, nonce, key=None):
     payload = {
         'username': username,
         'flags': flags,
         'nonce': nonce,
         'iat': calendar.timegm(time.gmtime()),
+        'uid': user_id,
     }
 
     if isinstance(key, ed25519.SigningKey):

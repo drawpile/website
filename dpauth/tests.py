@@ -34,7 +34,8 @@ class LoginTokenTest(TestCase):
 
         token = make_login_token(
             'bob',
-            ['mod', 'host'],
+            1,
+            ['MOD', 'HOST'],
             'deadbeef',
             key=privkey
             )
@@ -57,7 +58,8 @@ class LoginTokenTest(TestCase):
 
         payload = json.loads(b64decode(payload.encode('utf-8')))
         self.assertEqual(payload['username'], 'bob')
-        self.assertEqual(payload['flags'], ['mod', 'host'])
+        self.assertEqual(payload['uid'], 1)
+        self.assertEqual(payload['flags'], ['MOD', 'HOST'])
         self.assertEqual(payload['nonce'], 'deadbeef')
         self.assertEqual(type(payload['iat']), int)
 
@@ -81,17 +83,17 @@ class UserTest(TestCase):
         token1 = json.loads(b64decode(u1.make_login_token('1234', key=privkey).split('.')[1]))
 
         self.assertEqual(token1['username'], 'test')
-        self.assertFalse('mod' in token1['flags'])
+        self.assertFalse('MOD' in token1['flags'])
 
         u2 = Username.getByName('admin')
         token2 = json.loads(b64decode(u2.make_login_token('1234', key=privkey).split('.')[1]))
 
         self.assertEqual(token2['username'], 'admin')
-        self.assertTrue('mod' in token2['flags'])
+        self.assertTrue('MOD' in token2['flags'])
 
         u3 = Username.getByName('fakemod')
         token3 = json.loads(b64decode(u3.make_login_token('1234', key=privkey).split('.')[1]))
 
         self.assertEqual(token3['username'], 'fakemod')
-        self.assertFalse('mod' in token3['flags'])
+        self.assertFalse('MOD' in token3['flags'])
 
