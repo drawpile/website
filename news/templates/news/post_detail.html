@@ -6,6 +6,11 @@
 
 <section class="section">
 <div class="container">
+{% if not object.is_visible %}
+	<div class="notification is-danger has-text-centered">
+		Hidden
+	</div>
+{% endif %}
 
 	{% include "news/__post.html" with readmore='True' %}
 
