@@ -11,21 +11,8 @@
 
 ### No pressure sensitivity
 
-First, make sure you have the Wintab drivers installed. If you have the
-drivers, but pressure still doesn't work, try the 32 bit version.
-
-Also, try enabling "bug workaround mode" in the preferences dialog.
-
-### Wonky/unusable lines when using a graphics tablet
-
-This problem is most likely caused by an incompatibility between Qt and the
-graphics tablet driver. Try enabling "bug workarounds" in the preferences dialog.
-If that fails, you can disable tablet support entirely.
-This causes Drawpile to treat the tablet like a mouse, meaning invalid data in the tablet
-events get ignored. A downside is that you will also lose support for stylus pressure sensitivity.
-
-Version 2.0.5 includes a built-in tablet test tool (under the *Help* menu)
-that may help with diagnosing tablet related problems. 
+First, check the preferences dialog. Try checking or unchecking the "Use Windows Ink" option.
+When Windows Ink support is not available, you must have Wintab drivers installed.
 
 ### The window is too big and the chat bar goes below the screen
 
