@@ -39,10 +39,11 @@ class SubmissionCommentViewSet(viewsets.ModelViewSet):
         return Comment.objects.filter(submission_id=self.kwargs['submission_pk'])
 
     def get_serializer_context(self):
-        return {
-            **super().get_serializer_context(),
+        ctx = super().get_serializer_context()
+        ctx.update({
             'submission_id': self.kwargs['submission_pk'],
-        }
+        })
+        return ctx
 
     def perform_destroy(self, instance):
         instance.deleted = timezone.now()

@@ -107,11 +107,12 @@ class SubmitView(FormView):
         uploaded = Submission.get_total_size(self.request.user)
         quota =  settings.UPLOAD_QUOTA * 1024 * 1024
 
-        return {
-            **super().get_context_data(**kwargs),
+        ctx = super().get_context_data(**kwargs)
+        ctx.update({
             'is_over_quota': uploaded >= quota,
             'available': int(max(0, (quota - uploaded) / quota) * 100),
-        }
+        })
+        return ctx
 
     def post(self, request, *args, **kwargs):
         if Submission.get_total_size(self.request.user) > (settings.UPLOAD_QUOTA * 1024 * 1024):
