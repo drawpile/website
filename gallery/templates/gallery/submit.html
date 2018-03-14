@@ -1,0 +1,56 @@
+{% extends "gallery/base.html" %}
+
+{% block gallery_subtitle %}Submit Content{% endblock %}
+{% block mainsection %}
+
+{% if is_over_quota %}
+<div class="notification is-warning has-text-centered">
+	Upload quota exceeded.
+</div>
+{% else %}
+<form method="POST" enctype="multipart/form-data" action="{% url 'gallery:submit' %}">
+
+<div class="field">
+	<div class="file is-boxed is-centered">
+		<label class="file-label">
+			<input class="file-input" type="file" name="submission" id="submission-file">
+			<span class="file-cta">
+				<span class="file-icon">
+					<i class="fa fa-upload"></i>
+				</span>
+				<span class="file-label">
+					Choose a file…
+				</span>
+			</span>
+			<span class="file-name is-invisible has-text-centered" id="submission-file-name"></span>
+		</label>
+	</div>
+	{% if form.errors.submission %}
+	<div class="help has-text-centered is-danger">{{ form.errors.submission }}</div>
+	{% endif %}	
+	<p class="has-text-centered">Supported file types: PNG, JPEG and OpenRaster.</p>
+	<p class="has-text-centered">{{ available }}% space remaining.</p>
+</div>
+
+<div class="field has-text-centered">
+	<input type="submit" class="button is-primary is-medium" value="Upload">
+</div>
+
+{% csrf_token %}
+</form>
+{% endif %}
+
+{% endblock %}
+
+{% block extrascripts %}
+<script>
+$(function() {
+	$("#submission-file").on('change', function() {
+		if(this.files.length>0) {
+			$("#submission-file-name").text(this.files[0].name).removeClass('is-invisible');
+		}
+	});
+});
+</script>
+{{ block.super }}
+{% endblock %}

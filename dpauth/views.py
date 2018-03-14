@@ -3,13 +3,15 @@ from django.contrib.auth.hashers import check_password
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
+from rest_framework.permissions import AllowAny
 
 from .settings import extauth_settings
 from .models import Username
 from .serializers import AuthAttemptSerializer, AccountQuerySerializer
 
 class ExtAuthView(APIView):
-    renderer_classes = [JSONRenderer]
+    renderer_classes = (JSONRenderer,)
+    permission_classes = (AllowAny,)
 
     def post(self, request, format=None):
         if 'password' in request.data:

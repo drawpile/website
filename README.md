@@ -107,6 +107,23 @@ This is a very simple blog engine used for the news page.
 
 A management command for importing and exporting posts is included.
 
+### Gallery
+
+The user/group gallery.
+
+Management commands provided:
+
+ * `media` - various uploaded media file cleanup actions
+ * `gallery_comments purge` - purge deleted comments
+
+## Django permissions
+
+The following Django permissions are used outside the admin site:
+
+ * `dpauth.moderator` - global Drawpile moderator
+ * `gallery.change_submission` - permission to edit any submission
+ * `gallery.delete_comment` - permission to delete any comment
+
 ## License
 
 The source code is licensed under the MIT license.

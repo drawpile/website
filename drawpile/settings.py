@@ -2,9 +2,16 @@ import os
 
 from .local_settings import *
 
+try:
+    # Debug toolbar should not be accidentally enabled when not in debug mode
+    DEBUG_TOOLBAR = DEBUG_TOOLBAR and DEBUG
+except NameError:
+    DEBUG_TOOLBAR = False
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ALLOWED_HOSTS = ['drawpile.net', 'localhost']
+INTERNAL_IPS = ['127.0.0.1']
 
 if DEBUG:
     ALLOWED_HOSTS = ['*']
@@ -18,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 
     'rest_framework',
     'easy_thumbnails',
@@ -27,6 +35,7 @@ INSTALLED_APPS = [
     'dpusers',
     'templatepages',
     'news',
+    'gallery',
 ]
 
 MIDDLEWARE = [
@@ -38,6 +47,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG_TOOLBAR:
+    INSTALLED_APPS += ['debug_toolbar']
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
 
 ROOT_URLCONF = 'drawpile.urls'
 
@@ -105,11 +118,23 @@ MEDIA_URL = '/media/d/'
 
 THUMBNAIL_BASEDIR = 'thumbnails'
 
+UPLOAD_QUOTA = 50 # per user upload quota in megabytes
+
 # Email
 DEFAULT_FROM_EMAIL = 'no-reply@drawpile.net'
 SERVER_EMAIL = 'server@drawpile.net'
 EMAIL_SUBJECT_PREFIX = '[drawpile.net] '
 
+
+# REST API
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ),
+}
 
 # Logging
 LOGGING = {

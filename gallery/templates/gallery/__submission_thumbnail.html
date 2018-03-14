@@ -1,0 +1,15 @@
+<div class="gallery-thumbnail{% if not submission.is_visible %} hidden{% endif %}">
+	<a href="{{ submission.get_absolute_url }}">
+		<img src="{{ submission.thumbnail.url }}" alt="">
+		<span class="submission-title{% if submission.is_nsfw %} nsfw{% endif %}">
+			{{ submission.title }}<br>
+			{{ submission.uploaded_by.username }}
+		</span>
+		{% if not submission.is_visible %}
+		<span class="submission-hidden">
+			<span class="icon"><i class="fa fa-eye-slash"></i></span> Hidden
+		</span>
+		{% endif %}
+	</a>
+</div>
+

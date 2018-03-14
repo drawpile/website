@@ -4,6 +4,8 @@ Markdown~=2.6.8
 easy-thumbnails~=2.5.0
 django-widget-tweaks~=1.4.1
 djangorestframework~=3.7.7
+drf-nested-routers~=0.90.0
 ed25519==1.4
 confusable-homoglyphs==3.0.0
+python-magic~=0.4.15
 

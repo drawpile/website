@@ -1,0 +1,136 @@
+{% extends "gallery/base.html" %}
+
+{% load static humanize %}
+{% load widget_tweaks %}
+{% load markdown %}
+
+{% block title %}Edit {{ object.title }} - {{ block.super }}{% endblock %}
+
+{% block gallery_subtitle %}Edit {{ object.title }} Group Info{% endblock %}
+
+{% block mainsection %}
+<form method="POST" enctype="multipart/form-data" action="{% url 'gallery:group-edit' slug=object.slug %}">
+<div class="columns">
+
+<div class="column is-three-quarters">
+	<div class="field">
+		<label class="label">Group title</label>
+		<div class="control">
+			<input class="input" type="text" value="{{ object.title }}" disabled>
+		</div>
+	</div>
+
+	<div class="field">
+		<label class="label">Group logo</label>
+		<figure class="image is-128x128">
+			{% if object.logo %}
+			<img src="{{ object.logo.url }}" alt="">
+			{% else %}
+			<img src="{% static "/images/avatar-placeholder.jpeg" %}" alt="">
+			{% endif %}
+		</figure>
+		<div class="control">
+			<p><input type="file" name="logo"> (PNG or JPEG, max dimensions 128x128)</p>
+			{% if object.logo %}
+			<p><label><input type="checkbox" name="logo-clear"> Remove</label></p>
+			{% endif %}
+		</div>
+		{% if form.errors.logo %}
+		<div class="help is-danger">{{ form.errors.logo }}</div>
+		{% endif %}
+	</div>
+
+	<div class="field">
+		<label class="label">Group introduction</label>
+		<div class="control">
+			{% render_field form.description class+="textarea" %}
+		</div>
+		{% if form.errors.description %}
+		<div class="help is-danger">{{ form.errors.description }}</div>
+		{% endif %}
+	</div>
+
+	<div class="field">
+		<label class="label">Website address</label>
+		<div class="control">
+			{% render_field form.website class+="input" %}
+		</div>
+		{% if form.errors.title %}
+		<div class="help is-danger">{{ form.errors.website }}</div>
+		{% endif %}
+		<div class="help">If your group has a website, a link can be shown on the group page.</div>
+	</div>
+	
+</div>{# /.column #}
+<div class="column">
+	<div class="field">
+		<label class="label">Options</label>
+		<div class="control">
+			<label class="checkbox">
+				{% render_field form.approve_joins class+="checkbox" %}
+				Moderator must approve new members
+			</label>
+		</div>
+	</div>{# /.field #}
+</div>
+</div>{# /.columns #}
+
+<h3 class="title is-4">Group Server</h3>
+
+<div class="columns">
+<div class="column is-half">
+	
+	<div class="field">
+		<label class="label">Server hostname or IP</label>
+		<div class="control">
+			{% render_field form.server_address class+="input" %}
+		</div>
+		{% if form.errors.server_address %}
+		<div class="help is-danger">{{ form.errors.server_address}}</div>
+		{% endif %}
+		<div class="help"> If your group has a dedicated server, you can show its address on the group page.</div>
+	</div>
+</div>{# /.column #}
+
+<div class="column">
+	<p>You can allow logins with drawpile.net accounts on your dedicated server by enabling External Authentication. To do so, set these settings in the configuration file or the GUI:</p>
+	<table class="table">
+	<thead><tr>
+		<th>Setting</th>
+		<th>Value</th>
+	</tr></thead>
+	<tbody>
+		<tr>
+			<td>--extauth</td>
+			<td><code>https://drawpile.net/api/ext-auth/</code></td>
+		</tr>
+		<tr>
+			<td><code>extauth</code></td>
+			<td><code>true</code></td>
+		</tr>
+		<tr>
+			<td><code>extauthkey</code></td>
+			<td><code>{{ extauthkey }}</code></td>
+		</tr>
+	</tbody>
+	</table>
+	<p>Note: The URL must be set as a command line parameter or through the GUI's settings dialog. See the
+	<a href="/help/server/#external-authentication">dedicated server</a> help page for more information.</p>
+</div>
+
+</div>{# /.columns #}
+
+<div class="field is-grouped">
+	<div class="control">
+		<button class="button is-link">Save</button>
+	</div>
+	<div class="control">
+		<a href="{{ object.get_absolute_url }}" class="button is-text">Cancel</a>
+	</div>
+</div>
+
+{% csrf_token %}
+</form>
+
+{% endblock %}
+

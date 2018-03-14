@@ -26,6 +26,7 @@
 			<div class="navbar-start">
 				{% navilink '/news/' 'News' classes='navbar-item' %}
 				{% navilink '/about/' 'About' classes='navbar-item' %}
+				{% navilink '/gallery/' 'Gallery' classes='navbar-item' %}
 				{% navilink '/download/' 'Download' classes='navbar-item' %}
 				{% navilink '/help/' 'Help' classes='navbar-item' %}
 				{% navilink '/servers/' 'Servers' classes='navbar-item' %}
@@ -39,6 +40,7 @@
 						</a>
 						<div class="navbar-dropdown">
 							<a class="navbar-item" href="/accounts/profile">Profile</a>
+							<a class="navbar-item" href="{% url 'gallery:userpage' pk=user.id %}">My Gallery</a>
 							{% if user.is_staff %}<a class="navbar-item" href="/_admin/">Site Admin</a>{% endif %}
 							<a class="navbar-item" href="/accounts/logout">Log out</a>
 						</div>
@@ -68,8 +70,10 @@
 				<a href="https://drawpile-dev-diary.tumblr.com/"><span class="icon"><i class="fa fa-tumblr"></i></span> Dev Diary</a></a><br>
 			</div>
 			<div class="column is-narrow">
+				{% block copyright %}
 				<p>&copy; 2014-2018 Calle Laakkonen</p>
 				<p>The content of this site (unless otherwise noted) is licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-SA 4.0</a>.</p>
+				{% endblock %}
 			</div>
 		</div>{# ./columns #}
 	</div>{# ./container #}

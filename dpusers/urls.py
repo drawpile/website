@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^profile/email_change/$', views.EmailChangeView.as_view(), name='profile-emailchange'),
     url(r'^profile/email_change/confirm/$', views.ConfirmEmailChangeView.as_view(), name='profile-emailchange-confirm'),
     url(r'^profile/usernames/$', views.UsernameView.as_view(), name='profile-usernames'),
+    url(r'^profile/gallery/$', views.GalleryProfileView.as_view(), name='profile-gallery'),
 
     url(r'^delete/$', views.DeleteAccountView.as_view(), name='delete-account'),
 

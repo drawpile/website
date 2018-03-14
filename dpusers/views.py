@@ -3,17 +3,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.forms import PasswordResetForm
 from django.utils.decorators import method_decorator
-from django.views.generic.edit import FormView
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView, UpdateView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.db import transaction
 
+from gallery.models import GalleryProfile
 from dpauth.models import Username
 from dpauth.settings import extauth_settings
 from .forms import (
     SignupForm, FinishSignupForm, EmailChangeForm,
-    ConfirmEmailChangeForm, ConfirmDeleteAccountForm
+    ConfirmEmailChangeForm, ConfirmDeleteAccountForm,
+    GalleryProfileForm
     )
 from .token import (
     make_signup_token, parse_signup_token,
@@ -239,6 +240,23 @@ class ConfirmEmailChangeView(FormView):
         get_user_model().objects.filter(id=token['user']).update(email=token['email'])
 
         return super().form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class GalleryProfileView(UpdateView):
+    form_class = GalleryProfileForm
+    template_name = 'users/galleryprofile.html'
+    success_url = reverse_lazy('users:profile-gallery')
+
+    def get_object(self, queryset=None):
+        return GalleryProfile.objects.get_or_create(user=self.request.user)[0]
+    
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        return {
+            **ctx,
+            'profile_page': 'gallery',
+        }
 
 
 @method_decorator(login_required, name='dispatch')

@@ -1,0 +1,76 @@
+
+.gallery-section-title {
+	border-bottom: 1px solid #dbdbdb;
+	padding: 0.5em 1em;
+	margin: 0 0 0.5em 0;
+}
+
+.thumbnail-container {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.gallery-thumbnail {
+	position: relative;
+	box-sizing: content-box;
+	padding: 3px;
+	margin: 0.5em;
+}
+
+.gallery-thumbnail.hidden, .gallery-view.hidden {
+	outline: 1px solid rgba(180, 0, 0, 0.5);
+}
+
+.gallery-thumbnail>a {
+	display: block;
+}
+
+.gallery-thumbnail>a:hover>.submission-title {
+	display: block;
+}
+
+.submission-title {
+	display: none;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	
+	color: #fff;
+	text-align: center;
+}
+
+.submission-title.nsfw {
+	background: rgba(100, 0, 0, 0.5);
+}
+
+.submission-hidden {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: rgba(180, 0, 0, 0.5);
+	
+	color: #fff;
+	text-align: center;
+}
+
+.gallery-view {
+	margin: 1em 0;
+}
+
+li:hover .membership-actions {
+	visibility: visible;
+}
+
+.membership-actions {
+	visibility: hidden;
+	font-size: small;
+	color: red
+}
+
+.membership-actions>a {
+	color: gray
+}

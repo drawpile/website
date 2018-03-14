@@ -1,0 +1,97 @@
+{% extends "gallery/base.html" %}
+
+{% load static humanize %}
+{% load widget_tweaks %}
+{% load markdown %}
+
+{% block title %}{{ object.title }} - {{ block.super }}{% endblock %}
+
+{% block gallery_subtitle %}Edit {{ object.title }} by {{ object.uploaded_by.username }}{% endblock %}
+
+{% block mainsection %}
+
+{# TODO include type specific template here, once other types are supported #}
+<div class="has-text-centered">
+	{% if object.picture.downscaled %}
+		<img src="{{ object.picture.downscaled.url }}">
+	{% else %}
+		<img src="{{ object.picture.fullsize.url }}">
+	{% endif %}
+</div>
+
+{# Common submission info #}
+
+<form method="POST" action="{% url 'gallery:edit-submission' pk=object.pk %}">
+<div class="columns">
+
+<div class="column is-three-quarters">
+	<div class="field">
+		<label class="label">{{ form.title.label }}</label>
+		<div class="control">
+			{% render_field form.title class+="input" %}
+		</div>
+		{% if form.errors.title %}
+		<div class="help is-danger">{{ form.errors.title }}</div>
+		{% endif %}
+	</div>
+
+	<div class="field">
+		<label class="label">{{ form.description.label }}</label>
+		<div class="control">
+			{% render_field form.description class+="textarea" %}
+		</div>
+		{% if form.errors.description %}
+		<div class="help is-danger">{{ form.errors.description }}</div>
+		{% endif %}
+	</div>
+</div>
+
+<div class="column">
+	<div class="field">
+		<label class="label">Options</label>
+		<div class="control">
+			<label class="checkbox">
+				{% render_field form.is_commenting_enabled class+="checkbox" %}
+				{{ form.is_commenting_enabled.label }} 
+			</label>
+		</div>
+		<div class="control">
+			<label class="checkbox">
+				{% render_field form.is_nsfw class+="checkbox" %}
+				{{ form.is_nsfw.label }} 
+			</label>
+		</div>
+	</div>{# /.field #}
+
+	<div class="field">
+		<label class="label">Share in</label>
+		{{ form.groups }}
+	</div>
+</div>
+
+</div>{# /.columns #}
+
+<div class="field is-grouped">
+	<div class="control">
+		<button name="action" value="publish" class="button is-link">Save{% if not object.is_visible %} and Publish{% endif %}</button>
+	</div>
+	<div class="control">
+	{% if object.is_visible %}
+		<button name="action" value="hide" class="button is-warning">Save and Hide</button>
+	{% else %}
+		<button name="action" value="hide" class="button is-primary">Save</button>
+	{% endif %}
+	</div>
+	<div class="control">
+		<button name="action" value="delete" class="button is-danger">Delete</button>
+	</div>
+	<div class="control">
+		<a href="{{ object.get_absolute_url }}" class="button is-text">Cancel</a>
+	</div>
+</div>
+
+{% csrf_token %}
+</form>
+
+{% endblock %}
+

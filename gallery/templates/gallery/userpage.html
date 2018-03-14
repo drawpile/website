@@ -1,0 +1,56 @@
+{% extends "gallery/base.html" %}
+
+{% load static %}
+{% load safetext %}
+
+{% block title %}{{ object.username }} - {{ block.super }}{% endblock %}
+
+{% block gallery_subtitle %}{{ object.username }}{% endblock %}
+
+{% block mainsection %}
+<article class="media">
+	<div class="media-left">
+		<figure class="image is-64x64">
+			{% include "components/user-avatar.html" %}
+		</figure>
+	</div>
+	<div class="media-content">
+		<p>
+		{% for name in object.drawpilename_set.all %}
+		<strong>{{ name }}</strong>{% if not forloop.last %} AKA{% endif %}
+		{% endfor %}
+		{% with groups=object.groupmembership_set.all %}
+		{% if groups %}@
+			{% for group in groups %}
+				<a href="{{ group.group.get_absolute_url }}">{{ group.group.title }}</a>{% if not forloop.last %},{% endif %}
+			{% endfor %}
+		{% endif %}{% endwith %}
+		</p>
+		
+		<div class="content">
+			{{ user.galleryprofile.bio|safetext }}
+		</div>
+
+	</div>
+</article>
+
+
+<div class="tabs">
+	<ul>
+		<li{% if tab == 'drawings' %} class="is-active"{% endif %}><a href="?tab=drawings">Drawings by {{ object.username }}</a></li>
+		<li{% if tab == 'favorites' %} class="is-active"{% endif %}><a href="?tab=favorites">Favorites</a></li>
+	</ul>
+</div>
+
+<div class="thumbnail-container">
+	{% for submission in page_obj.object_list %}
+	{% include "gallery/__submission_thumbnail.html" %}
+	{% empty %}
+	<p>Nothing here yet!</p>
+	{% endfor %}
+</div>{# /.thumbnail-container #}
+
+{% include "components/paginator.html" %}
+
+{% endblock %}
+

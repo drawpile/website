@@ -11,11 +11,17 @@ urlpatterns = [
     url(r'^api/', include('drawpile.api_urls', namespace='api')),
     url(r'^news/', include('news.urls', namespace='news')),
     url(r'^accounts/', include('dpusers.urls', namespace='users')),
+    url(r'^gallery/', include('gallery.urls', namespace='gallery')),
     url(r'^$', TemplateView.as_view(template_name='pages/index.html')),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG_TOOLBAR:   
+    import debug_toolbar
+    urlpatterns += [url(r'^__debug__/', include(debug_toolbar.urls))]
+
 
 urlpatterns += [
     url(r'^(?P<path>.*)/$', TemplatePageView.as_view()),

@@ -1,0 +1,3 @@
+{% load static %}<div class="image is-64x64">
+{% if object.galleryprofile.avatar %}<img src="{{ object.galleryprofile.avatar.url }}" alt="">{% else %}<img src="{% static 'images/avatar-placeholder.jpeg' %}" alt="">{%endif %}
+</div>

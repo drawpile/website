@@ -341,16 +341,16 @@ Sessions created from the template still get unique IDs, but share the same alia
 
 Tip: The `dprectool` utility can convert a binary recording to the text format and vice versa.
 
-## External authentication
+<h2 id="external-authentication">External authentication</h2>
 
-Ext-auth is a user authenticatio mechanism that delegates the actual authentication to
-an external server. It is an easy way to integrate Drawpile login with the existing
-user account system of a website. With ext-auth, the user's password is never sent
-to the Drawpile server, so untrusted 3rd party servers can still use it.
+Ext-auth is a user authentication mechanism that delegates the actual authentication to
+an external server. It is an easy way to integrate Drawpile login with a a website's
+existing user account system. With ext-auth, the user's password is never sent
+to the Drawpile server, so it is usable by untrusted 3rd party servers.
 
 To enable ext-auth, three settings must be set on the server side:
 
-1. The ext auth server URL (set with `--extauth` command line argument`)
+1. The ext auth server URL (set with `--extauth` command line argument)
 2. The `extauth` setting must be set to `true`
 3. The `extauthkey` setting must be set to the server's validation key
 

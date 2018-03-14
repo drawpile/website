@@ -1,0 +1,34 @@
+{% extends "gallery/base.html" %}
+
+{% block gallery_subtitle %}Drawpile User Groups and Showcase{% endblock %}
+
+{% block sidebar %}
+<h3 class="gallery-section-title title is-4">Popular Groups</h3>
+<aside class="menu">
+	<ul class="menu-list">
+	{% for group in groups %}
+		<li><a href="{{ group.get_absolute_url }}">{{ group }}</a></li>
+	{% endfor %}
+	{% if groups|length >= 10 %}
+		<li><a href="{% url 'gallery:group-list' %}"><span class="icon"><i class="fa fa-list"></i></span> All...</a></li>
+	{% endif %}
+	{% if user.is_authenticated %}
+		<li><a href="{% url 'gallery:group-new' %}"><span class="icon"><i class="fa fa-plus"></i></span> Create</a></li>
+	{% endif %}
+	</ul>
+	
+</aside>
+{% endblock %}
+
+{% block content %}
+<h3 class="gallery-section-title title is-4">Recent Drawings</h3>
+
+<div class="thumbnail-container">
+	{% for submission in submissions %}
+	{% include "gallery/__submission_thumbnail.html" %}
+	{% empty %}
+	<p>Nothing here yet!</p>
+	{% endfor %}
+</div>{# /.thumbnail-container #}
+{% endblock %}
+

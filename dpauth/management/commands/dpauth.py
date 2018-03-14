@@ -27,7 +27,7 @@ class Command(BaseCommand):
         print (r"""# Ext auth key pair. Place this in local_settings.py
 DRAWPILE_EXT_AUTH = {{
     'PRIVATE_KEY': b64decode({priv}),
-    'PUBLIC_KEY': b64decode({pub}),
+    'PUBLIC_KEY': {pub},
 }}""".format(
             priv=b64encode(priv.to_bytes()),
             pub=b64encode(pub.to_bytes())

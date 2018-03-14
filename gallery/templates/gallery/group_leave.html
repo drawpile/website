@@ -1,0 +1,53 @@
+{% extends "gallery/base.html" %}
+
+{% block title %}{{ object.title }} - {{ block.super }}{% endblock %}
+
+{% block gallery_subtitle %}Leave {{ object.title }} Group?{% endblock %}
+
+{% block mainsection %}
+
+<form action="{% url 'gallery:group-leave' slug=object.slug %}" method="POST">
+<p>Really leave {{ object.title }} group?</p>
+
+{% if is_moderator %}
+
+{% if mods %}
+<div class="content">
+	<p>You are a moderator in this group. After you leave, the following moderators will be left:</p>
+	<ul>
+	{% for mod in mods %}
+	<li>{{ mod.user }}</li>
+	{% endfor %}
+	</ul>
+</div>
+{% elif is_last %}
+<p>You are the only member of this group. It will be deleted if you leave.</p>
+{% else %}
+<p>You are the only moderator in this group. Before you go, please select select which user(s) will replace you:</p>
+
+<div class="field">
+	<div class="control">
+		<ul>
+		{% for member in members %}
+			<li><label class="checkbox"><input type="checkbox" name="user" value="{{ member.user_id }}"> {{ member.user }}</label></li>
+		{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endif %}
+
+{% endif %}{# is_moderator #}
+
+<div class="field is-grouped">
+	<div class="control">
+		<button class="button is-danger">Leave</button>
+	</div>
+	<div class="control">
+		<a href="{{ object.get_absolute_url }}" class="button is-text">Cancel</a>
+	</div>
+</div>
+
+{% csrf_token %}
+</form>
+
+{% endblock %}

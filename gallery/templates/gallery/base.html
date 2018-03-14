@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Gallery - {{ block.super }}{% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static "css/gallery.css" %}">
+{% endblock %}
+
+{% block main %}
+
+<section class="hero is-light">
+	<div class="hero-body">
+			<div class="container">
+			{% if user.is_authenticated %}
+				<div class="is-pulled-right">
+					<a href="{% url 'gallery:submit' %}" class="button is-primary">
+						<span class="icon"><i class="fa fa-upload"></i></span> <span>Submit Content</span>
+					</a>
+				</div>
+			{% endif %}
+				<h2 class="title">Gallery <span class="tag is-dark">beta</span></h2>
+				<p class="subtitle">{% block gallery_subtitle %}{% endblock %}</p>
+			</div>{# ./container #}
+		</div> {# /.hero-body #}
+	</div>
+</section>
+
+<section class="section">
+<div class="container">
+{% block mainsection %}
+	<div class="columns">
+
+		<div class="column is-one-quarter">
+			{% block sidebar %}{% endblock %}
+		</div>
+
+		<div class="column">
+			{% block content %}{% endblock %}
+		</div>
+
+	</div>{# /.columns #}
+{% endblock mainsection %}
+</div>{# /.container #}
+</section>
+{% endblock %}
+
+{% block copyright %}
+<p>Copyright of gallery submissions belong to the original artists.<br>Unless otherwise noted, redistribution is not permitted.</p>
+{% endblock %}
