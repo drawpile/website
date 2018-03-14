@@ -42,14 +42,15 @@ class GroupDetail(DetailView):
             pending = 0
             banned = None
 
-        return {**ctx,
+        ctx.update({
             'paginator': paginator,
             'page_obj': paginator.page(self.request.GET.get('page', 1)),
             'members': ctx['object'].groupmembership_set.filter(status__in=GroupMembership.MEMBER_STATUSES).order_by('-status', 'user__username'),
             'my_membership': my_membership,
             'pending_members': pending,
             'banned_members': banned,
-        }
+        })
+        return ctx
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -97,10 +98,10 @@ class GroupPending(DetailView):
                 'submissions': user.submission_set.filter(q)[:3]
             })
         
-        return {
-            **ctx,
+        ctx.update({
             'applicants': applicants,
-        }
+        })
+        return ctx
     
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -158,10 +159,10 @@ class EditGroup(UpdateView):
     
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        return {
-            **ctx,
+        ctx.update({
             'extauthkey': settings.DRAWPILE_EXT_AUTH['PUBLIC_KEY']
-        }
+        })
+        return ctx
 
 
 @method_decorator(login_required, name='dispatch')
@@ -172,12 +173,13 @@ class LeaveGroup(DetailView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         
-        return {**ctx,
+        ctx.update({
             'is_moderator': ctx['object'].groupmembership_set.filter(user=self.request.user, status=GroupMembership.STATUS_MOD).exists(),
             'mods': ctx['object'].groupmembership_set.filter(status=GroupMembership.STATUS_MOD).exclude(user=self.request.user).select_related('user'),
             'members': ctx['object'].groupmembership_set.filter(status=GroupMembership.STATUS_MEMBER).exclude(user=self.request.user).select_related('user').order_by('user__username'),
             'is_last': ctx['object'].groupmembership_set.filter(status__in=GroupMembership.MEMBER_STATUSES).count() == 1,
-        }
+        })
+        return ctx
     
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()

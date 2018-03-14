@@ -9,10 +9,11 @@ class FrontPage(TemplateView):
     template_name = 'gallery/index.html'
      
     def get_context_data(self, **kwargs):
-        return super().get_context_data(**kwargs, **{
-            'groups': self.__get_top_groups(),
-            'submissions': self.__get_recent_submissions(),
-            })
+        return super().get_context_data(
+            groups=self.__get_top_groups(),
+            submissions=self.__get_recent_submissions(),
+            **kwargs
+        )
 
     def __get_top_groups(self):
         return Group.objects.annotate(userCount=Count('groupmembership')).order_by('-userCount')[:10]
