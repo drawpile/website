@@ -253,10 +253,10 @@ class GalleryProfileView(UpdateView):
     
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        return {
-            **ctx,
+        ctx.update({
             'profile_page': 'gallery',
-        }
+        })
+        return ctx
 
 
 @method_decorator(login_required, name='dispatch')
