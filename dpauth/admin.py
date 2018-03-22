@@ -6,4 +6,5 @@ from . import models
 class UsernameAdmin(admin.ModelAdmin):
     list_display = ('user', 'name', 'is_mod')
     readonly_fields = ('normalized_name',)
+    search_fields = ('user__email', 'name')
 
