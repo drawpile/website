@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils.text import slugify
+from django.core.exceptions import ValidationError
 
 from gallery.utils import UploadNameFromContent, AvatarValidator
 from gallery.validators import hostname_validator
@@ -58,6 +59,8 @@ class Group(models.Model):
     def save(self):
         if not self.slug:
             self.slug = slugify(self.title)
+            if not self.slug:
+                raise ValidationError("Invalid title")
         
         return super().save()
 

@@ -70,7 +70,12 @@ class CreateGroupForm(forms.ModelForm):
     def clean_title(self):
         title = self.cleaned_data['title']
         
-        if Group.objects.filter(slug=slugify(title)).exists():
+        slug = slugify(title)
+
+        if not slug:
+            raise forms.ValidationError("Invalid title")
+
+        if Group.objects.filter(slug=slug).exists():
             raise forms.ValidationError("A group with a similar title already exists")
 
         return title

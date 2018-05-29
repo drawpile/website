@@ -3,7 +3,7 @@ from rest_framework import serializers
 from gallery.models import Group, GroupMembership
 
 class GroupSerializer(serializers.ModelSerializer):
-    members = serializers.IntegerField()
+    members = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Group
