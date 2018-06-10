@@ -1,4 +1,5 @@
 from django.contrib.auth.hashers import check_password
+from django.utils import timezone
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -37,6 +38,9 @@ class ExtAuthView(APIView):
                 "status": "badpass"
             }
    
+        username.user.last_login = timezone.now()
+        username.user.save(update_fields=('last_login',))
+
         return {
             "status": "auth",
             "token": username.make_login_token(data['nonce'])
