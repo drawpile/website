@@ -213,6 +213,35 @@ The cert.pem file contains the public certificate which is used to authenticate 
 
 You can additionally use the `--secure` flag to disallow unencrypted connections.
 
+## Using Docker
+
+An easy way to run the server is to use Docker. Try it out:
+
+    $ docker run -it --rm -p 27750:27750 callaa/drawpile-srv
+
+This will download the server image from docker hub and run the server. The `-p 27750:27750` argument
+publishes the default drawpile port from the container so clients can connect to it.
+
+A more realistic example:
+
+    $ docker run -dt --name "drawpile-server" \
+        -p 27750:27750 -p 127.0.0.1:27780:27780 \
+        -v dpsessions:/home/drawpile \
+        --restart always \
+        callaa/drawpile-srv:2.1 --sessions /home/drawpile/sessions \
+        --database /home/drawpile/config.db \
+        --web-admin-port 27780 --web-admin-access all
+
+The above does the following things:
+
+ * Creates a container named `drawpile-server` from the `drawpile-srv:2.1` image pulled from Docker Hub and runs it in the background
+ * Publishes port 27750 on all network interfaces and 27780 (the admin API) on loopback only
+ * Mounts the named volume `dpsessions` at `/home/drawpile` inside the container. This allows hibernated sessions to live through container restarts
+ * Automatically restarts the container if if shuts down
+ * Enables file backed sessions, database configuration and web admin API
+ * The web admin API is limited to connections from localhost by publishing it only to 127.0.0.1. Inside the container, the `all` access mode must be used.
+
+
 ## Using systemd
 
 Drawpile server can be started in two ways using systemd.

@@ -58,9 +58,14 @@ table.compat-chart .tip:after {
 		</tr>
 	</thead>
 	<tbody>
+		<tr class="version-group odd">
+			<td><span class="tip" title="Autoreset, trusted user and private messaging features need server version 2.1 to work">2.1.0</span></td>
+			<td class="srv even" rowspan=5>2.x.x</td>
+			<td class="proto">dp:4.21.2</td>
+			<td class="rec even">21.2</td>
+		</tr>
 		<tr class="version-group even">
-			<td>2.0.9</td>
-			<td class="srv even" rowspan=4>2.x.x</td>
+			<td>2.0.9&ndash;2.0.11</td>
 			<td class="proto" rowspan=4>dp:4.20.1</td>
 			<td class="rec even" rowspan=4>20.1</td>
 		</tr>
@@ -68,7 +73,7 @@ table.compat-chart .tip:after {
 			<td><span class="tip" title="&quot;No guest logins&quot; session option added, needs server version 2.0.8 to work.">2.0.8</span></td>
 		</tr>
 		<tr class="version-group even">
-			<td><span class="tip" title="Ext-auth feature added. Older clients will see the error &quot;invalid state&quot; when logging in with a reserved username">2.0.6&ndash;2.0.7</span></td>
+			<td><span class="tip" title="Ext-auth feature added. Older clients will see the error &quot;invalid state&quot; when logging in with a reserved username">2.0.6, 2.0.7</span></td>
 		</tr>
 		<tr class="version-group even">
 			<td>2.0.0&ndash;2.0.5</td>
@@ -96,7 +101,7 @@ table.compat-chart .tip:after {
 ### Notes about compatiblity
 
  * All clients in the *same session* must share the *exact* protocol version number (e.g. `dp:4.20.1`)
- * A client can use any server that supports the same *server protocol version* (`4` in case of Drawpile 2.0)
+ * A client can use any server that supports the same *server protocol version* (`4` in case of Drawpile 2.0.) However, some new features may not work with older servers.
  * The (new style) protocol version number consists of four parts:
     1. namespace (`dp`)
     2. server version (`4`, indicates change to client&harr;server protocol)
