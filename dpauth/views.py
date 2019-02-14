@@ -43,9 +43,8 @@ class ExtAuthView(APIView):
 
         return {
             "status": "auth",
-            "token": username.make_login_token(data['nonce'])
+            "token": username.make_login_token(data['nonce'], avatar=data['avatar'])
         }
-
 
     def __handle_account_query(self, request):
         """A user account existence query.

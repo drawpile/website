@@ -1,9 +1,13 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import RegexValidator
+from django.core.exceptions import ObjectDoesNotExist
 
 from .normalization import normalize_username
 from .token import make_login_token
+
+import logging
+logger = logging.getLogger(__name__)
 
 class Username(models.Model):
     """A Drawpile username.
@@ -75,7 +79,7 @@ class Username(models.Model):
         """
         return Username.objects.filter(normalized_name=normalize_username(name)).exists()
 
-    def make_login_token(self, nonce, key=None):
+    def make_login_token(self, nonce, avatar=False, key=None):
         """Generate a login token for this user.
 
         Parameters:
@@ -89,5 +93,21 @@ class Username(models.Model):
         if self.is_mod and self.user.has_perm('dpauth.moderator'):
             flags.append('MOD')
 
-        return make_login_token(self.name, self.user_id, flags, nonce, key=key)
+        avatar_image = None
+        if avatar:
+            try:
+                # TODO this app should not depend on the gallery app.
+                # Make this configurable.
+                avatar_image = self.user.galleryprofile.avatar
+            except ObjectDoesNotExist:
+                pass
+
+        if avatar_image:
+            try:
+                avatar_image = avatar_image.read()
+            except:
+                logger.exception("Error reading avatar")
+                avatar_image = None
+
+        return make_login_token(self.name, self.user_id, flags, nonce, avatar_image, key=key)
 

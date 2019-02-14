@@ -56,11 +56,47 @@ class LoginTokenTest(TestCase):
                 encoding='base64'
                 )
 
-        payload = json.loads(b64decode(payload.encode('utf-8')))
+        payload = json.loads(b64decode(payload.encode('utf-8')).decode('utf-8'))
         self.assertEqual(payload['username'], 'bob')
         self.assertEqual(payload['uid'], 1)
         self.assertEqual(payload['flags'], ['MOD', 'HOST'])
         self.assertEqual(payload['nonce'], 'deadbeef')
+        self.assertEqual(type(payload['iat']), int)
+
+    def test_token_generation_with_avatar(self):
+        privkey, pubkey = ed25519.create_keypair()
+
+        token = make_login_token(
+            'bob',
+            1,
+            ['MOD'],
+            'deadbeef',
+            avatar_image=b'123456789',
+            key=privkey
+            )
+
+        version, payload, avatar, sig = token.split('.')
+
+        self.assertEqual(version, '2')
+
+        pubkey.verify(
+            sig,
+            (version + '.' + payload + '.' + avatar).encode('utf-8'),
+            encoding='base64'
+            )
+        with self.assertRaises(ed25519.BadSignatureError):
+            pubkey.verify(
+                sig,
+                (version + '...' + payload).encode('utf-8'),
+                encoding='base64'
+                )
+
+        payload = json.loads(b64decode(payload.encode('utf-8')).decode('utf-8'))
+        self.assertEqual(payload['username'], 'bob')
+        self.assertEqual(payload['uid'], 1)
+        self.assertEqual(payload['flags'], ['MOD'])
+        self.assertEqual(payload['nonce'], 'deadbeef')
+        self.assertEqual(b64decode(avatar), b'123456789')
         self.assertEqual(type(payload['iat']), int)
 
 
@@ -80,19 +116,19 @@ class UserTest(TestCase):
         privkey, pubkey = ed25519.create_keypair()
 
         u1 = Username.getByName('test')
-        token1 = json.loads(b64decode(u1.make_login_token('1234', key=privkey).split('.')[1]))
+        token1 = json.loads(b64decode(u1.make_login_token('1234', key=privkey).split('.')[1]).decode('utf-8'))
 
         self.assertEqual(token1['username'], 'test')
         self.assertFalse('MOD' in token1['flags'])
 
         u2 = Username.getByName('admin')
-        token2 = json.loads(b64decode(u2.make_login_token('1234', key=privkey).split('.')[1]))
+        token2 = json.loads(b64decode(u2.make_login_token('1234', key=privkey).split('.')[1]).decode('utf-8'))
 
         self.assertEqual(token2['username'], 'admin')
         self.assertTrue('MOD' in token2['flags'])
 
         u3 = Username.getByName('fakemod')
-        token3 = json.loads(b64decode(u3.make_login_token('1234', key=privkey).split('.')[1]))
+        token3 = json.loads(b64decode(u3.make_login_token('1234', key=privkey).split('.')[1]).decode('utf-8'))
 
         self.assertEqual(token3['username'], 'fakemod')
         self.assertFalse('MOD' in token3['flags'])
