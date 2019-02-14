@@ -25,7 +25,7 @@ THE SOFTWARE.
 var DEFAULT_FLAIR = '<i class="fa fa-archive"></i>';
 var VERSION_FLAIR = {
 	'15.6': '<span class="fa fa-archive"></span>',
-	'dp:4.20.1': ' '
+	'dp:4.20.1': ' ',
 	'dp:4.21.2': '<b>2.1</b> '
 };
 
