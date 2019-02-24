@@ -12,7 +12,16 @@
 ### No pressure sensitivity
 
 First, check the preferences dialog. Try checking or unchecking the "Use Windows Ink" option.
-When Windows Ink support is not available, you must have Wintab drivers installed.
+When Windows Ink support is not available, you must have Wintab drivers installed. Note that
+you must restart Drawpile for the setting change to take effect.
+
+Note that you should not enable the "relative pen mode hack" unless you're using your tablet
+in mouse mode.
+
+Check if pressure is being detected by using the tablet tester found in the Help menu. If
+pressure events register there, but not when you're drawing, the problem most likely is
+that you have something other than "Stylus" selected in your input settings dock (View menu / docks.)
+ 
 
 ### Tablet stylus drags canvas
 
@@ -32,8 +41,6 @@ them together or move them to the other side of the window to release some space
 ### "Connection timed out" when connecting
 
 A "connection timed out" error (when you know the server should be up) is typically caused by firewalls.
-
-Another common cause is trying to connect to a 1.x server using a 2.x client.
 
 First, check that the hosting user is not behind a NAT. Drawpile can use UPnP,
 which is supported by most home routers, to automatically set up port forwarding.
