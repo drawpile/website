@@ -180,7 +180,7 @@ class EmailChangeView(FormView):
         protocol = 'https' if self.request.is_secure() else 'http'
         domain = self.request.get_host()
 
-        logger.info("Sending email change (from %s) confirmation message to", user.email, token['email'])
+        logger.info("Sending email change (from %s) confirmation message to", self.request.user.email, token['email'])
         send_template_mail(
             cd['email'],
             'users/mail/change_email.txt',
