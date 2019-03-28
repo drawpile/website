@@ -1,0 +1,301 @@
+{% extends "pages/help/_base.html" %}
+
+{% load markdown %}
+
+{% block title %}Dedicated Server HOWTO - {{ block.super }}{% endblock %}
+
+{% block content %}
+<article class="content">
+{% filter markdown %}
+# Dedicated Server HOWTO
+
+This is a step-by-step instruction guide to setting up your own Drawpile server
+on a cheap cloud Linux server.
+
+The following knowledge is assumed:
+
+ * Basic Linux command line
+ * How to connect to a server using SSH
+ * How to use a text editor in Linux
+
+## Step 1. Get a (virtual) server
+
+First, you will need an actual server to run the server software on. Drawpile-srv is not
+very demanding, so a tiny $5/month server from [Linode](https://www.linode.com/) or [Digital Ocean](https://www.digitalocean.com/) or any other cloud VPS provider will do just fine. You can also use a physical machine at home (even a Raspberry Pi!) but in this case you will need to ensure your Internet connection is up to the task.
+
+When creating the server, you must choose which Linux distribution to use. In this tutorial, I will use **Debian 9 (Stretch)**.
+
+<div class="message is-info">
+<div class="message-body">
+Tip: before renting a real server, you can practice by <a href="https://www.debian.org/distrib/netinst">downloading Debian</a> and installing it on virtual machine like <a href="https://www.virtualbox.org/">VirtualBox</a>. Set your VirtualBox machine's network mode to <i>Bridged Adapter</i> so it will get an IP address on your network for easy access.
+</div>
+</div>
+
+<div class="message is-danger">
+<div class="message-body">
+<p>There is one thing I <strong>strongly recommend</strong> you to do first before anything else,
+and that is <strong>disable password based SSH logins.</strong> Instead, set up and use SSH-keys.
+Your cloud service provider likely has good <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">tutorials you can follow</a>.</p>
+
+<p>If there is just one thing you do to secure your server, do this. There are bots constantly scanning
+the Internet for servers with weak passwords. If you don't secure your server,
+you <em>will</em> get hacked.</p>
+</div>
+</div>
+
+
+
+## Step 2. Install Docker
+
+Docker is the easiest way to run the latest version of drawpile-srv.
+
+First, log in as root and run the following commands to install Docker:
+
+<pre class="console">apt install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+apt update
+apt install docker-ce
+</pre>
+
+## Step 3. Start the server
+
+Now that you have Docker installed, let's try running drawpile-srv. Try this first:
+
+<pre class="console">docker run --rm -it -p 27750:27750 callaa/drawpile-srv:2.1
+</pre>
+
+If everything works, it should download the latest 2.1 series server and run it. It should
+print out something like this:
+
+	Started listening on port 27750 at address 0.0.0.0
+
+Give it a try! Start drawpile and try hosting a session. Select the *remote* server option
+and enter your server's IP address. Tada! You have your very own Drawpile server on the Internet!
+
+Now, this is not the way you probably want to run the server, because right now it's using
+the default settings and the server will shut down when you close your terminal. Instead, let's
+have Docker manage the server for us.
+
+The command to start the server with all the bells and whistles is pretty long, so it's
+a good idea to put it in a script. Open a text editor and copy & paste the following there:
+
+<pre class="console">docker run -dt --name drawpile-server \
+	-p 27750:27750 -p 27780:27780 \
+	-v dpsessions:/home/drawpile \
+	--restart always \
+	callaa/drawpile-srv:2.1.4 \
+	--sessions /home/drawpile/sessions \
+	--database /home/drawpile/config.db \
+	--web-admin-port 27780 \
+	--web-admin-access all
+</pre>
+
+A line by line explanation of the above:
+
+	docker run -dt --name drawpile-server
+
+This line creates and runs a docker container, giving it the name `drawpile-server`
+
+	-p 27750:27750 -p 27780:27780
+
+These two arguments publish the ports 27750 (Drawpile's default port) and 27780 (the port we select
+as the web-admin port,) allowing connections from outside the container.
+
+	-v dpsessions:/home/drawpile
+
+This creates (if it doesn't exist already) a volume named `dpsessions` and mounts it at the path
+`/home/drawpile` inside the container. Without this, all settings and saved sessions would disappear
+when you delete the container.
+
+	--restart always
+
+This instructs the Docker daemon to restart the drawpile-server container if it stops.
+
+	callaa/drawpile-srv:2.1.4
+
+Use drawpile-srv version 2.1.4 from [Docker Hub](https://hub.docker.com/r/callaa/drawpile-srv)
+as the base image for the container. Until now, all parameters were instructions to Docker.
+From here on, the rest of the parameters will be passed to `drawpile-srv`.
+
+	--sessions /home/drawpile/sessions
+
+Use file backed sessions and store them in `/home/drawpile/sessions` folder.
+This folder is in the `dpsessions` volume we just mounted.
+
+	--database /home/drawpile/config.db
+
+Use a configuration database and store it in this path. This will also be stored in the volume.
+Another option is to use a configuration file, but you will have to write it yourself.
+Using the configuration database allows you to change your server settings using the remote admin tool.
+
+	--web-admin-port 27780
+
+This enables the web admin API and exposes it on port 27780. (Notice that we published this port
+earlier to give outside access to it.
+
+	--web-admin-access all
+
+Allow access to the web admin from all addresses. This is required when running the server with
+Docker.  
+**Note:** with these settings, *everyone on the Internet* has full access to your
+web admin! We'll see how we can limit access next.
+
+Save this file as `start-drawpile-srv.sh` and run it by typing:
+
+<pre class="console">sh start-drawpile-srv.sh
+</pre>
+
+You should now be able to connect to your server using Drawpile. Give it a try!
+Try the admin GUI too. Open drawpile-srv, right click on the tray icon and select "Remote".
+Enter your server's address like `http://xxx.xxx.xxx.xxx:27780/` and click Ok. You should now be able to
+change your server settings and monitor the active sessions.
+
+However, we're not done yet! Next, we need to secure our server!
+
+### Step 2.1. Extra features
+
+There are a few extra features you might want to enable while you're at it.
+
+	--local-host your.domain.com
+
+If you have a domain name for your server, you can use this parameter to use it
+for session announcements. Do note that the list server will not accept announcements
+whose domain name does not match the IP address of the server making the announcement.
+
+	--ssl-cert certfile
+	--ssl-key keyfile
+
+You can generate a self signed certificate to enable secure connections to your server.
+
+	--extauth https://drawpile.net/api/ext-auth/
+
+Setting this allows you to accept drawpile.net user accounts on your server. If you're
+a web developer, you can even make your [own user account registration system](https://github.com/drawpile/Drawpile/wiki/External-authentication).
+
+
+## Step 3. Securing the server
+
+First, let's stop the server for now:
+
+<pre class="console">docker stop drawpile-server</pre>
+
+There are two problems with the server configuration: The web admin port is open
+to the whole world and there is no password!
+
+There are two ways of fixing it.
+
+### The easy way
+
+Simply add `--web-admin-auth admin:password123` (but don't use this easy to guess username/password pair!) to the end
+of your container startup script, then restart your container:
+
+<pre class="console">docker rm drawpile-server
+sh start-drawpile-srv.sh</pre>
+
+Now, when you connect with the admin GUI, it asks for the username and password.
+
+### The better way
+
+We shouldn't expose the web admin port directly to the Internet. Instead, change the `-p 27780` to `-p 127.0.0.1:27780:27780`
+
+What this does is that it only allows access to the web admin port from the local host. <i>But how will I access it now?</i> you might wonder. Well, you have two choices.
+
+One is to forward the connection using SSH. This is bit of an advanced use case, so I will not cover it here. (Although this is the most secure way to do it.)
+
+The other is to install a web server and use that to forward the connection. We'll see how we can do that below.
+
+## Step 4. Updating your server
+
+Remember to keep your your server up to date. In Debian, this is done with the following pair of commands:
+
+<pre class="console">apt update
+apt upgrade</pre>
+
+However, this will not update drawpile-srv. When a new version is released, check the release notes
+and the changelog to see if you need to update. Not all new Drawpile releases contain updates to
+the server.
+
+If you ran drawpile-srv with the name `callaa/drawpile-srv:2.1`, the latest 2.1 series version
+at the time was downloaded. To get the latest version, run:
+
+<pre class="console">docker pull callaa/drawpile-srv:2.1</pre>
+
+You will then need to restart the server:
+
+<pre class="console">docker stop drawpile-server
+docker rm drawpile-server
+sh start-drawpile-srv.sh
+</pre>
+
+Alternatively, you can specify the exact version (e.g. `callaa/drawpile-srv:2.1.4`) in your startup
+script. In that case, you don't need to call `docker pull` explicitly, docker will do it for you.
+Specifying the full version also allows you easily downgrade your server if the new version is buggy.
+
+## Extra 1. Installing nginx
+
+So, you now have a server of your own, so why not run a website on it while you're at it? First, we need to
+install a web server. The popular ones are *Apache* and *nginx*. We'll use **nginx** in this tutorial.
+
+Install it with the command:
+
+<pre class="console">apt install nginx</pre>
+
+Try visiting your server's IP address (or domain, if you have one) with a web browser now. You should
+see the default "Welcome to nginx!" page. Cool, you now have a website!
+
+Try putting an index.html file in the folder `/var/www/html`.
+
+Now, we can use nginx to add password protection to our server's remote admin interface.
+Make sure the port is published like this in your startup script:
+
+	-p 127.0.0.1:27780:27780
+
+Then, go to `/etc/nginx/sites-enabled/`. There should be a file named `default` there. That's the default
+nginx site configuration. Open it and add the following to the end of the first `server { ... }` block:
+
+<pre class="console">
+	location /dpserver/ {
+		proxy_pass http://127.0.0.1:27780/;
+		proxy_redirect default;
+		auth_basic "Server admin";
+		auth_basic_user_file /etc/nginx/passwords;
+	}
+</pre>
+
+This makes it so that when you access your web site at the path `/dpserver/`, the request is passed
+to the internal server listening at port 27780, which is `drawpile-srv`. The `auth_basic` line sets
+the the text that is shown in the username/password dialog.
+
+The `auth_basic_user_file` sets the location of the user/password file. That file is created and
+modified using a tool named `htpasswd`. We'll need to install another package to get it, though.
+
+<pre class="console">apt install apache2-utils
+htpasswd -c /etc/nginx/passwords admin
+</pre>
+
+Restart nginx to make sure the configuration changes take effect:
+
+<pre class="console">systemctl restart nginx
+</pre>
+
+Now, if you try accessing the `/dpserver/` path on your website, it should ask for a password.
+So, why do it this way instead of the easy way as shown above? There's a number of advantages:
+
+ * You can have more than one username/password to access the server
+ * You can change the username or password without having to restart the server
+ * More secure: you need to authenticate before your request even touches drawpile-srv
+ * Now that you've gone through the trouble of setting up nginx, you can host a website too!
+
+
+## Extra 2. Installing pubsrvproxy
+
+If you have web server, you can then install [pubsrvproxy](https://github.com/drawpile/pubsrvproxy) to show a list
+of sessions running on your server.
+
+(This section to be expanded in the future)
+
+{% endfilter %}
+</article>
+{% endblock %}
+

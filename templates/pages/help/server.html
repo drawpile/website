@@ -28,19 +28,8 @@ Typical use cases where the dedicated server works better than the built-in one:
 
 ## Installing the server (on Linux)
 
-The easiest way to install the server is to download the AppImage.
-The server will not run as root, so it's a good idea to create a new username just for it.
-Copy the AppImage onto the server and give it execute permissions (`chmod a+x Drawpile-srv-2.0.0.AppImage`)
-
-You can then simply run the AppImage to start the server with default settings:
-`./Drawpile-srv-2.0.0.AppImage`. (Although in practice, you most likely want to use a configuration file or database. See more below.)
-
-Tip: make a symlink (`ln -s Drawpile-srv-2.0.0.AppImage drawpile-srv`) to always refer to the latest version.
-
-Note that when using the AppImage version, the working directory is inside the
-image so relative paths in command line arguments will not work as you expect.
-So instead of `-c config.cfg`, use `-c /home/user/config.cfg`
-
+See the [server HOWTO](/help/server-howto/) page for instructions on how to set up a
+cheap cloud hosted Linux server and install Drawpile-srv on it.
 
 ## Compatibility
 
@@ -217,7 +206,7 @@ You can additionally use the `--secure` flag to disallow unencrypted connections
 
 An easy way to run the server is to use Docker. Try it out:
 
-    $ docker run -it --rm -p 27750:27750 callaa/drawpile-srv
+    $ docker run -it --rm -p 27750:27750 callaa/drawpile-srv:2.1
 
 This will download the server image from docker hub and run the server. The `-p 27750:27750` argument
 publishes the default drawpile port from the container so clients can connect to it.

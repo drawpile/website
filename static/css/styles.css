@@ -14,3 +14,8 @@ article {
 	margin: 0 1em 1em 0;
 }
 
+pre.console {
+	background: #000;
+	color: #b2b2b2;
+}
+
