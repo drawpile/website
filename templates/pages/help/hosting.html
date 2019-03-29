@@ -17,6 +17,52 @@ You will see this dialog pop up:
 
 <p class="has-text-centered">{% include "components/image.html" with name="hostdialog-guide.png" alt="[host dialog screenshot]" %}</p>
 
+<h3 style="text-align: center">This computer? Remote? What do I choose?</h3>
+
+<div class="tile is-ancestor">
+	<div class="tile is-parent is-vertical">
+		<div class="tile is-child box">
+			<h4>I want to invite or one two friends for a quick drawing session</h4>
+
+			<p>Try the "<strong>This computer</strong>" option. It will start a server built-in
+			to Drawpile itself. Note that if you list your session publicly, your IP address
+			will be visible in the listing.</p>
+			<p>A session hosted this way <em>will end when you close Drawpile</em>.</p>
+			<p>If your friends are in the same local network (e.g. connected to the same Wifi hotspot,)
+			they can connect to you using your local IP address. Your server will appear in the
+			<em>Nearby</em> list in the Join dialog.</p>
+		</div>
+		<div class="tile is-child box">
+			<h4>...but I got a message saying my server is not accessible from the Internet!</h4>
+
+			<p>This means you have a firewall blocking incoming connections.
+			See below for the <em>Dealing with firewalls</em> section for tips.</p>
+			<p>If you're not able to run your own server, you can host your session on a public server.
+			Use the <strong>remote</strong> server option and enter the address of a public server, such
+			as <kbd>drawpile.net</kbd></p>
+		</div>
+	</div>
+	<div class="tile is-parent is-vertical">
+		<div class="tile is-child box">
+			<h4>I want to make a long running session with people coming and going</h4>
+			<p>Use a <strong>remote</strong> server. A public free-for-all server is provided
+			at <kbd>drawpile.net</kbd>, but depending on the time of the day, might be full.</p>
+			<p>When using public servers, not all features might be enabled by the server administrator.
+			For example, at drawpile.net, sessions will automatically end when the last user logs out.</p>
+		</div>
+		<div class="tile is-child box">
+			<h4>I want to set up my <em>own</em> server!</h4>
+			<p>Running your own server means you get to decide the rules. You can choose whether
+			to accept (or require) registered user accounts, choose which features are enabled
+			and who gets to hosts sessions.</p>
+			<p>Take a look at the <a href="/help/server-howto/">Server HOWTO</a> for
+			instructions on how to set up your own server on a cheap cloud VPS.</p>
+		</div>
+	</div>
+</div>
+
+<h3>Start your session</h3>
+
 Fill in a **title** and optionally a **password** for the session. (These can be changed at any time later.)
 If you're hosting a long running or recurring session and want a nicer URL, you can add
 a custom ID alias. Typically you should leave this empty, though.
