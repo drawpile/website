@@ -1,6 +1,6 @@
 Slug: release-2.1.12
 Title: Drawpile 2.1.12 release
-Publish: 2019-08-23 11:40:00+03:00
+Publish: 2019-10-20 18:15:00+03:00
 Visible: True
 ---
 
