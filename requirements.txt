@@ -1,5 +1,5 @@
 Django~=1.11
-psycopg2==2.7.1
+psycopg2==2.8.4
 Markdown~=2.6.8
 easy-thumbnails~=2.5.0
 django-widget-tweaks~=1.4.1
