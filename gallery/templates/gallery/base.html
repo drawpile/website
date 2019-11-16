@@ -13,15 +13,9 @@
 <section class="hero is-light">
 	<div class="hero-body">
 			<div class="container">
-			{% if user.is_authenticated %}
-				<div class="is-pulled-right">
-					<a href="{% url 'gallery:submit' %}" class="button is-primary">
-						<span class="icon"><i class="fa fa-upload"></i></span> <span>Submit Content</span>
-					</a>
-				</div>
-			{% endif %}
 				<h2 class="title">Gallery <span class="tag is-dark">beta</span></h2>
 				<p class="subtitle">{% block gallery_subtitle %}{% endblock %}</p>
+				<p><strong>Note! The gallery section is being taken down to be replaced with a new Community section. New submissions are disabled and existing ones will be deleted in the future.</strong></p>
 			</div>{# ./container #}
 		</div> {# /.hero-body #}
 	</div>

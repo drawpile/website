@@ -54,14 +54,6 @@
 			<span>Download Full Size</span>
 		</a>
 	</div>
-	{% if object|can:user|use:'edit' %}
-	<div class="level-item">
-		<a href="{% url 'gallery:edit-submission' pk=object.pk %}" class="button is-white">
-			<span class="icon"><i class="fa fa-pencil"></i></span>
-			<span>Edit</span>
-		</a>
-	</div>
-	{% endif %}
 	{% comment %} TODO
 	<div class="level-item">
 		<a href="#" class="button is-white">
@@ -113,45 +105,6 @@
 </div>{# /.column #}
 </div>{# /.columns #}
 
-{# Comments #}
-<h4 class="title is-5" id="comments">Comments</h5>
-
-{% if user.is_authenticated and object.is_commenting_enabled and object.is_visible %}
-<div class="box">
-	<article class="media">
-		<div class="media-left">
-			<figure class="image is-64x64">
-				{% include "components/user-avatar.html" with object=user %}
-			</figure>
-		</div>
-		<div class="media-content">
-			<div class="content">
-				<form method="post" action="{% url 'gallery:comment-submission' pk=object.pk %}">
-				<div class="field">
-					<div class="control">
-						<textarea class="textarea" name="comment" id="my-comment-textarea" placeholder="New comment"></textarea>
-					</div>
-				</div>
-				<div class="field">
-					<div class="control">
-						<input type="submit" value="Comment" class="button" id="submit-comment">
-					</div>
-				</div>
-				{% csrf_token %}
-				</form>
-			</div>
-		</div>
-	</article>
-</div>
-{% endif %}
-
-{% for comment in object.comment_set.all %}
-<div class="box comment-box{% if comment.deleted %} deleted{% endif %}">
-{% include "gallery/__submission_comment.html" %}
-</div>
-{% empty %}
-<p>No comments yet</p>
-{% endfor %}
 
 {% endblock %}
 

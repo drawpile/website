@@ -52,18 +52,6 @@ class GroupDetail(DetailView):
         })
         return ctx
 
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        if request.user.is_authenticated:
-            if request.POST['action'] == 'join' and not self.object.groupmembership_set.filter(user=request.user).exists():
-                GroupMembership.objects.create(
-                    group=self.object,
-                    user=request.user,
-                    status=GroupMembership.STATUS_PENDING if self.object.approve_joins else GroupMembership.STATUS_MEMBER
-                )
-
-        return redirect(self.object)
-
 
 class GroupList(ListView):
     model = Group
@@ -73,96 +61,6 @@ class GroupList(ListView):
             member_count=Count('users'),
             submission_count=Count('submission'),
         ).order_by('title')
-
-
-class GroupPending(DetailView):
-    model = Group
-    template_name_suffix = '_pending'
-
-    def get_context_data(self, **kwargs):
-        if not self.object.can_edit(self.request.user):
-            raise Http404
-
-        ctx = super().get_context_data(**kwargs)
-        
-        applicants = []
-        
-        prefs = GalleryProfile.get_prefs(self.request.user)
-        q = Q(is_visible=True)
-        if not prefs['show_nsfw']:
-            q &= Q(is_nsfw=False)
-
-        for user in self.object.users.filter(groupmembership__status=GroupMembership.STATUS_PENDING):
-            applicants.append({
-                'user': user,
-                'submissions': user.submission_set.filter(q)[:3]
-            })
-        
-        ctx.update({
-            'applicants': applicants,
-        })
-        return ctx
-    
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        if not self.object.can_edit(self.request.user):
-            raise Http404
-        
-        if request.POST['action'] == 'induct':
-            GroupMembership.objects.filter(group=self.object, user_id=request.POST['user'], status=GroupMembership.STATUS_PENDING).update(status=GroupMembership.STATUS_MEMBER)
-        elif request.POST['action'] == 'reject':
-            GroupMembership.objects.filter(group=self.object, user_id=request.POST['user'], status=GroupMembership.STATUS_PENDING).delete()
-        elif request.POST['action'] == 'ban':
-            GroupMembership.objects.filter(group=self.object, user_id=request.POST['user'], status=GroupMembership.STATUS_PENDING).update(status=GroupMembership.STATUS_BANNED)
-        
-        if GroupMembership.objects.filter(group=self.object, status=GroupMembership.STATUS_PENDING).exists():
-            return redirect('gallery:group-pending', slug=self.object.slug)
-        else:
-            return redirect(self.object)
-
-
-@method_decorator(login_required, name='dispatch')
-class CreateGroup(CreateView):
-    form_class = CreateGroupForm
-    template_name_suffix = '_create'
-    model = Group
-
-    def form_valid(self, form):
-        with transaction.atomic():
-            group = form.save()
-            GroupMembership.objects.create(
-                group=group,
-                user=self.request.user,
-                status=GroupMembership.STATUS_MOD
-            )
-
-        logger.info("Group #%d (%s) created by user #%d (%s)",
-            group.id,
-            group.title,
-            self.request.user.id,
-            self.request.user.username
-        )
-
-        return redirect(group)
-    
-
-@method_decorator(login_required, name='dispatch')
-class EditGroup(UpdateView):
-    model = Group
-    fields = ('logo', 'description', 'server_address', 'website', 'approve_joins')
-
-    def get_object(self):
-        obj = super().get_object()
-        if not obj.can_edit(self.request.user):
-            raise Http404
-        return obj
-    
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx.update({
-            'extauthkey': settings.DRAWPILE_EXT_AUTH['PUBLIC_KEY']
-        })
-        return ctx
 
 
 @method_decorator(login_required, name='dispatch')

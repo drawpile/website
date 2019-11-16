@@ -12,9 +12,6 @@
 	{% if groups|length >= 10 %}
 		<li><a href="{% url 'gallery:group-list' %}"><span class="icon"><i class="fa fa-list"></i></span> All...</a></li>
 	{% endif %}
-	{% if user.is_authenticated %}
-		<li><a href="{% url 'gallery:group-new' %}"><span class="icon"><i class="fa fa-plus"></i></span> Create</a></li>
-	{% endif %}
 	</ul>
 	
 </aside>
