@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'templatepages',
     'news',
     'gallery',
+    'listserver',
 ]
 
 MIDDLEWARE = [
