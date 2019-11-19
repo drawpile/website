@@ -31,3 +31,18 @@ class ListedSession(models.Model):
     def is_live(self):
         return not self.unlisted and \
             self.last_active > timezone.now() - timedelta(seconds=self.TIMEOUT)
+
+
+class Hostban(models.Model):
+    host = models.CharField(max_length=255, primary_key=True)
+    expires = models.DateTimeField(blank=True, null=True)
+    notes = models.CharField(max_length=512, blank=True)
+
+    class Meta:
+        managed = False
+        db_table = 'hostbans'
+        ordering = ('host',)
+
+    def __str__(self):
+        return self.host
+

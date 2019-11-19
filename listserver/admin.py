@@ -1,12 +1,16 @@
 from django.contrib import admin
 from django.utils import timezone
 from django.utils.safestring import mark_safe
+from django import forms
+
 # TODO we can use this in Django 2.2
 #from django.contrib.humanize.templatetags.humanize import NaturalTimeFormatter
 
 from datetime import timedelta
 
-from .models import ListedSession
+from .models import ListedSession, Hostban
+
+DB = 'listserver'
 
 class ActiveListFilter(admin.SimpleListFilter):
     title = "Status"
@@ -34,7 +38,7 @@ class ActiveListFilter(admin.SimpleListFilter):
 
 
 def make_unlisted(modeladmin, request, queryset):
-   queryset.using(modeladmin.using).update(unlisted=True)
+   queryset.using(DB).update(unlisted=True)
 make_unlisted.short_description = "Unlist selected"
 
 @admin.register(ListedSession)
@@ -46,8 +50,6 @@ class ListedSessionAdmin(admin.ModelAdmin):
     search_fields = ('title', 'host', 'session_id', 'client_ip')
     list_filter = (ActiveListFilter, 'nsfm', 'password', 'private')
     actions = (make_unlisted,)
-
-    using = 'listserver'
 
     def uptime(self, obj):
         if obj.unlisted:
@@ -75,12 +77,57 @@ class ListedSessionAdmin(admin.ModelAdmin):
         return ''
 
     def get_queryset(self, request):
-        return super().get_queryset(request).using(self.using)
+        return super().get_queryset(request).using(DB)
 
     def delete_model(self, request, obj):
-        obj.delete(using=self.using)
+        obj.delete(using=DB)
 
     def has_add_permission(self, request):
         return False
 
     # TODO in Django 2.2, we'll have the view permission
+
+
+# Hackery to make this work with a model that has a changeable primary key
+class HostbanForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        host = None
+        try:
+            if 'instance' in kwargs:
+                host = kwargs['instance'].host
+        except AttributeError:
+            pass
+
+        self._orig_host = host
+
+    class Meta:
+        model = Hostban
+        fields = ('host', 'expires', 'notes')
+
+    def validate_unique(self):
+        newhost = self.cleaned_data['host']
+        if self._orig_host != newhost and Hostban.objects.filter(host=newhost).using(DB).exists():
+            self._update_errors(forms.ValidationError("This ban already exists"))
+
+
+@admin.register(Hostban)
+class HostbanAdmin(admin.ModelAdmin):
+    list_display = ('host', 'expires', 'notes')
+    #list_editable = ('host', 'expires', 'notes')
+    #list_display_links = None
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).using(DB)
+
+    def get_form(self, request, obj=None, **kwargs):
+        return HostbanForm
+
+    def save_model(self, request, obj, form, change):
+        if form._orig_host:
+            Hostban.objects.filter(host=form._orig_host).using(DB).delete()
+        obj.save(using=DB)
+
+    def delete_model(self, request, obj):
+        obj.delete(using=DB)
+
