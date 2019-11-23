@@ -4,7 +4,9 @@
 
 {% block title %}Servers - {{ block.super }}{% endblock %}
 {% block extrahead %}<link href="{% static "css/listings-widget.css" %}" rel="stylesheet">{% endblock %}
-{% block extrascripts %}<script src="{% static "js/listings-widget.js" %}"></script>{% endblock %}
+{% block extrascripts %}
+<script src="{% static "js/jquery-3.2.1.min.js" %}"></script>
+<script src="{% static "js/listings-widget.js" %}"></script>{% endblock %}
 {% block main %}
 
 <section class="section">

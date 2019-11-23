@@ -5,13 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{% block title %}Drawpile{% endblock %}</title>
-	<link rel="stylesheet" href="{% static "css/bulma.css" %}">
+	<link rel="stylesheet" href="{% static "css/bulma.min.css" %}">
 	<link rel="stylesheet" href="{% static "css/styles.css" %}">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="icon" type="image/png" href="{% static "favicon/16x16.png" %}"sizes="16x16">
-	<link rel="icon" type="image/png" href="{% static "favicon/32x32.png" %}"sizes="32x32">
-	<link rel="icon" type="image/png" href="{% static "favicon/48x48.png" %}"sizes="48x48">
-	<link rel="icon" type="image/png" href="{% static "favicon/64x64.png" %}"sizes="64x64">
+	<link rel="stylesheet" href="{% static "fontawesome/css/all.min.css" %}">
+	<link rel="icon" type="image/png" href="{% static "favicon/16x16.png" %}" sizes="16x16">
+	<link rel="icon" type="image/png" href="{% static "favicon/32x32.png" %}" sizes="32x32">
+	<link rel="icon" type="image/png" href="{% static "favicon/48x48.png" %}" sizes="48x48">
+	<link rel="icon" type="image/png" href="{% static "favicon/64x64.png" %}" sizes="64x64">
 
 	{% block extrahead %}{% endblock %}
 </head>
@@ -69,10 +69,10 @@
 	<div class="container">
 		<div class="columns">
 			<div class="column">
-				<a href="https://github.com/drawpile/"><span class="icon"><i class="fa fa-github"></i></span> Github</a></a><br>
-				<a href="https://www.facebook.com/groups/drawpile/"><span class="icon"><i class="fa fa-facebook"></i></span> Facebook group</a></a><br>
-				<a href="https://drawpile-dev-diary.tumblr.com/"><span class="icon"><i class="fa fa-tumblr"></i></span> Dev Diary</a></a><br>
-				<a href="https://discord.gg/M3yyMpC"><span class="icon"><i class="fa fa-discord"></i></span> Discord</a></a><br>
+				<a href="https://github.com/drawpile/"><span class="icon"><i class="fab fa-github"></i></span> Github</a></a><br>
+				<a href="https://www.facebook.com/groups/drawpile/"><span class="icon"><i class="fab fa-facebook"></i></span> Facebook group</a></a><br>
+				<a href="https://drawpile-dev-diary.tumblr.com/"><span class="icon"><i class="fab fa-tumblr"></i></span> Dev Diary</a></a><br>
+				<a href="https://discord.gg/M3yyMpC"><span class="icon"><i class="fab fa-discord"></i></span> Discord</a></a><br>
 			</div>
 			<div class="column is-narrow">
 				{% block copyright %}
@@ -84,8 +84,7 @@
 	</div>{# ./container #}
 </footer>
 
-<script type="text/javascript" src="{% static "js/jquery-3.2.1.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/basics.js" %}"></script>
+<script type="text/javascript" src="{% static "js/scripts.js" %}"></script>
 {% block extrascripts %}{% endblock %}
 </body>
 </html>
