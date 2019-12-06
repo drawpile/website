@@ -1,10 +1,10 @@
 {% extends "pages/help/_base.html" %}
 
-{% load markdown %}
+{% load commonmark %}
 {% block content %}
 
 <div class="content">
-{% filter markdown %}
+{% filter commonmark_full %}
 
 ## How do I...
 

@@ -1,12 +1,12 @@
 {% extends "pages/help/_base.html" %}
 
-{% load markdown %}
+{% load commonmark %}
 
 {% block title %}Frequently Asked Questions - {{ block.super }}{% endblock %}
 
 {% block content %}
 <article class="content">
-{% filter markdown %}
+{% filter commonmark_full %}
 # Frequently Asked Questions
 
 ### No pressure sensitivity

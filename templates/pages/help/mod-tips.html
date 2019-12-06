@@ -1,12 +1,12 @@
 {% extends "pages/help/_base.html" %}
 
-{% load markdown %}
+{% load commonmark %}
 
 {% block title %}Mod tips - {{ block.super }}{% endblock %}
 
 {% block content %}
 <article class="content">
-{% filter markdown %}
+{% filter commonmark_full %}
 
 # Tips for session moderation
 

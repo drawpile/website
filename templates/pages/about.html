@@ -2,7 +2,7 @@
 
 {% block title %}About Drawpile{% endblock %}
 
-{% load markdown %}
+{% load commonmark %}
 
 {% block main %}
 <section class="section">
@@ -16,7 +16,7 @@
 	{% include "components/thumbnail.html" with name="screenshot1.png" %}
 </p>
 
-{% filter markdown %}
+{% filter commonmark_full %}
 Drawpile is a [Free/Libre](https://www.gnu.org/philosophy/free-sw.html) networked
 drawing program that allows multiple people to sketch on the same image simultaneously.
 It supports the [OpenRaster](http://www.freedesktop.org/wiki/Specifications/OpenRaster/)

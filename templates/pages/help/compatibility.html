@@ -1,6 +1,6 @@
 {% extends "pages/help/_base.html" %}
 
-{% load markdown %}
+{% load commonmark %}
 
 {% block extrahead %}
 <style type="text/css">
@@ -106,7 +106,7 @@ table.compat-chart .tip:after {
 </table>
 
 <div class="content">
-{% filter markdown %}
+{% filter commonmark_full %}
 ### Notes about compatiblity
 
  * All clients in the *same session* must share the *exact* protocol version number (e.g. `dp:4.20.1`)

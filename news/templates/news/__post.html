@@ -1,10 +1,10 @@
-<article>{% load markdown %}
+<article>{% load commonmark %}
 	<h1 class="title">{{ post.title }}</h2>
 	<h2 class="subtitle">{{ post.publish|date }}</h3>
 	<div class="content">
-	{{ post.intro|markdown }}
+	{{ post.intro|commonmark_safe }}
 	{% if readmore %}
-	{{ post.readmore|markdown }}
+	{{ post.readmore|commonmark_safe }}
 	{% else %}
 	<p><a href="{{ post.get_absolute_url }}">Read more...</a></p>
 	{% endif %}

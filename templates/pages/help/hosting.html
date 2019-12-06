@@ -1,12 +1,12 @@
 {% extends "pages/help/_base.html" %}
 
-{% load markdown %}
+{% load commonmark %}
 
 {% block title %}Hosting - {{ block.super }}{% endblock %}
 
 {% block content %}
 <article class="content">
-{% filter markdown %}
+{% filter commonmark_full %}
 # Hosting sessions
 
 First, select the **Host...** action from the *Session* menu.

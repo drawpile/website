@@ -1,11 +1,11 @@
 {% extends "pages/help/_base.html" %}
 
-{% load markdown %}
+{% load commonmark %}
 {% block title %}Chat - {{ block.super }}{% endblock %}
 
 {% block content %}
 <article class="content">
-{% filter markdown %}
+{% filter commonmark_full %}
 # Chat
 
 The built-in chat panel can be toggled on and off via the *View&rarr;Chat* menu item (Alt+C) or by dragging dragging the separator handle.

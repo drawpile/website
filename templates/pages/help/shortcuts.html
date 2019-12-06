@@ -1,12 +1,12 @@
 {% extends "pages/help/_base.html" %}
 
-{% load markdown %}
+{% load commonmark %}
 
 {% block title %}Shortcuts - {{ block.super }}{% endblock %}
 
 {% block content %}
 <article class="content">
-{% filter markdown %}
+{% filter commonmark_full %}
 
 ## Customizable shortcuts
 

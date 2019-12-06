@@ -1,12 +1,12 @@
 {% extends "pages/help/_base.html" %}
 
-{% load markdown %}
+{% load commonmark %}
 
 {% block title %}Recording - {{ block.super }}{% endblock %}
 
 {% block content %}
 <article class="content">
-{% filter markdown %}
+{% filter commonmark_full %}
 
 Drawpile can record a drawing session for later stroke-by-stroke playback.
 The recording is made in a custom format, but can be exported into a regular video playback.
