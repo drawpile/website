@@ -107,3 +107,18 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 });
 
+
+function getCookie(name) {
+	if(document.cookie) {
+		const prefix = name + '=';
+		const cookies = document.cookie.split(';');
+		for (let i = 0; i < cookies.length; i++) {
+			const cookie = cookies[i].trim();
+			if (cookie.startsWith(prefix)) {
+				return decodeURIComponent(cookie.substring(prefix.length));
+			}
+		}
+	}
+	return null;
+}
+

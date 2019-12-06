@@ -1,8 +1,7 @@
 from django.core.exceptions import ValidationError
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.forms import PasswordResetForm
-from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, FormView, UpdateView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -131,8 +130,7 @@ class FinishSignupView(FormView):
         return super().form_valid(form)
 
 
-@method_decorator(login_required, name='dispatch')
-class AccountView(TemplateView):
+class AccountView(LoginRequiredMixin, TemplateView):
     """General account settings"""
 
     template_name = 'users/account.html'
@@ -152,8 +150,7 @@ class AccountView(TemplateView):
         return redirect('users:profile-account')
 
 
-@method_decorator(login_required, name='dispatch')
-class EmailChangeView(FormView):
+class EmailChangeView(LoginRequiredMixin, FormView):
     """Account email address changing view.
     Like the signup, this is a two-phase process: first, a confirmation
     token is generated and sent to the new email address.
@@ -196,8 +193,7 @@ class EmailChangeView(FormView):
 
         return super().form_valid(form)
 
-@method_decorator(login_required, name='dispatch')
-class ConfirmEmailChangeView(FormView):
+class ConfirmEmailChangeView(LoginRequiredMixin, FormView):
     """Change an account's email address.
     This requires the token that was generated in the first phase.
     Additionally, to prevent someone from taking over an account that was
@@ -246,8 +242,7 @@ class ConfirmEmailChangeView(FormView):
         return super().form_valid(form)
 
 
-@method_decorator(login_required, name='dispatch')
-class GalleryProfileView(UpdateView):
+class GalleryProfileView(LoginRequiredMixin, UpdateView):
     form_class = GalleryProfileForm
     template_name = 'users/galleryprofile.html'
     success_url = reverse_lazy('users:profile-gallery')
@@ -263,60 +258,19 @@ class GalleryProfileView(UpdateView):
         return ctx
 
 
-@method_decorator(login_required, name='dispatch')
-class UsernameView(TemplateView):
+class UsernameView(LoginRequiredMixin, TemplateView):
     template_name = 'users/usernames.html'
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-
-        usernames = list(Username.objects.filter(user=self.request.user))
-        usernames.sort(key=lambda x: -1 if x.name == self.request.user.username
-        else 0)
-
         ctx.update({
             'profile_page': 'usernames',
-            'usernames': usernames,
-            'can_add': len(usernames) < extauth_settings['ALT_COUNT'],
+            'max_users': extauth_settings['ALT_COUNT']
         })
         return ctx
 
-    def post(self, request, *args, **kwargs):
-        action, target = request.POST['action'].split('-')
-        ctx = self.get_context_data(**kwargs)
-        names = {n.id: n for n in ctx['usernames']}
 
-        if action == 'add':
-            if ctx['can_add']:
-                new_name = Username(
-                    user=request.user,
-                    name=request.POST['username']
-                    )
-                try:
-                    new_name.full_clean()
-                except ValidationError as e:
-                    ctx['name_error'] = ' '.join(e.messages)
-                    ctx['new_username'] = request.POST['username']
-                    return self.render_to_response(ctx)
-
-                new_name.save()
-
-        elif action == 'primary':
-            request.user.username = names[int(target)].name
-            request.user.save(update_fields=('username',))
-
-        elif action == 'remove':
-            names[int(target)].delete()
-
-        elif action == 'mod':
-            name = names[int(target)]
-            name.is_mod = not name.is_mod
-            name.save(update_fields=('is_mod',))
-
-        return redirect('users:profile-usernames')
-
-@method_decorator(login_required, name='dispatch')
-class DeleteAccountView(FormView):
+class DeleteAccountView(LoginRequiredMixin, FormView):
     template_name = 'users/delete_account_confirm.html'
     form_class = ConfirmDeleteAccountForm
     success_url = '/'

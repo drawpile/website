@@ -19,3 +19,18 @@ pre.console {
 	color: #b2b2b2;
 }
 
+span.avatar-placeholder {
+	box-sizing: border-box;
+	border: 3px dashed #999;
+	border-radius: 6px;
+	display: inline-block;
+	width: 64px;
+	height: 64px;
+	background-image: url(../images/avatar-placeholder.jpeg);
+	background-size: contain;
+}
+
+/* bulma adjustments */
+button.button.is-text {
+	text-decoration: none;
+}

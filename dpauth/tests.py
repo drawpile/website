@@ -1,11 +1,15 @@
+from rest_framework.test import APITestCase
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
+from django.urls import reverse
+
 from base64 import b64decode
 
 from .normalization import normalize_username
 from .token import make_login_token
 from .models import Username
+from .settings import extauth_settings
 
 import ed25519
 import json
@@ -133,3 +137,99 @@ class UserTest(TestCase):
         self.assertEqual(token3['username'], 'fakemod')
         self.assertFalse('MOD' in token3['flags'])
 
+
+class UsernameTest(APITestCase):
+    def setUp(self):
+        U = get_user_model()
+        self.u1 = U.objects.create_user(username='test1', password='test')
+        self.name1 = Username.objects.create(
+            user=self.u1,
+            name=self.u1.username
+        )
+        self.name2 = Username.objects.create(
+            user=self.u1,
+            name="alt1"
+        )
+
+        self.u2 = U.objects.create_user(username='test2', password='test')
+        self.name3 = Username.objects.create(
+            user=self.u2,
+            name=self.u2.username
+        )
+
+    def test_auth(self):
+        # Non-logged in users see nothing
+        url = reverse('api:username-list')
+        self.client.force_authenticate(None)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+
+        # Logged in users see their own usernames
+        self.client.force_authenticate(self.u1)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        res = json.loads(response.content)
+        self.assertEqual(2, len(res))
+
+    def test_name_limit(self):
+        url = reverse('api:username-list')
+        self.client.force_authenticate(self.u1)
+
+        can_create = extauth_settings['ALT_COUNT'] - 2
+        for i in range(can_create):
+            response = self.client.post(url, data={'name': 'user%d' % i})
+            self.assertEqual(response.status_code, 201)
+        
+        response = self.client.post(url, data={'name': 'toomany'})
+        self.assertEqual(response.status_code, 400)
+
+    def test_duplicate_name(self):
+        url = reverse('api:username-list')
+        self.client.force_authenticate(self.u1)
+        
+        response = self.client.post(url, data={'name': self.u1.username})
+        self.assertEqual(response.status_code, 400)
+
+    def test_make_primary(self):
+        url = reverse('api:username-detail', kwargs={'name': self.name2.name})
+        self.client.force_authenticate(self.u1)
+
+        response = self.client.patch(url, data={'is_primary': True})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            self.name2.name,
+            get_user_model().objects.get(pk=self.u1.pk).username
+        )
+    
+    def test_update(self):
+        url = reverse('api:username-detail', kwargs={'name': self.name1.name})
+        self.client.force_authenticate(self.u1)
+
+        response = self.client.patch(url, data={'is_mod': True})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            True,
+            Username.objects.get(pk=self.u1.pk).is_mod
+        )
+
+    def test_deletion(self):
+        url1 = reverse('api:username-detail', kwargs={'name': self.name1.name})
+        url2 = reverse('api:username-detail', kwargs={'name': self.name2.name})
+        self.client.force_authenticate(self.u1)
+
+        # Deleting the primary name makes an alt the new primary
+        response = self.client.delete(url1)
+        self.assertEqual(204, response.status_code)
+        self.u1 = get_user_model().objects.get(pk=self.u1.pk)
+        self.assertEqual(
+            self.name2.name,
+            self.u1.username
+        )
+        self.assertEqual(1, Username.objects.filter(user=self.u1).count())
+
+        # Can't delete the last name
+        self.client.force_authenticate(self.u1)
+        self.name2.user = self.u1
+        response = self.client.delete(url2)
+        self.assertEqual(400, response.status_code)
+        self.assertEqual(1, Username.objects.filter(user=self.u1).count())

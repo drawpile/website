@@ -5,9 +5,15 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from .normalization import normalize_username
 from .token import make_login_token
+from .utils import UploadNameFromContent, AvatarValidator
 
 import logging
 logger = logging.getLogger(__name__)
+
+
+avatar_upload_to = UploadNameFromContent('avatar/', 'avatar')
+avatar_validator = AvatarValidator(max_dims=(64, 64))
+
 
 class Username(models.Model):
     """A Drawpile username.
@@ -44,6 +50,11 @@ class Username(models.Model):
         default=False,
         help_text="Enable moderator status for this username if the user has the moderator permission."
     )
+    avatar = models.ImageField(
+        blank=True,
+        upload_to=avatar_upload_to,
+        validators=[avatar_validator]
+    )
 
     class Meta:
         permissions = (
@@ -62,6 +73,14 @@ class Username(models.Model):
         self.normalized_name = normalize_username(self.name)
         super().save(*args, **kwargs)
 
+    @property
+    def is_primary(self):
+        return self.user.username == self.name
+
+    def make_primary(self):
+        self.user.username = self.name
+        self.user.save(update_fields=('username',))
+
     @staticmethod
     def getByName(name):
         """Normalize the username and find a username entry that matches it.
@@ -74,17 +93,21 @@ class Username(models.Model):
             return None
 
     @staticmethod
-    def exists(name):
+    def exists(name, except_for=None):
         """Check if the given name has been registered
         """
-        return Username.objects.filter(normalized_name=normalize_username(name)).exists()
+        qs = Username.objects.filter(normalized_name=normalize_username(name))
+        if except_for is not None:
+            qs = qs.filter(~models.Q(pk=except_for))
+        return qs.exists()
 
     def make_login_token(self, nonce, avatar=False, key=None):
         """Generate a login token for this user.
 
         Parameters:
-        nonce -- the random number that identifies this login attempt
-        key -- the signing key to use (default is the one set in extauth_settings)
+        nonce  -- the random number that identifies this login attempt
+        avatar -- if True, include the avatar (if present)
+        key    -- the signing key to use (default is the one set in extauth_settings)
 
         Returns a login token string
         """
@@ -94,20 +117,11 @@ class Username(models.Model):
             flags.append('MOD')
 
         avatar_image = None
-        if avatar:
+        if avatar and self.avatar:
             try:
-                # TODO this app should not depend on the gallery app.
-                # Make this configurable.
-                avatar_image = self.user.galleryprofile.avatar
-            except ObjectDoesNotExist:
-                pass
-
-        if avatar_image:
-            try:
-                avatar_image = avatar_image.read()
+                avatar_image = self.avatar.read()
             except:
                 logger.exception("Error reading avatar")
-                avatar_image = None
 
         return make_login_token(self.name, self.user_id, flags, nonce, avatar_image, key=key)
 

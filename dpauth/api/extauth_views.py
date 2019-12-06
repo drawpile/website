@@ -6,9 +6,10 @@ from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import AllowAny
 
-from .settings import extauth_settings
-from .models import Username
-from .serializers import AuthAttemptSerializer, AccountQuerySerializer
+from dpauth.settings import extauth_settings
+from dpauth.models import Username
+from dpauth.api.auth_serializers import AuthAttemptSerializer, AccountQuerySerializer
+
 
 class ExtAuthView(APIView):
     renderer_classes = (JSONRenderer,)
