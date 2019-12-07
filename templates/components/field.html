@@ -1,0 +1,10 @@
+{% load widget_tweaks %}
+<div class="field">
+	<label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+	<div class="control">
+		{% render_field field class+="input" placeholder=placeholder %}
+	</div>
+	{% if field.errors %}<div class="help is-danger">{{ field.errors }}</div>
+	{% elif field.help_text %}<p class="help">{{ field.help_text }}</p>{% endif %}
+</div>
+

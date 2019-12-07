@@ -109,7 +109,6 @@ class Username(models.Model):
         Parameters:
         nonce  -- the random number that identifies this login attempt
         flags  -- list of user flags
-        group  -- name of the user group (if any)
         avatar -- if True, include the avatar (if present)
         key    -- the signing key to use (default is the one set in extauth_settings)
 

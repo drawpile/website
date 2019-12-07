@@ -1,0 +1,41 @@
+{% extends "communities/base.html" %}
+
+{% load commonmark %}
+
+{% block main %}
+<section class="section">
+<div class="container">
+
+<h2 class="title">Your Community Here &ndash; listing your community at drawpile.net</h2>
+
+<div class="content">
+{% filter commonmark_full %}
+If you run a Drawpile server of your own, you can have it listed here on this website.
+If you do not yet have a server of your own, but would like to run one, see the
+[dedicated server HOWTO](/help/server-howto/) for instructions.
+
+By having a community page at drawpile.net, you get a place for new users to discover
+your server and access to ready-made user management features.
+
+If your server uses drawpile.net accounts, you will be able to:
+
+ * Restrict login to select users
+ * Grant moderator status to specific users
+ * Ban users accounts
+
+For a safe and consistent experience, communities listed at drawpile.net should adhere to the
+[common community guidelines]({% url "communities:ccg" %}). Do note that the software itself
+is free to use for any purpose and you *may* create a Drawpile server that will not
+be listed here and does not have to follow these rules.
+
+{% endfilter %}
+
+<p class="has-text-centered">
+	<a href="{% url "communities:submit" %}" class="button is-large is-primary">Submit your community</a>
+</p>
+</div>{# /.content #}
+
+</div> {# /.container #}
+</section>
+{% endblock %}
+

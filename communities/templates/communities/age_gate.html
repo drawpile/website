@@ -1,0 +1,26 @@
+{% extends "communities/base.html" %}
+
+{% block main %}
+<section class="section">
+<div class="container">
+
+<div class="has-text-centered content">
+
+<h2><em>{{ object.title }}</em> is an adults only community</h2>
+
+<p>You must be at least eighteen years old to access it.</p>
+
+<form action="{% url "communities:confirm-age" slug=object.slug %}" method="POST">
+<p class="has-text-centered">
+	{% csrf_token %}
+	<button class="button is-large is-danger is-outlined">I am over 18 years old</button>
+	<a href="{% url "communities:frontpage" %}" class="button is-large">Go back</a>
+</p>
+</form>
+
+</div>
+
+</div> {# /.container #}
+</section>
+{% endblock %}
+

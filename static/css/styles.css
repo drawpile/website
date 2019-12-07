@@ -30,6 +30,22 @@ span.avatar-placeholder {
 	background-size: contain;
 }
 
+.avatar-user {
+	display: inline-block;
+	width: 105px;
+	margin: 8px;
+
+	text-align: center;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.avatar-user>.avatar {
+	display: block;
+	margin: 0 auto;
+}
+
 /* bulma adjustments */
 button.button.is-text {
 	text-decoration: none;

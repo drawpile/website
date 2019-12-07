@@ -11,3 +11,5 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+# Discord webhook URL for site admin notifications and alerts
+#ADMIN_REPORT_WEBHOOK = 'https://localhost/report/'

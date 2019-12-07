@@ -7,3 +7,4 @@ djangorestframework==3.9.4
 ed25519==1.4
 confusable-homoglyphs==3.0.0
 python-magic~=0.4.15
+requests==2.21.0

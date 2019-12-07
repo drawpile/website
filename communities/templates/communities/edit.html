@@ -1,0 +1,123 @@
+{% extends "communities/base.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block main %}
+<section class="section">
+<div class="container content">
+
+<h2 class="title">Submit a community for inclusion at drawpile.net</h2>
+
+{% if object.status == 'resubmit' %}
+<div class="notification is-info">
+	<p>The site admin requested the following changes:</p>
+	<p>{{ object.review_message }}</p>
+</div>
+{% endif %}
+
+<form method="POST" action="" enctype="multipart/form-data">
+
+<h3 class="title is-4">Description</h3>
+
+{% include "components/field.html" with field=form.title %}
+{% include "components/field.html" with field=form.slug %}
+
+{% with field=form.short_description %}<div class="field">
+	<label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+	<div class="control">{% render_field field class+="textarea" rows=2 %}</div>
+	{% if field.errors %}<div class="help is-danger">{{ field.errors }}</div>
+	{% else %}<p class="help">This will be shown on the community list page.</p>{% endif %}
+</div>{% endwith %}
+
+{% with field=form.full_description %}<div class="field">
+	<label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+	<div class="control">{% render_field field class+="textarea" rows=6 %}</div>
+	{% if field.errors %}<div class="help is-danger">{{ field.errors }}</div>
+	{% else %}<p class="help">This will be shown on the community page. You can use Markdown to style the content.</p>{% endif %}
+</div>{% endwith %}
+
+{% with field=form.badge %}<div class="field">
+	<label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+	<div class="control">{% render_field field accept=".png,.jpg,.jpeg" %}</div>
+	{% if field.errors %}<div class="help is-danger">{{ field.errors }}</div>
+	{% else %}<p class="help">A 400x200px image.</p>{% endif %}
+</div>{% endwith %}
+
+<h3 class="title is-4">Moderation</h3>
+
+<p>Your community must be moderated to be eligible for listing at drawpile.net.</p>
+
+{% with field=form.rules %}<div class="field">
+	<label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+	<div class="control">{% render_field field class+="textarea" rows=6 %}</div>
+	{% if field.errors %}<div class="help is-danger">{{ field.errors }}</div>
+	{% else %}<p class="help">Your community's rules. Note that the <a href="{% url "communities:ccg" %}" target="_blank">common community guidelines</a> apply to all communities who wish to be listed at drawpile.net. You can use Markdown to style the content.</p>{% endif %}
+</div>{% endwith %}
+
+{% include "components/radio-field.html" with field=form.content_rating %}
+
+<p>If you choose <em>adults only</em>, your community page will be hidden behind an age gate,
+but content tagging requirements will be more relaxed.</p>
+
+<h3 class="title is-4">Group members</h3>
+
+<p>Your community must have at least one registered drawpile.net account, which is used as a moderator contact.</p>
+<p>If you choose to use drawpile.net accounts on your server, setting the community slug as the server's ext-auth group name
+allows you to limit the allowed user accounts to those who have joined your group.</p>
+
+{% include "components/radio-field.html" with field=form.group_policy %}
+
+{% include "components/radio-field.html" with field=form.memberlist_visibility %}
+
+
+<h3 class="title is-4">Servers</h3>
+
+<p>To be listed as a community, you need a Drawpile server or a <a href="https://github.com/drawpile/listserver/">list server</a>, or both. A homepage is also recommended but not required.</p>
+<p>If your community has more than one server, using a list server is recommended.</p>
+
+<div class="field is-horizontal">
+	<div class="field-body">
+		{% include "components/field.html" with field=form.drawpile_server placeholder="example.com" %}
+		{% include "components/field.html" with field=form.list_server placeholder="https://example.com/api/listing/" %}
+	</div>
+</div>
+
+{% include "components/field.html" with field=form.homepage placeholder="https://example.com/" %}
+
+{% include "components/radio-field.html" with field=form.guest_policy %}
+
+<div class="field">
+	<label class="label">Does your server support registered users accounts?</label>
+	{% for choice in form.account_policy %}
+	<div class="control">{{ choice }}</div>
+	{% endfor %}
+	<div class="control">
+		{% render_field form.other_accounts class+="input" placeholder="example.com" style="max-width: 240px" %}
+	</div>
+	{% if form.account_policy.errors %}<div class="help is-danger">{{ form.account_policy.errors }}</div>{% endif %}
+	{% if form.other_accounts.errors %}<div class="help is-danger">{{ form.other_accounts.errors }}</div>{% endif %}
+</div>
+
+{% include "components/checkbox-field.html" with field=form.guests_allowed %}
+{% include "components/checkbox-field.html" with field=form.trust_members %}
+
+{% include "components/radio-field.html" with field=form.host_policy %}
+
+<br>
+
+<div class="field">
+	<p class="control">
+		<input type="submit" value="Submit" class="button is-primary is-medium">
+	</p>
+</div>
+
+{% csrf_token %}
+
+</form>
+
+</section>
+
+
+{% endblock %}
+

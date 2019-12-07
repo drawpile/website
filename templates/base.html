@@ -35,6 +35,7 @@
 				{% navilink '/download/' 'Download' classes='navbar-item' %}
 				{% navilink '/help/' 'Help' classes='navbar-item' %}
 				{% navilink '/servers/' 'Servers' classes='navbar-item' %}
+				{% if user.is_staff %}{% navilink '/communities/' 'Communities' classes='navbar-item' %}{% endif %}{# not yet open for public #}
 			</div>
 			<div class="navbar-end">
 				{% if user.is_authenticated %}
@@ -45,7 +46,7 @@
 						</a>
 						<div class="navbar-dropdown">
 							<a class="navbar-item" href="/accounts/profile">Profile</a>
-							<a class="navbar-item" href="{% url 'gallery:userpage' pk=user.id %}">My Gallery</a>
+							{#<a class="navbar-item" href="{% url 'communities:frontpage' %}?mine">My Communities</a>#}
 							{% if user.is_staff %}<a class="navbar-item" href="/_admin/">Site Admin</a>{% endif %}
 							<a class="navbar-item" href="/accounts/logout">Log out</a>
 						</div>

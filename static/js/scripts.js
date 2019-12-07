@@ -40,6 +40,13 @@ document.addEventListener("DOMContentLoaded", function() {
 	document.querySelectorAll("a.thumbnail-link").forEach(el => el.onclick = showTumbnailModal);
 	document.body.appendChild(modal);
 
+	/* Links that open in new windows */
+	function openSmallNewWindow(e) {
+		e.preventDefault();
+		window.open(e.target.href, 'smallwindow', 'width=500,height=600');
+	}
+	document.querySelectorAll("a.smallNewWindow").forEach(e => e.onclick=openSmallNewWindow);
+
 	/* Tabs */
 	document.querySelectorAll(".tab-container").forEach(tabContainer => {
 		const tabbar = tabContainer.querySelector(".tabs>ul");
@@ -106,7 +113,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		window.addEventListener('popstate', () => clickTab(window.location.hash));
 	});
 });
-
 
 function getCookie(name) {
 	if(document.cookie) {

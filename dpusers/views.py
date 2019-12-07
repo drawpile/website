@@ -10,6 +10,8 @@ from django.db import transaction
 from gallery.models import GalleryProfile
 from dpauth.models import Username
 from dpauth.settings import extauth_settings
+from communities.models import Membership
+
 from .forms import (
     SignupForm, FinishSignupForm, EmailChangeForm,
     ConfirmEmailChangeForm, ConfirmDeleteAccountForm,
@@ -263,9 +265,35 @@ class UsernameView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
+
+        mod_status = []
+        if self.request.user.has_perm('dpauth.moderaor'):
+            mod_status.append('you have global mod status')
+
+        memberships = Membership.objects.filter(
+            user=self.request.user,
+            status__in=Membership.MOD_STATUSES
+        ).select_related('community')
+
+        if len(memberships) > 0:
+            if mod_status:
+                mod_status.append('and')
+            mod_status.append("you're a moderator in")
+            for m in memberships:
+                mod_status.append(m.community.title)
+                mod_status.append(',')
+
+            mod_status.pop()
+            if len(memberships) > 1:
+                mod_status[-2] = 'and'
+
+        if not mod_status:
+            mod_status = ['you currently have no moderator privileges anywhere']
+
         ctx.update({
             'profile_page': 'usernames',
-            'max_users': extauth_settings['ALT_COUNT']
+            'max_users': extauth_settings['ALT_COUNT'],
+            'mod_status': ' '.join(mod_status),
         })
         return ctx
 

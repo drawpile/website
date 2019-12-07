@@ -1,0 +1,133 @@
+{% extends "communities/base.html" %}
+
+{% block main %}
+<section class="section">
+<div class="container">
+
+<h2 class="title">Server setup tips</h2>
+
+<div class="content">
+
+<p>First, refer to the <a href="/help/server-howto/">Dedicated Server HOWTO</a> for general server setup instructions.</p>
+
+<p>On this page, you will find the instructions to customize your server installation
+to match the settings you have selected for your community.</p>
+
+<h3>Server info</h3>
+<p>Your server address: {% if object.drawpile_server %}
+<code>{{ object.drawpile_server }}</code>
+{% else %}(not set)
+{% endif %}</p>
+
+<p>Your list server address: {% if object.list_server %}
+<code>{{ object.list_server }}</code>
+{% else %}(not set)
+{% endif %}
+</p>
+
+<p>Your homepage: {% if object.homepage %}
+<a href="{{ object.homepage }}"><code>{{ object.homepage }}</code></a>
+{% else %}(not set)
+{% endif %}
+</p>
+
+<h3>Guest users and hosting</h3>
+{% if not object.guests_allowed %}
+	<p>You have not selected to allow guest users, meaning only registered users,
+either using ext-auth or local accounts, can log in to the server.</p>
+{% else %}
+	<p>You have opted to allow guest users.</p> 
+{% endif %}
+
+<div class="config-examples">
+	<div><h4>Web admin (settings page)</h4>
+		<div class="example">
+			<label><input type="checkbox" {% if object.guests_allowed %}checked{% endif %} disabled> Allow unauthenticated users</label><br>
+			<label><input type="checkbox" {% if object.host_policy == 'all-host' %}checked{% endif %} disabled> Allow anyone to host</label>
+		</div>
+	</div>
+	<div><h4>Config file</h4>
+		<pre class="example">allowGuests = {% if object.guests_allowed %}true{% else %}false{% endif%}
+allowGuestHosts = {% if object.host_policy == 'all-host' %}true{% else %}false{% endif%}</pre>
+	</div>
+</div>
+
+{% if object.host_policy != 'all-host' %}
+<p>When "allow anyone to host" is unchecked, hosting is limited to
+	{% if object.host_policy == 'member-host' %}to users who are a member of this group.
+	{% elif object.host_policy == 'limited-host' %}to group members with the host tag manually applied. 
+	{% endif %}
+</p>
+{% endif %}
+
+<h3>Registered user accounts</h3>
+{% if object.account_host == '' %}
+<p>You have not indicated that your server supports registered user accounts.
+Note that you can still create local accounts.</p>
+
+{% elif object.account_host == 'drawpile.net' %}
+<p>You have indicated that your server supports <b>drawpile.net</b> external authentication accounts.
+{% if object.require_group_membership %}Additionally, users must be a member of this
+group to log in.{% endif %}
+</p>
+
+<p>To enable ext-auth, you must first include the following in your server startup command line:
+<code>--extauth https://drawpile.net/api/ext-auth/</code></p>
+
+<div class="config-examples">
+	<div><h4>Web admin (settings page)</h4>
+		<div class="example">
+			<p class="webadmin-section-title">External authentication</p>
+				<table class="example-table">
+				<tr>
+					<td></td>
+					<td><label><input type="checkbox" checked disabled> Enable</label><br>
+				</tr>
+				<tr>
+					<td>Validation key</td>
+					<td><input type="input" readonly value="{{ public_key }}"><br></td>
+				</tr>
+				<tr>
+					<td>User group</td>
+					<td><input type="input" readonly value="{{ object.slug }}"><br></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div><h4>Config file</h4>
+		<pre class="example">extauth = true
+extauthkey = {{ public_key }}
+extauthgroup = {{ object.slug }}
+	</div>
+</div>
+
+<p>Note: Checking "Allow ext-auth moderators" (<code>extauthmod=true</code>) gives moderator
+privileges to all users who are moderators or admins in this group. You can uncheck it
+to allow mod privileges only for local user accounts.</p>
+
+{% else %}
+<p>You have indicated that your server supports user accounts from <b>{{ object.account_host }}</b>.</p>
+
+<p>You can manage server accounts manually using the web admin, or look at <a href="https://github.com/drawpile/Drawpile/wiki/External-authentication">Drawpile Wiki</a>
+for information on how to build your own ext-auth server.</p>
+
+{% endif %}
+
+{% if object.list_server %}
+<h3>List server</h3>
+
+<p>Include this tag in the <code>&lt;head&gt;</code> section of <b>http://{{ object.drawpile_server }}/</b>
+to enable easy adding of your list server to Drawpile's join dialog:</p>
+
+<p><code>&lt;meta name="drawpile:list-server" content="{{ object.list_server }}"&gt;</code></p>
+
+{% endif %}
+
+<p class="is-size-7"><a href="{% url "communities:community" slug=object.slug %}">&larr; Back to community page</a></p>
+
+</div>{# /.content #}
+
+</div> {# /.container #}
+</section>
+{% endblock %}
+

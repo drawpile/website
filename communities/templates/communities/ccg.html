@@ -1,0 +1,43 @@
+{% extends "communities/base.html" %}
+
+{% load commonmark %}
+
+{% block main %}
+<section class="section">
+<div class="container">
+
+<h2 class="title">Common Community Guidelines</h2>
+
+<div class="content">{% filter commonmark_full %}
+
+Any community that wishes to be listed at drawpile.net should,
+in addition to their own terms of use, adhere to the following minimal content rules
+and code of conduct.
+
+**Protection of users under the age of 18**
+
+* Any communities marked as "Adults only" are considered private communities. It is still your responsibility to ensure that operators are aware that any user is over 18. Failure to exercise responsibilities may result in a revocation of community status.
+* You are responsible, as a server owner, to ensure there is an active plan in each session that prevents users no less than 18 years of age access to obscene material. This, at minimum includes marking rooms that have or allow obscene content as NSFW/NSFM (Not Safe For Work/Not Safe For Minors)
+* You are responsible in ensuring that all sessions under your community enforce age restrictions. This means the active removal of known minors (less than 18 years of age) from sessions. Operators of NSFM rooms should be aware of the general age of participants, and are subject to do so.
+
+**Image Restrictions**
+
+* Note that any communities marked as "Adults only" are considered private communities. Any content that is required to be private is considered as such.
+* No sexual or suggestive depictions of minors under the age of 16 are allowed. If the depiction appears to be a minor, they will be considered as such. No sexual "loli" or "shota" pictures. "Cub" (underage anthropomorphic characters) pornographic material is also included. 
+* Distribution of any images/photos/videos of minors in sexual or obscene situations is also against laws, and thus, a community revoking offence, as well as subject to report to authorities. 
+* Sexual or obscene depictions of animals and beasts shall be kept to private boards. This includes Earth fauna as well as fictional fauna that lack physical anthropomorphic characteristics (e.g. partially humanoid appearances) that make it discernible. This includes no "feral" (intelligent beings in beastial forms) sexual art.
+* Artistic fictional depictions of non-consensual or dubious consensual sexual behavior shall be kept to private boards.
+
+**Expected Behavior**
+
+* Host names and session titles should not contain any vulgar or racial slurs.
+* Use of the Drawpile platform to either actively be used or facilitate in the active harassment or stalking of groups or individuals is not tolerated.
+* Usage of any art shall only be publicly distributed with the artists consent. If you are showcasing a room for social media, video, website, or gallery use, ask permission from the artists involved. If a room is being streamed, make any current and future users aware for the duration of the stream. A disclaimer is suggested for rooms that plan to be actively shared on a regular basis.
+
+
+{% endfilter %}</div>{# /.content #}
+
+</div> {# /.container #}
+</section>
+{% endblock %}
+

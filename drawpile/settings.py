@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'news',
     'gallery',
     'listserver',
+    'communities.apps.CommunitiesConfig',
 ]
 
 MIDDLEWARE = [
