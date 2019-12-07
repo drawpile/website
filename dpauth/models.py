@@ -88,7 +88,9 @@ class Username(models.Model):
         Returns None if no such username is found.
         """
         try:
-            return Username.objects.get(normalized_name=normalize_username(name))
+            return Username.objects\
+                .select_related('user')\
+                .get(normalized_name=normalize_username(name))
         except Username.DoesNotExist:
             return None
 
@@ -101,20 +103,18 @@ class Username(models.Model):
             qs = qs.filter(~models.Q(pk=except_for))
         return qs.exists()
 
-    def make_login_token(self, nonce, avatar=False, key=None):
+    def make_login_token(self, nonce, flags=[], group=None, avatar=False, key=None):
         """Generate a login token for this user.
 
         Parameters:
         nonce  -- the random number that identifies this login attempt
+        flags  -- list of user flags
+        group  -- name of the user group (if any)
         avatar -- if True, include the avatar (if present)
         key    -- the signing key to use (default is the one set in extauth_settings)
 
         Returns a login token string
         """
-
-        flags = ['HOST'] # all users have hosting privileges at the moment
-        if self.is_mod and self.user.has_perm('dpauth.moderator'):
-            flags.append('MOD')
 
         avatar_image = None
         if avatar and self.avatar:
@@ -123,5 +123,12 @@ class Username(models.Model):
             except:
                 logger.exception("Error reading avatar")
 
-        return make_login_token(self.name, self.user_id, flags, nonce, avatar_image, key=key)
-
+        return make_login_token(
+            self.name,
+            self.user_id,
+            flags,
+            nonce,
+            group,
+            avatar_image,
+            key=key
+        )

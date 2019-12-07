@@ -10,6 +10,8 @@ from dpauth.settings import extauth_settings
 from dpauth.models import Username
 from dpauth.api.auth_serializers import AuthAttemptSerializer, AccountQuerySerializer
 
+from importlib import import_module
+
 
 class ExtAuthView(APIView):
     renderer_classes = (JSONRenderer,)
@@ -38,13 +40,25 @@ class ExtAuthView(APIView):
             return {
                 "status": "badpass"
             }
+
+        group_membership = _group_membership_function()(username, data.get('group'))
+
+        if group_membership is None:
+            return {
+                "status": "outgroup"
+            }
    
         username.user.last_login = timezone.now()
         username.user.save(update_fields=('last_login',))
 
         return {
             "status": "auth",
-            "token": username.make_login_token(data['nonce'], avatar=data['avatar'])
+            "token": username.make_login_token(
+                data['nonce'],
+                flags=group_membership['flags'],
+                group=data.get('group'),
+                avatar=data['avatar']
+            )
         }
 
     def __handle_account_query(self, request):
@@ -77,3 +91,28 @@ class ExtAuthView(APIView):
                 "status": "auth",
             }
 
+class GroupMembershipImportError(Exception):
+    pass
+
+def _group_membership_function():
+    impl = extauth_settings['GROUP_IMPL']
+
+    if isinstance(impl, str):
+        modname, funcname = impl.rsplit('.', 1)
+        try:
+            mod = import_module(modname)
+        except ImportError:
+            raise GroupMembershipImportError(modname, "no such module")
+
+        func = getattr(mod, funcname, None)
+        if not hasattr(func, '__call__'):
+            raise GroupMembershipImportError(impl,"does not point to a function!")
+
+        # Cache the resolved function
+        extauth_settings['GROUP_IMPL'] = func
+        return func
+
+    elif not hasattr(impl, '__call__'):
+        raise GroupMembershipImportError(repr(impl), "not an import path or a function")
+
+    return impl

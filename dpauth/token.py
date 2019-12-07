@@ -7,7 +7,7 @@ import time
 import calendar
 import json
 
-def make_login_token(username, user_id, flags, nonce, avatar_image=None, key=None):
+def make_login_token(username, user_id, flags, nonce, group=None, avatar_image=None, key=None):
     version = b'1.'
 
     payload = {
@@ -23,6 +23,9 @@ def make_login_token(username, user_id, flags, nonce, avatar_image=None, key=Non
         version = b'2.'
     else:
         avatar_image = b''
+
+    if group:
+        payload['group'] = group
 
     if isinstance(key, ed25519.SigningKey):
         signingkey = key
