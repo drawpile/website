@@ -6,14 +6,13 @@
 
 {% block content %}
 <article class="content">
-{% filter commonmark_full %}
-# Hosting sessions
+<h1>Hosting sessions</h1>
 
-First, select the **Host...** action from the *Session* menu.
+<p>First, select the **Host...** action from the *Session* menu.</p>
 
 <p class="has-text-centered">{% include "components/image.html" with name="hostmenu.png" alt="[host menu screenshot]" %}</p>
 
-You will see this dialog pop up:
+<p>You will see this dialog pop up:</p>
 
 <p class="has-text-centered">{% include "components/image.html" with name="hostdialog-guide.png" alt="[host dialog screenshot]" %}</p>
 
@@ -63,6 +62,7 @@ You will see this dialog pop up:
 
 <h3>Start your session</h3>
 
+{% filter commonmark_full %}
 Fill in a **title** and optionally a **password** for the session. (These can be changed at any time later.)
 If you're hosting a long running or recurring session and want a nicer URL, you can add
 a custom ID alias. Typically you should leave this empty, though.
