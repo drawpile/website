@@ -121,7 +121,7 @@ class CommunityPage(DetailView):
             })
         
         if (
-            getattr(settings, 'COMMUNITY_ABUSE_REPORT_WEBHOOK', '') and
+            getattr(settings, 'ADMIN_REPORT_WEBHOOK', '') and
             self.request.user.is_authenticated
         ):
             ctx['can_report'] = True
