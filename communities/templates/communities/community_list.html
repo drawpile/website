@@ -13,29 +13,42 @@
 {# TODO implement pagination once needed #}
 
 {% for object in community_list %}
-<article class="community-box{% if object.status != 'accepted' %} unpublished{% endif %}">{% url "communities:community" slug=object.slug as community_url %}
-	<div class="community-banner">
-		{% if object.status == "submitted" %}<p class="awaiting-review">Awaiting review</p>
-		{% elif object.status == "resubmit" %}<p class="changes-needed">Changes requested</p>
-		{% elif object.status == "rejected" %}<p class="rejected">Rejected!</p>
-		{% endif %}
-		<a href="{{ community_url }}"><img src="{{ object.badge.url  }}" style="width: 400px; height: 200px" alt=""></a>
+<article class="card {% if object.status != 'accepted' %} unpublished{% endif %}">{% url "communities:community" slug=object.slug as community_url %}
+	<div class="card-image community-banner">
+		<figure class="image is-2by1">
+			<a href="{{ community_url }}">
+				<img src="{{ object.badge.url  }}" width=400 height=200 alt="">
+			</a>
+			{% if object.status == "submitted" %}<p class="awaiting-review">Awaiting review</p>
+			{% elif object.status == "resubmit" %}<p class="changes-needed">Changes requested</p>
+			{% elif object.status == "rejected" %}<p class="rejected">Rejected!</p>
+			{% endif %}
+		</figure>
 	</div>
-	<h1><a href="{{ community_url }}">{{ object.title }}</a></h1>
-	{{ object.short_description }}
+	<div class="card-content">
+		<h1><a href="{{ community_url }}">{{ object.title }}</a></h1>
+		{{ object.short_description }}
+	</div>
 </article>
 {% endfor %}
 
 {% if user.is_authenticated %}
-<article class="community-box">
-	<div class="community-banner">
-		<a href="{% url "communities:ych" %}"><img src="{% static "images/ych.png" %}" width=400 height=200 alt=""></a>
+<article class="card">
+	<div class="card-image community-banner">
+		<figure class="image is-2by1">
+			<a href="{% url "communities:ych" %}">
+				<img src="{% static "images/ych.png" %}" width=400 height=200 alt="">
+			</a>
+		</figure>
 	</div>
-	<h1><a href="{% url "communities:ych" %}">Your Community Here?</a></h1>
-	<p>Submit your community for inclusion at drawpile.net</p>
+	<div class="card-content">
+		<h1><a href="{% url "communities:ych" %}">Your Community Here?</a></h1>
+		<p>Submit your community for inclusion at drawpile.net</p>
+	</div>
 </article>
-</div>
 {% endif %}
+
+</div>{# /.community-list #}
 
 </div> {# /.container #}
 </section>

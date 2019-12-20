@@ -1,7 +1,10 @@
-
 .community-list {
 	display: flex;
 	flex-flow: row wrap;
+}
+.community-list>.card {
+	margin: 15px;
+	width: 400px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -42,8 +45,9 @@
 	border-radius: 5px;
 }
 
-#community-box.unpublished {
-	border: 1px dashed #f99;
+.card.unpublished {
+	/*outline: 2px dashed #f99;*/
+	box-shadow: 0 0.5em 1em -0.125em rgba(255,10,10,.4);
 }
 
 #community-box h1 {
@@ -67,10 +71,10 @@
 }
 
 .community-banner {
-	position: relative
+	width: 400px;
 }
 
-.community-banner>p {
+.community-banner p {
 	position: absolute;
 	top: 5px;
 	width: 100%;
@@ -80,17 +84,17 @@
 	font-weight: bold;
 }
 
-.community-banner>p.awaiting-review {
+.community-banner p.awaiting-review {
 	background-color: rgba(39, 174, 96, 0.8);
 	color: #fff;
 }
 
-.community-banner>p.changes-needed {
+.community-banner p.changes-needed {
 	background-color: rgba(253,188,75, 0.8);
 	color: #fff;
 }
 
-.community-banner>p.rejected {
+.community-banner p.rejected {
 	background-color: rgba(218,68,83, 0.8);
 	color: #fff;
 }
