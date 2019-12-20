@@ -50,8 +50,24 @@
 
 <h2 class="title">{{ object.title }}</h2>
 
-<aside style="float: right">
-<div class="community-box">
+<div id="community-page-content">
+
+<div id="community-page-main">
+<div class="content">
+{{ object.full_description|commonmark_safe }}
+
+<h3>Rules</h3>
+
+{{ object.rules|commonmark_safe }}
+
+<p>Additionally, <a href="{% url "communities:ccg" %}">common community guidelines</a> apply.</p>
+
+</div>{# /.content #}
+
+
+</div>{# /#community-page-main #}
+
+<div id="community-box">
 	<div class="community-banner">
 		<img src="{{ object.badge.url }}" width=400 height=200 alt="">
 	</div>
@@ -165,29 +181,16 @@
 	</div>
 	{% endif %}
 
-</div>{# /.community-box #}
-</aside>
-
-<div class="content">
-{{ object.full_description|commonmark_safe }}
-
-<h3>Rules</h3>
-
-{{ object.rules|commonmark_safe }}
-
-<p>Additionally, <a href="{% url "communities:ccg" %}">common community guidelines</a> apply.</p>
-
-</div>{# /.content #}
-
+</div>{# /#community-box #}
 
 {% if object.list_server %}
-<h3 class="is-size-4" style="clear: right">Sessions</h3>
-
-<drawpile-session-list list-url="{{ object.list_server }}/sessions/" />
-
+<div id="community-session-list">
+	<h3 class="is-size-4" style="clear: right">Sessions</h3>
+	<drawpile-session-list list-url="{{ object.list_server }}/sessions/" />
+</div>
 {% endif %}
 
-<div style="clear: both"></div>
+</div>{# /#community-page-content #}
 
 </div> {# /.container #}
 </section>
