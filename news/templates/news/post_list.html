@@ -2,6 +2,10 @@
 
 {% block title %}News - {{ block.super }}{% endblock %}
 
+{% block extrahead %}
+	<link rel="alternate" type="application/atom+xml" title="Drawpile.net news" href="{% url "news:atom-feed" %}" />
+{% endblock %}
+
 {% block main %}
 
 <section class="section">
