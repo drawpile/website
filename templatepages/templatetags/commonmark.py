@@ -8,6 +8,14 @@ register = template.Library()
 @register.filter()
 def commonmark_safe(text):
     ast = commonmark.Parser().parse(text)
+
+    walker = ast.walker()
+
+    # Remove images
+    for node, entering in walker:
+        if node.t == 'image':
+            node.unlink()
+
     html = commonmark.HtmlRenderer({'safe': True}).render(ast)
     return mark_safe(html)
 
