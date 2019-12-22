@@ -131,8 +131,10 @@
 			</div>
 		{% endif %}
 		
-		{% if object|can:user|use:"see_memberlist" %}
+		{% if object.memberlist_visibility != "hidden" %}
+		{% if membership.is_member or object.memberlist_visibility == "visible" %}
 		<p style="margin-top: 15px"><a href="{% url 'communities:memberlist' slug=object.slug %}" target="_blank" rel="noopener" class="smallNewWindow">Member list</a></p>
+		{% endif %}
 		{% endif %}
 	</div>
 	{% endif %}
@@ -159,6 +161,9 @@
 		<p>
 			<a href="{% url "communities:edit" slug=object.slug %}" class="button is-primary is-large" title="Edit">
 				<span class="icon"><i class="fas fa-edit"></i></span>
+			</a>
+			<a href="{% url "communities:memberlist" slug=object.slug %}?edit" target="_blank" rel="noopener" class="button is-primary is-large smallNewWindow" title="Edit member list">
+				<span class="icon"><i class="fas fa-users"></i></span>
 			</a>
 			<a href="{% url "communities:server-help" slug=object.slug %}" class="button is-info is-large" title="Server setup help">
 				<span class="icon"><i class="fas fa-info"></i></span>

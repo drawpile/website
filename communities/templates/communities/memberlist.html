@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="{% static "fontawesome/css/all.min.css" %}">
 </head>
 <body>
-{% if object|can:user|use:'admin' %}
+{% if 'edit' in request.GET and object|can:user|use:'admin' %}
 <script src="{% static "js/scripts.js" %}"></script>
 <script src="{% static "js/memberlist.js" %}" type="module"></script>
 {% else %}
