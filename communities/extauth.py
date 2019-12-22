@@ -47,7 +47,7 @@ def community_membership_extauth(username, group):
     ):
         flags.append('TRUSTED')
 
-    if membership.is_mod:
+    if membership.is_mod and username.is_mod:
         flags.append('MOD')
 
     return {
