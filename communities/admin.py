@@ -5,6 +5,7 @@ from . import models
 
 class MembershipAdmin(admin.TabularInline):
     model = models.Membership
+    raw_id_fields = ('user',)
     extra = 0
 
 

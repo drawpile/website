@@ -149,7 +149,7 @@ class Community(models.Model):
         return Membership.objects.filter(
             community=self,
             status__in=Membership.MOD_STATUSES
-        ).order_by('joined')
+        ).order_by('joined').select_related('user')
     
     def is_member(self, user):
         return self.membership_set.active().filter(user=user).exists()

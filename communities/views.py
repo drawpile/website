@@ -18,7 +18,7 @@ class FrontPage(ListView):
     def get_queryset(self):
         qs = get_community_list_queryset(self.request.user)\
             .order_by('-status', 'title')\
-            .only('slug', 'badge', 'title', 'short_description')
+            .only('slug', 'status', 'badge', 'title', 'short_description')
 
         user = self.request.user
         if 'mine' in self.request.GET and user.is_authenticated:
