@@ -21,7 +21,7 @@
 
 		<div class="field">
 			<div class="control has-icons-left">
-				{% render_field form.username class+="input is-large" placeholder=form.username.label %}
+				{% render_field form.username class+="input is-large" placeholder="Username or email" %}
 				<span class="icon is-small is-left"> <i class="fa fa-at"></i> </span>
 			</div>
 			{% if form.errors.username %}<p class="help is-danger">{{ form.errors.username }}</p>{% endif %}
@@ -37,8 +37,7 @@
 
 		<div class="field">
 			<p>If you do not already have a drawpile.net account, you can <a href="{% url 'users:signup' %}">sign up here</a>.
-			By creating an account, you can reserve a username to use on the public server and upload
-			pictures to the gallery.</p>
+			By creating an account, you can reserve a username to use on the public server.</p>
 			<p>If you have forgotten your password, you can <a href="{% url 'users:password_reset' %}">reset it here</a>.</p>
 		</div>
 

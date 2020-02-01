@@ -92,6 +92,8 @@ AUTH_PASSWORD_VALIDATORS = [
 if DEBUG:
     AUTH_PASSWORD_VALIDATORS = []
 
+AUTHENTICATION_BACKENDS = ['dpusers.backends.EmailOrUsernameModelBackend']
+
 LOGOUT_REDIRECT_URL = '/'
 
 # Internationalization
