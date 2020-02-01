@@ -4,6 +4,7 @@ from django.views.generic import (
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
+from django.db.models.expressions import RawSQL
 from django.http import Http404
 from django.conf import settings
 
@@ -17,7 +18,11 @@ from .api.querysets import get_community_list_queryset
 class FrontPage(ListView):
     def get_queryset(self):
         qs = get_community_list_queryset(self.request.user)\
-            .order_by('-status', 'title')\
+            .annotate(ordering=RawSQL("""case status
+            when 'accepted' then 1
+            when 'rejected' then 2
+            else 0 end""", ()))\
+            .order_by('ordering', 'title')\
             .only('slug', 'status', 'badge', 'title', 'short_description')
 
         user = self.request.user
