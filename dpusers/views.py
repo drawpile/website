@@ -7,7 +7,6 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.db import transaction
 
-from gallery.models import GalleryProfile
 from dpauth.models import Username
 from dpauth.settings import extauth_settings
 from communities.models import Membership
@@ -15,7 +14,6 @@ from communities.models import Membership
 from .forms import (
     SignupForm, FinishSignupForm, EmailChangeForm,
     ConfirmEmailChangeForm, ConfirmDeleteAccountForm,
-    GalleryProfileForm
     )
 from .token import (
     make_signup_token, parse_signup_token,
@@ -242,22 +240,6 @@ class ConfirmEmailChangeView(LoginRequiredMixin, FormView):
         get_user_model().objects.filter(id=token['user']).update(email=token['email'])
 
         return super().form_valid(form)
-
-
-class GalleryProfileView(LoginRequiredMixin, UpdateView):
-    form_class = GalleryProfileForm
-    template_name = 'users/galleryprofile.html'
-    success_url = reverse_lazy('users:profile-gallery')
-
-    def get_object(self, queryset=None):
-        return GalleryProfile.objects.get_or_create(user=self.request.user)[0]
-    
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx.update({
-            'profile_page': 'gallery',
-        })
-        return ctx
 
 
 class UsernameView(LoginRequiredMixin, TemplateView):

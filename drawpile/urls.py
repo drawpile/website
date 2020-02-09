@@ -11,7 +11,6 @@ urlpatterns = [
     url(r'^api/', include('drawpile.api_urls', namespace='api')),
     url(r'^news/', include('news.urls', namespace='news')),
     url(r'^accounts/', include('dpusers.urls', namespace='users')),
-    url(r'^gallery/', include('gallery.urls', namespace='gallery')),
     url(r'^communities/', include('communities.urls', namespace='communities')),
     url(r'^$', TemplateView.as_view(template_name='pages/index.html')),
 ]

@@ -4,7 +4,6 @@ from django import forms
 
 from .token import parse_signup_token, parse_emailchange_token
 from dpauth.models import Username
-from gallery.models import GalleryProfile
 
 class LoginForm(forms.Form):
     username = forms.CharField(label='Username or email address')
@@ -106,8 +105,3 @@ class ConfirmDeleteAccountForm(forms.Form):
 
         return password
 
-
-class GalleryProfileForm(forms.ModelForm):
-    class Meta:
-        model = GalleryProfile
-        fields = ('avatar', 'bio', 'show_nsfw')
