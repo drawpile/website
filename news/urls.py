@@ -1,10 +1,11 @@
-from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
+app_name = 'news'
 urlpatterns = [
-    url(r'^$', views.NewsListView.as_view(), name="list"),
-    url(r'^feed.atom$', views.NewsFeed(), name="atom-feed"),
-    url(r'^(?P<slug>[-.\w]+)/$', views.NewsDetailView.as_view(), name='detail'),
+    path('', views.NewsListView.as_view(), name="list"),
+    path('feed.atom', views.NewsFeed(), name="atom-feed"),
+    path('<slug>/', views.NewsDetailView.as_view(), name='detail'),
 ]
 

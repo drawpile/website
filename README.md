@@ -34,31 +34,24 @@ Configure nginx to proxy the site:
 	server {
 		... server configuration ...
 
-        location / {
-                proxy_pass http://127.0.0.1:8000/;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header Host $http_host;
-                proxy_redirect off;
-        }
+		location / {
+			proxy_pass http://127.0.0.1:8000/;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header Host $http_host;
+			proxy_redirect off;
+		}
 
 		# Static files
 		location /media {
-                alias /home/website/website/allstatic;
+			alias /home/website/website/allstatic;
 		}
 
 		# Release archive
-        location /files {
-                alias /home/webfiles/www;
-                access_log /var/log/nginx/files_access.log;
-                autoindex on;
-        }
-
-		# The list server is a separate process
-        location /api/listing/ {
-                proxy_pass http://127.0.0.1:27781/;
-                proxy_redirect default;
-                proxy_set_header X-Real-IP $remote_addr;
-        }
+		location /files {
+			alias /home/webfiles/www;
+			access_log /var/log/nginx/files_access.log;
+			autoindex on;
+		}
 	}
 
 See also: http://docs.gunicorn.org/en/stable/deploy.html
@@ -107,22 +100,11 @@ This is a very simple blog engine used for the news page.
 
 A management command for importing and exporting posts is included.
 
-### Gallery
-
-The user/group gallery.
-
-Management commands provided:
-
- * `media` - various uploaded media file cleanup actions
- * `gallery_comments purge` - purge deleted comments
-
 ## Django permissions
 
 The following Django permissions are used outside the admin site:
 
  * `dpauth.moderator` - global Drawpile moderator
- * `gallery.change_submission` - permission to edit any submission
- * `gallery.delete_comment` - permission to delete any comment
 
 ## License
 

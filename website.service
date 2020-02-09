@@ -6,7 +6,7 @@ After=network.target
 User=website
 Group=website
 WorkingDirectory=/home/website/website
-ExecStart=/home/website/.virtualenvs/drawpile.net/bin/gunicorn drawpile.wsgi
+ExecStart=/home/website/website/.venv/bin/gunicorn drawpile.wsgi
 PrivateTmp=true
 
 [Install]

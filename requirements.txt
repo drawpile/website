@@ -1,10 +1,9 @@
-Django~=1.11
+Django~=2.2.10
 psycopg2==2.8.4
 commonmark==0.9.1
 easy-thumbnails~=2.5.0
 django-widget-tweaks~=1.4.1
-djangorestframework==3.9.4
+djangorestframework~=3.11.0
 ed25519==1.4
 confusable-homoglyphs==3.0.0
-python-magic~=0.4.15
 requests==2.21.0
