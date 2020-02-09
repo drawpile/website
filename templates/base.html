@@ -31,11 +31,9 @@
 			<div class="navbar-start">
 				{% navilink '/news/' 'News' classes='navbar-item' %}
 				{% navilink '/about/' 'About' classes='navbar-item' %}
-				{% navilink '/gallery/' 'Gallery' classes='navbar-item' %}
 				{% navilink '/download/' 'Download' classes='navbar-item' %}
 				{% navilink '/help/' 'Help' classes='navbar-item' %}
-				{% navilink '/servers/' 'Servers' classes='navbar-item' %}
-				{% if user.is_staff %}{% navilink '/communities/' 'Communities' classes='navbar-item' %}{% endif %}{# not yet open for public #}
+				{% navilink '/communities/' 'Communities' classes='navbar-item' %}
 			</div>
 			<div class="navbar-end">
 				{% if user.is_authenticated %}
