@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'dpusers',
     'templatepages',
     'news',
-    'listserver',
     'communities.apps.CommunitiesConfig',
 ]
 
