@@ -85,6 +85,7 @@
 			<span>Connect</span>
 		</a>
 		{% endif %}
+
 	</div>
 	
 	<div class="box-section">
@@ -191,6 +192,18 @@
 {% if object.list_server %}
 <div id="community-session-list">
 	<h3 class="is-size-4" style="clear: right">Sessions</h3>
+
+	{% if object|can:user|use:"login" %}
+	<div class="notification">
+		<p>
+			<span class="icon is-large is-pulled-left" style="margin: 0 1em 1em 0"><i class="fas fa-3x fa-lightbulb"></i></span>
+			You can see these sessions directly inside Drawpile by adding this list server.<br>
+			Simply enter <code>{{ object.drawpile_server }}</code> in the <em>Join</em> dialog and click the <strong>Add</strong> button.<br>
+			Alternatively, you can add it via the <em>List Servers</em> tab of the <em>Preferences</em> dialog by copy pasting this URL: <code>{{ object.list_server }}</code>
+		</p>
+	</div>
+	{% endif %}
+
 	<drawpile-session-list list-url="{{ object.list_server }}/sessions/" />
 </div>
 {% endif %}
