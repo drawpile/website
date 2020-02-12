@@ -26,6 +26,9 @@
 			<p>Try the "<strong>This computer</strong>" option. It will start a server built-in
 			to Drawpile itself. Note that if you list your session publicly, your IP address
 			will be visible in the listing.</p>
+			<p>If there are no options in the Listing box, you must add a list server first. You can
+			find servers at the <a href="/communities/">communities page</a>. Alternatively, you can share
+			your session address directly with your friend.</p>
 			<p>A session hosted this way <em>will end when you close Drawpile</em>.</p>
 			<p>If your friends are in the same local network (e.g. connected to the same Wifi hotspot,)
 			they can connect to you using your local IP address. Your server will appear in the
@@ -38,16 +41,15 @@
 			See below for the <em>Dealing with firewalls</em> section for tips.</p>
 			<p>If you're not able to run your own server, you can host your session on a public server.
 			Use the <strong>remote</strong> server option and enter the address of a public server, such
-			as <kbd>drawpile.net</kbd></p>
+			as <kbd>pub.drawpile.net</kbd></p>
 		</div>
 	</div>
 	<div class="tile is-parent is-vertical">
 		<div class="tile is-child box">
 			<h4>I want to make a long running session with people coming and going</h4>
-			<p>Use a <strong>remote</strong> server. A public free-for-all server is provided
-			at <kbd>drawpile.net</kbd>, but depending on the time of the day, might be full.</p>
+			<p>Use a <strong>remote</strong> server. Find a suitable server to host on from the <a href="/communities/">communities page</a>.
 			<p>When using public servers, not all features might be enabled by the server administrator.
-			For example, at drawpile.net, sessions will automatically end when the last user logs out.</p>
+			For example, at <em>pub.drawpile.net</em>, sessions will automatically end when the last user logs out.</p>
 		</div>
 		<div class="tile is-child box">
 			<h4>I want to set up my <em>own</em> server!</h4>
@@ -56,6 +58,7 @@
 			and who gets to hosts sessions.</p>
 			<p>Take a look at the <a href="/help/server-howto/">Server HOWTO</a> for
 			instructions on how to set up your own server on a cheap cloud VPS.</p>
+			<p>If you wish, you can submit your server for inclusion on the communities page.</p>
 		</div>
 	</div>
 </div>
@@ -71,18 +74,19 @@ If you're hosting a session that's open to the public, you can check the **List 
 to announce the session at a list server. Listing a session also gives you a *room code*: a five
 letter code that works like a short URL. If you're hosting a private session but still want to
 make use of the room code feature, select the **Private** listing type. This way, the session
-is not shown in the public list, but you still get the room code.
+is not shown in the public list, but you still get the room code. Note that sessions listed at servers
+like <em>pub.drawpile.net</em> are automatically listed. Typically, you will only need to manually list
+a session if you're hosting it somewhere else than the community's home server.</p>
 
-Next, you must decide where to host the session. If you select the **this computer** option, the server
+You must decide where to host the session. If you select the **this computer** option, the server
 will run on your computer and other users must connect to it directly. (It also means that when you
 quit Drawpile, the session ends.) This is best for sessions with just a few users at most,
 and when every participant is on the same local network.
 Using the built-in server means you may need to configure your firewall to allow incoming
 connections. See more below.
 
-Another option is to host on an external server. A [public server](http://pub.drawpile.net/) is hosted here
-on drawpile.net you can use: just enter `drawpile.net` in the **remote** option box. See also
-the [dedicated server](/help/server/) page on how to set up your own dedicated server.
+Another option is to host on an external server. You can find public servers on the [communities](/communities/) page.
+If you're interested in setting up your own dedicated server, see the [Server HOWTO](/help/server-howto/) for more information.
 
 Click ***Host*** to start the session.
 
