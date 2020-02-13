@@ -38,7 +38,7 @@ def _make_token(payload, salt):
     token = urlsafe_base64_encode(json.dumps(payload).encode('utf-8'))
     mac = salted_hmac(salt, token)
 
-    return (token + b'.' + urlsafe_base64_encode(mac.digest())).decode('utf-8')
+    return token + '.' + urlsafe_base64_encode(mac.digest())
 
 def _parse_token(token, salt):
     try:
