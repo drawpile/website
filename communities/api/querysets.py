@@ -15,7 +15,8 @@ def get_community_list_queryset(user):
         my_communities = Membership.objects.filter(
             user=user,
             status__in=Membership.MEMBER_STATUSES
-        )
+        ).values_list('community_id', flat=True)
+
         return qs.filter(
             Q(status=Community.STATUS_ACCEPTED) |
             Q(id__in=my_communities)
