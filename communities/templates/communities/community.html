@@ -170,7 +170,7 @@
 				<span class="icon"><i class="fas fa-info"></i></span>
 			</a>
 			{% if user.is_staff and perms.communities.change_community %}
-			<a href="{% url "admin:communities_community_change" object.id %}" class="button is-link is-large" title="Show in admin site">
+			<a href="{% url "admin:communities_community_change" object.id %}" class="button is-danger is-large" title="Show in admin site">
 				<span class="icon"><i class="fas fa-hammer"></i></span>
 			</a>
 			{% endif %}
