@@ -85,6 +85,12 @@
 			<span>Connect</span>
 		</a>
 		{% endif %}
+		{% if object.list_server %}
+		<a class="button is-primary is-medium" href="drawpile://{% if object|can:user|use:"login" %}{{ object.drawpile_server }}{% endif %}/?list-server={{ object.list_server }}">
+			<span class="icon"><i class="fas fa-plus"></i></span>
+			<span>Add to Drawpile</span>
+		</a>
+		{% endif %}
 
 	</div>
 	
