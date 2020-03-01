@@ -16,6 +16,12 @@
 </div>
 {% endif %}
 
+{% if form.errors %}
+<div class="notification is-danger">
+	<p>Correct the errors below.</p>
+</div>
+{% endif %}
+
 <form method="POST" action="" enctype="multipart/form-data">
 
 <h3 class="title is-4">Description</h3>

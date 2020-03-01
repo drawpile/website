@@ -1,8 +1,12 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
 from .models import Community
 from .utils import downscale_image_if_necessary
+from . import serverchecks
 
+import logging
+logger = logging.getLogger(__name__)
 
 class EditCommunityForm(forms.ModelForm):
     ACCOUNTS_NONE = 'none'
@@ -27,6 +31,7 @@ class EditCommunityForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         instance = kwargs.get('instance')
+        self._do_serverchecks = instance is None
         if instance is not None:
             self.fields['slug'].disabled = True
 
@@ -62,10 +67,80 @@ class EditCommunityForm(forms.ModelForm):
         badge = self.cleaned_data['badge']
         return downscale_image_if_necessary(badge, (400, 200))
 
+    def clean_homepage(self):
+        url = self.cleaned_data['homepage']
+
+        if url and self._do_serverchecks:
+            logger.info("%s: Checking website: %s",
+                self.cleaned_data.get('slug'),
+                url
+            )
+            try:
+                serverchecks.check_website(url)
+            except serverchecks.ServerCheckFailed as e:
+                logger.info("%s: Checking website: %s: Error: %s",
+                    self.cleaned_data.get('slug'),
+                    url,
+                    e.message
+                )
+                raise ValidationError(e.message)
+
+        return url
+
+    def clean_list_server(self):
+        url = self.cleaned_data['list_server']
+
+        if url and self._do_serverchecks:
+            logger.info("%s: Checking list server: %s",
+                self.cleaned_data.get('slug'),
+                url
+            )
+            try:
+                serverchecks.check_listserver(url)
+            except serverchecks.ServerCheckFailed as e:
+                logger.info("%s: Checking list server: %s: Error: %s",
+                    self.cleaned_data.get('slug'),
+                    url,
+                    e.message
+                )
+                raise ValidationError(e.message)
+
+        return url
+
+    def clean_drawpile_server(self):
+        url = self.cleaned_data['drawpile_server']
+
+        if url:
+            try:
+                other = Community.objects\
+                    .filter(drawpile_server=url, status=Community.STATUS_ACCEPTED)\
+                    .exclude(slug=self.cleaned_data['slug'])[0]
+            except IndexError:
+                pass
+            else:
+                raise ValidationError('This server belongs to "%s".' % other.title)
+
+        if url and self._do_serverchecks:
+            logger.info("%s: Checking drawpile server: %s",
+                self.cleaned_data.get('slug'),
+                url
+            )
+            try:
+                serverchecks.check_drawpile_server(url)
+            except serverchecks.ServerCheckFailed as e:
+                logger.info("%s: Checking drawpile server: %s: Error: %s",
+                    self.cleaned_data.get('slug'),
+                    url,
+                    e.message
+                )
+                raise ValidationError(e.message)
+
+        return url
+
     def clean(self):
         cd = super().clean()
 
-        if not cd['drawpile_server'] and not cd['list_server']:
+        if not cd.get('drawpile_server') and not cd.get('list_server'):
             self.add_error(
                 'drawpile_server',
                 'Specify at least one of these'
