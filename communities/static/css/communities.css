@@ -75,7 +75,11 @@
 }
 
 .community-banner {
-	width: 400px;
+	max-width: 400px;
+}
+
+.community-banner>img {
+	display: block;
 }
 
 .community-banner p {
