@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'easy_thumbnails',
     'widget_tweaks',
+    'corsheaders',
 
     'dpauth',
     'dpusers',
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -157,3 +159,10 @@ LOGGING = {
     },
 }
 
+# CORS Headers
+# Allow requests from any URL.
+CORS_ALLOW_ALL_ORIGINS = True
+# Only allow them for the ext-auth endpoint.
+CORS_URLS_REGEX = r'^/api/ext-auth/?$'
+# And only allow the methods actually required.
+CORS_ALLOW_METHODS = ['OPTIONS', 'POST']
