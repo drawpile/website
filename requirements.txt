@@ -7,3 +7,4 @@ djangorestframework~=3.12.4
 ed25519==1.5
 confusable-homoglyphs==3.2.0
 requests==2.25.1
+django-cors-headers==3.11.0
