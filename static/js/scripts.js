@@ -59,23 +59,21 @@ document.addEventListener("DOMContentLoaded", function() {
 		tabbar.onclick = event => {
 			event.preventDefault();
 
-			const id = event.path[1].id.substring(4);
-			const tabId = `tab-${id}`
-			console.log("tabbar onclick", tabId);
-			if(!tabbar.querySelector(`#${tabId}`)) {
-				tabbar.querySelector("li>a").click();
+			const tabHash = event.srcElement.hash;
+			if(!tabHash)
 				return;
-			}
 
-			pages.forEach(p => p.id === id ? p.classList.remove("is-hidden-tablet") : p.classList.add("is-hidden-tablet"));
+			const pageId = tabHash.substring(1);
+			const tabId = 'tab-' + tabHash.substring(1);
+
+			pages.forEach(p => p.id === pageId ? p.classList.remove("is-hidden-tablet") : p.classList.add("is-hidden-tablet"));
 			tabbar.childNodes.forEach(c => c.id === tabId ? c.classList.add("is-active") : c.classList.remove("is-active"));
 
-			const hash = '#' + id;
-			if(history.pushState && window.location.hash != hash) {
+			if(history.pushState && window.location.hash != tabHash) {
 				if(!window.location.hash) {
-					history.replaceState(null, null, hash);
+					history.replaceState(null, null, tabHash);
 				} else {
-					history.pushState(null, null, hash);
+					history.pushState(null, null, tabHash);
 				}
 			}
 		};
