@@ -124,8 +124,6 @@ MEDIA_URL = '/media/d/'
 
 THUMBNAIL_BASEDIR = 'thumbnails'
 
-UPLOAD_QUOTA = 50 # per user upload quota in megabytes
-
 # Email
 DEFAULT_FROM_EMAIL = 'no-reply@drawpile.net'
 SERVER_EMAIL = 'server@drawpile.net'
