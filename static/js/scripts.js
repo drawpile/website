@@ -108,7 +108,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 		const clickTab = hash => {
 			const e = tabbar.querySelector(`#tab-${hash.substring(1)}>a`);
-			console.log("clickTab", hash, e);
 			if(e) e.click();
 		}
 		clickTab(initial);
