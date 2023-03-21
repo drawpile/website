@@ -8,7 +8,7 @@ This is the source code to the drawpile.net website.
 First, create a database for the site. (The official site uses
 PostgreSQL, but MySQL or even SQLite should also work for development)
 
-Next, create a Python 3 virtualenv for the project and run `pip install -r requirements.py`
+Next, create a Python 3 virtualenv for the project and run `pip install -r requirements.txt`
 
 Copy `drawpile/local_settings.sample` to `drawpile/local_settings.py` and
 edit to suit your environment.
