@@ -36,7 +36,8 @@ function Username({user, refresh, setError, row}) {
 
     const update = (field, value) => () => {
         setLoading(field);
-        sendData(`/api/users/${user.name}/`, 'PATCH', {[field]: value})
+        const encodedName = encodeURIComponent(user.name);
+        sendData(`/api/users/${encodedName}/`, 'PATCH', {[field]: value})
             .then(refresh)
             .then(() => setError(null))
             .catch(setError)
@@ -45,7 +46,8 @@ function Username({user, refresh, setError, row}) {
 
     const remove = () => {
         setLoading("remove");
-        sendData(`/api/users/${user.name}/`, 'DELETE')
+        const encodedName = encodeURIComponent(user.name);
+        sendData(`/api/users/${encodedName}/`, 'DELETE')
             .then(refresh)
             .then(() => setError(null))
             .catch(setError)
@@ -61,7 +63,8 @@ function Username({user, refresh, setError, row}) {
 
         setLoading("avatar");
             try {
-            const response = await fetch(`/api/users/${user.name}/`, {
+            const encodedName = encodeURIComponent(user.name);
+            const response = await fetch(`/api/users/${encodedName}/`, {
                 method: "PATCH",
                 headers: {
                 'X-CSRFToken': getCookie('csrftoken')
