@@ -59,8 +59,18 @@ table.compat-chart .tip:after {
 	</thead>
 	<tbody>
 		<tr class="version-group even">
-			<td>2.2 beta</td>
-			<td class="srv even" rowspan=9>2.x.x</td>
+			<td>2.2 beta 4</td>
+			<td class="srv even" rowspan=11>2.x.x</td>
+			<td class="proto">dp:4.24.0</td>
+			<td class="rec even">24.0</td>
+		</tr>
+		<tr class="version-group odd">
+			<td>2.2 pre-beta 4</td>
+			<td class="proto">dp:4.23.0</td>
+			<td class="rec even">23.0</td>
+		</tr>
+		<tr class="version-group even">
+			<td>2.2 beta 1 to 3</td>
 			<td class="proto">dp:4.22.2</td>
 			<td class="rec even">22.2</td>
 		</tr>
@@ -112,16 +122,15 @@ table.compat-chart .tip:after {
 
 <div class="content">
 {% filter commonmark_full %}
-### Notes about compatiblity
 
- * All clients in the *same session* must share the *exact* protocol version number (e.g. `dp:4.20.1`)
+ * All clients in the *same session* must share the *exact* protocol version number (e.g. `dp:4.20.1`), unless they happen to provide additional compatibility modes.
  * A client can use any server that supports the same *server protocol version* (`4` in case of Drawpile 2.0.) However, some new features may not work with older servers.
- * The (new style) protocol version number consists of four parts:
+ * The protocol version number consists of four parts:
     1. namespace (`dp`)
     2. server version (`4`, indicates change to client&harr;server protocol)
     3. major version(`20`, indicates change to client&harr;client message structure)
     4. minor version (`1`, indicates change to client&harr;client message semantics)
- * See the <a href="https://github.com/drawpile/Drawpile/blob/master/doc/protocol.md#protocol-revision-history">protocol version history</a> for details
+ * See the <a href="https://github.com/drawpile/Drawpile/blob/main/doc/protocol.md#protocol-revision-history">protocol version history</a> for details
 
 ### Stability promises
 
