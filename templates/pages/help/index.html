@@ -1,43 +1,54 @@
 {% extends "pages/help/_base.html" %}
 
 {% load commonmark %}
+{% load page_tags %}
 {% block content %}
 
 <div class="content">
 {% filter commonmark_full %}
 
-## How do I...
+## Get Help, Give Suggestions, Report Bugs
 
- * [Host a session?](/help/hosting/)
- * [Join a session?](/help/joining/)
- * [Run my own dedicated server?](/help/server/)
-    * [Set up a server from scratch?](/help/server-howto/)
+Joining the [Drawpile Discord Server](https://discord.gg/M3yyMpC) is probably
+the easiest way to get help, since there's a number of nice people at the ready
+to answer questions and provide assistance. It's also a good place to keep up
+with the latest development, provide suggestions, report issues and so on.
 
-## I found a bug
+You can also report stuff in the
+[Github Issue Tracker](https://github.com/drawpile/Drawpile/issues) directly if
+you like. This website has [its own Issue
+Tracker](https://github.com/drawpile/website/issues) as well.
 
-You can report bugs at the [issue tracker](https://github.com/drawpile/Drawpile/issues/).
-
-When making a bug report, please include all the relevant detail that you can.
-A one liner such as "Feature X doesn't work" will be followed up by me asking
-"how doesn't it work?", so please preempt that question by explaining the bug in
-more detail.
-
-Step-by-step instructions on how to reproduce the bug would be immensely
-helpful, but I recognize that this is not always possible.
-
-## I have a feature request
-
-You can also submit feature requests at the [issue tracker](https://github.com/drawpile/Drawpile/issues/).
-
-If you're requesting several unrelated features, please make a new issue for each one.
-This helps me keep track of them all. When many features are lumped together in a single
-issue, it's very easy to forget about the others after one has been implemented.
-
-## Website related bug reports and feature requests
-
-Requests related to this website should go to the [website's issue tracker](https://github.com/drawpile/website/issues).
+Or look at the help pages below, maybe your issue already has a page!
 
 {% endfilter %}
+
+<h2>Getting Started</h2>
+<ul>
+    <li>{% navilink '/help/hosting/' 'Hosting Sessions' %}</li>
+    <li>{% navilink '/help/joining/' 'Joining Sessions' %}</li>
+    <li>{% navilink '/help/FAQ/' 'Frequently Asked Questions' %}</li>
+</ul>
+
+<h2>User Interface</h2>
+<ul>
+    <li>{% navilink '/help/brushes-tools/' 'Brushes and Tools' %}</li>
+    <li>{% navilink '/help/chat/' 'Chat' %}</li>
+    <li>{% navilink '/help/recording/' 'Recording' %}</li>
+    <li>{% navilink '/help/shortcuts/' 'Shortcuts' %}</li>
+</ul>
+
+<h2>Server Hosting</h2>
+<ul>
+    <li>{% navilink '/help/server/' 'Dedicated Server' %}</li>
+    <li>{% navilink '/help/mod-tips/' 'Mod Tips' %}</li>
+</ul>
+
+<h2>Behind the Scenes</h2>
+<ul>
+    <li>{% navilink '/help/compatibility/' 'Version Compatibility' %}</li>
+</ul>
+
 </div>
 
 {% endblock %}
