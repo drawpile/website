@@ -16,6 +16,7 @@ class Post(models.Model):
     publish = models.DateTimeField()
     is_visible = models.BooleanField(default=False)
     title = models.CharField(max_length=200)
+    author_name = models.CharField(max_length=200)
 
     intro = models.TextField()
     readmore = models.TextField(blank=True)

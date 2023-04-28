@@ -49,6 +49,7 @@ class Command(BaseCommand):
         print("Title:", post.title, file=out)
         print("Publish:", post.publish, file=out)
         print("Visible:", post.is_visible, file=out)
+        print("Author:", post.author_name, file=out)
         print("---", file=out)
         print(post.intro, file=out)
         print("---", file=out)
@@ -84,6 +85,7 @@ class Command(BaseCommand):
                     publish=metadata.get('publish', timezone.now()),
                     is_visible=metadata.get('visible', 'true').lower() == 'true',
                     title=metadata['title'],
+                    author_name=metadata['author'],
                     intro='\n'.join(sections[0]),
                     readmore='\n'.join(sections[1]),
                     )
