@@ -61,7 +61,7 @@ class Command(BaseCommand):
             metadata = {}
             sections = [[], []]
             for line in f:
-                line = line.strip()
+                line = line.rstrip()
                 if line == '---' and section < 2:
                     section += 1
                     continue
