@@ -4,7 +4,7 @@ Publish: 2021-07-25 16:30:00+03:00
 Visible: True
 ---
 
-After a long pause, version 2.1.18 is finally out. This release includes the usual bug fixes, as well as a few cool new features, courtesy of Github user askmeaboutlo0m.
+After a long pause, version 2.1.18 is finally out. This release includes the usual bug fixes, as well as a few cool new features, courtesy of GitHub user askmeaboutlo0m.
 
 Bug fixes include:
 
