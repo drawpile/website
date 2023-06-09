@@ -31,7 +31,7 @@ This release represents over 8 months of development, so this is everything I ca
     * Better MyPaint brush import. You can now import brush packs just like you would in MyPaint, rather than having to unpack the brushes inside and import them individually.
     * Under View &rarr; Layouts, you can now save and restore application layouts, as well as pick from some existing presets. For example, if you have your dockers arranged differently for drawing and animating, you can put those here.
     * Tablet-friendly sliders. If you're used to Krita, you'll know these already.
-    * Fill feathering. Rather than fills always having a pixely edge, you can now make it smoother.
+    * The fill tool now supports gap filling, feathering and a more comprehensible size limit setting.
     * Transform smoothing options. Pick between bilinear and nearest-neighbor. The latter makes working with pixel art possible.
     * Compatibility with 2.1 sessions. Details [below](#releaseb224-compat).
     * There's now a menu on the right of each dock, rather than having two not that useful buttons there. Here you can (un)dock it, make it always floating and close it. Locking docks hides the menu button.
@@ -40,6 +40,8 @@ This release represents over 8 months of development, so this is everything I ca
     * Holding Shift now lets you arrange docks easier by hiding their title bars. If you find that annoying, turn it off in Docks &rarr; Hold Shift to Arrange.
     * There's more brush presets that come with Drawpile now and they're organized a bit better.
     * Chat now has multiline support, hit Shift+Return to make a newline.
+    * The preferences dialog has been tidied up and includes a tablet tester field.
+    * On Windows, you can now switch between Windows Ink and Wintab mode without having to restart Drawpile.
     * The frequency and amount of snapshots available in Session &rarr; Reset... can now be adjusted in the preferences.
     * Parental control settings can now be hidden when locked.
 * Server features:
@@ -60,6 +62,7 @@ This release represents over 8 months of development, so this is everything I ca
     * On Linux and macOS, the canvas now properly gets focus when you interact with it using a tablet, rather than having to reach for the mouse for it to do so.
 * Development:
     * Better infrastructure, making a new release of Drawpile is now almost just one push of a button, rather than having to spend an afternoon building it on three different operating systems.
+    * Weblate integration, enabling translation of Drawpile in the browser. Details [below](#releaseb224-weblate).
     * Some development tools are now included included with Drawpile: tablet event logging, performance profiling, artificial lag, artificial disconnects as well as the recording and replaying of debug dumps to help with figuring out desyncs.
 
 
@@ -92,6 +95,15 @@ Most other features *do* work though. You get to use the new stabilizer for exam
 However, there is likely to be some desynchronization. For example, since indirect mode is broken on Drawpile 2.1, things will look different between versions if those are used. When a session reset happens, the canvas will revert to one of these looks.
 
 This compatibility mode isn't here to stay. It'll probably stick around for the beta phase and then for a bit longer until we see that most public sessions have switched over to Drawpile 2.2.
+
+
+<h3 id="release22b4-weblate">Weblate</h3>
+
+Drawpile is now [on Weblate](https://hosted.weblate.org/engage/drawpile/).
+
+Instead of having to install the troublesome Qt translation tools, you can now contribute translations right through the browser. It should also allow you to add new languages there, if the one you want to translate to is missing. If you have a lot to translate, try out the Zen mode, it shows everything in a continuous stream. If you prefer the old tools, Weblate lets you upload the translation files.
+
+We'll automatically be notified when there's new translations made, you don't need to open a Github pull request or something.
 
 
 ## Reporting Issues
