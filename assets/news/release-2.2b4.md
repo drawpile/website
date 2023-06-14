@@ -1,7 +1,7 @@
 Slug: release-2.2b4
 Title: Version 2.2 beta 4 and Changes at the Helm
-Publish: 2023-04-28 14:47:00+02:00
-Visible: False
+Publish: 2023-06-14 07:00:00+02:00
+Visible: True
 Author: askmeaboutloom
 ---
 
