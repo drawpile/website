@@ -12,6 +12,7 @@ urlpatterns = [
     path('news/', include('news.urls')),
     path('accounts/', include('dpusers.urls')),
     path('communities/', include('communities.urls')),
+    path('invites/', include('invites.urls')),
     path('', TemplateView.as_view(template_name='pages/index.html')),
 ]
 

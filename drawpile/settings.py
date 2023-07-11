@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'templatepages',
     'news',
     'communities.apps.CommunitiesConfig',
+    'invites',
 ]
 
 MIDDLEWARE = [

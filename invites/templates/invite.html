@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extrameta %}
+<meta property="og:type" content="website">
+<meta property="og:title" content="Drawpile Session Invitation">
+<meta property="og:description" content="Join a collaborative drawing session at {{ url }}">
+<meta property="og:image" content="https://drawpile.net/files/og/logo.png">
+{% endblock %}
+
+{% block extrascripts %}<script src="{% static "js/invite.js" %}"></script>{% endblock %}
+
+{% block title %}Drawpile Session - {{ block.super }}{% endblock %}
+
+{% block main %}
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-half is-offset-one-quarter">
+                <div class="content is-large has-text-centered">
+                    <p id="invite-link-title">You've been invited to join a Drawpile&nbsp;session!</p>
+                </div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-half is-offset-one-quarter">
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        <input id="invite-link-input" type="text" class="input is-medium" value="{{ url }}" readonly>
+                    </div>
+                    <div class="control">
+                        <button id="invite-link-copy-button" class="button is-link is-medium">
+                            <span class="icon">
+                                <i class="fa fa-copy"></i>
+                            </span>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                </div>
+                <a class="button is-primary is-medium is-fullwidth" href="{{ url }}">
+                    <span class="icon">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </span>
+                    <span>Open in Drawpile</span>
+                </a>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-half is-offset-one-quarter">
+                <div class="content is-medium has-text-centered">
+                    <p>
+                        If you don't have Drawpile yet, you can <a href="/download#Beta" target="_blank">download&nbsp;it&nbsp;here</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-half is-offset-one-quarter">
+                <div class="content">
+                    <p>
+                        Drawpile isn't responsible for what's going on in the session behind the link above. This page just provides a shortcut for convenience.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock main %}
