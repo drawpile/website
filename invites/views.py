@@ -20,14 +20,12 @@ class InviteView(TemplateView):
             port_suffix = InviteView.__parse_port(port)
         except ValueError:
             return None
-        password_suffix = InviteView.__extract_password(params)
         return ''.join([
             'drawpile://',
             quote_plus(host),
             port_suffix,
             '/',
-            quote_plus(session),
-            password_suffix,
+            quote_plus(session)
         ])
 
     @staticmethod
@@ -40,12 +38,3 @@ class InviteView(TemplateView):
             raise ValueError('Port out of bounds')
 
         return '' if n == 27750 else f':{n}'
-
-    @staticmethod
-    def __extract_password(params):
-        param = params.get('p', '')
-        if param:
-            query = urlencode({'p': param})
-            return f'?{query}'
-        else:
-            return ''
