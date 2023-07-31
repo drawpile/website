@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
+{% block extrameta %}
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ post.title }} - Drawpile">
+<meta property="og:description" content="News from {{ post.publish|date }} by {{ post.author_name }}">
+<meta property="og:image" content="https://drawpile.net/files/og/logo.png">
+{% endblock %}
+
 {% block title %}{{ post.title }} - {{ block.super }}{% endblock %}
 
 {% block main %}
