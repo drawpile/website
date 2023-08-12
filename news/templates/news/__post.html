@@ -1,6 +1,6 @@
 <article>{% load commonmark %}
-	<h1 class="title">{{ post.title }}</h2>
-	<h2 class="subtitle">{{ post.publish|date }} by {{ post.author_name }}</h3>
+	<h1 class="title">{{ post.title }}</h1>
+	<h2 class="subtitle">{{ post.publish|date }} by {{ post.author_name }}</h2>
 	<div class="content">
 	{{ post.intro|commonmark_full }}
 	{% if readmore %}
