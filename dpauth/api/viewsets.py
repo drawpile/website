@@ -17,6 +17,7 @@ from dpauth.models import Username
 
 class UsernameViewSet(viewsets.ModelViewSet):
     lookup_field = 'name'
+    lookup_value_regex = '.+'
     permission_classes = (IsAuthenticated,)
     serializer_class = UsernameSerializer
     parser_classes = (JSONParser, MultiPartParser)
