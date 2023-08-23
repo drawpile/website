@@ -29,10 +29,11 @@ class UsernameCookieMiddleware:
                     username,
                     max_age=max_age,
                     expires=expires,
+                    domain='drawpile.net',
                     httponly=False,
                     samesite='Lax',
                 )
         elif has_cookie:
-            response.delete_cookie('username')
+            response.delete_cookie('username', domain='drawpile.net')
 
         return response
