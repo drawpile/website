@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 
 		let initial = window.location.hash;
-		if(!initial) {
+		if(!initial || !tabbar.querySelector(`#tab-${initial.substring(1)}>a`)) {
 			// Guess OS (TODO move this away when tabs are used somewhere else too)
 			if(navigator.platform.indexOf('Mac')>=0) {
 				initial = '#OSX';
@@ -102,6 +102,8 @@ document.addEventListener("DOMContentLoaded", function() {
 				initial = '#Windows';
 			} else if(navigator.platform.indexOf('Linux')>=0) {
 				initial = '#Linux';
+			} else if(navigator.platform.indexOf('Android')>=0) {
+				initial = '#Android';
 			} else {
 				initial = '#Source';
 			}

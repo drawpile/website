@@ -6,6 +6,7 @@
 {% block main %}
 
 {% templatevar 'VERSION' as VERSION %}
+{% templatevar 'BETAVERSION' as BETAVERSION %}
 
 <section class="section">
 <div class="container">
@@ -15,67 +16,158 @@
 	<ul></ul>
 </div>
 
-<div id="Beta" class="tab-page content">
-	<h2 data-icon="fas fa-flask">Beta</h2>
-	<p>Try the Drawpile 2.2 beta! This is version 2.2.0-beta.6, released on July 31, 2023. Choose the download for your platform below.</p>
-	<p>If you want to report issues you find in this version, look <a href="/help/">at the help page</a>.</p>
-	<p>
-		<a href="https://github.com/drawpile/Drawpile/releases/download/2.2.0-beta.6/Drawpile-2.2.0-beta.6.msi" class="button is-primary"><i class="fab fa-windows"></i>&nbsp;Windows Installer</a>
-		<a href="https://github.com/drawpile/Drawpile/releases/download/2.2.0-beta.6/Drawpile-2.2.0-beta.6.zip" class="button is-primary"><i class="fab fa-windows"></i>&nbsp;Windows Portable ZIP</a>
-		<a href="https://github.com/drawpile/Drawpile/releases/download/2.2.0-beta.6/Drawpile-2.2.0-beta.6.dmg" class="button is-primary"><i class="fab fa-apple"></i>&nbsp;macOS Disk Image</a>
-		<a href="https://github.com/drawpile/Drawpile/releases/download/2.2.0-beta.6/Drawpile-2.2.0-beta.6-x86_64.AppImage" class="button is-primary"><i class="fab fa-linux"></i>&nbsp;Linux AppImage</a>
-		<a href="https://github.com/drawpile/Drawpile/releases/download/2.2.0-beta.6/Drawpile-2.2.0-beta.6.apk" class="button is-primary"><i class="fab fa-android"></i>&nbsp;Android APK</a>
-		<a href="https://github.com/drawpile/Drawpile/archive/refs/tags/2.2.0-beta.6.tar.gz" class="button is-primary"><i class="fa fa-code"></i>&nbsp;Source Code</a>
-	</p>
-</div>
-
 <div id="Windows" class="tab-page content">
 	<h2 data-icon="fab fa-windows">Windows</h2>
+	<div class="columns is-multiline">
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}.msi" class="button is-link"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ BETAVERSION }} Installer</a>
+		</div>
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}.zip" class="button is-link"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ BETAVERSION }} Portable ZIP</a>
+		</div>
+		<div class="column is-narrow">
+			<a href="/files/win/drawpile-{{ VERSION }}-setup.exe" class="button is-primary"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ VERSION }} Installer</a>
+		</div>
+		<div class="column is-narrow">
+			<a href="/files/win/drawpile-{{ VERSION }}-setup-w32.exe" class="button is-primary"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ VERSION }} Installer 32 Bit</a>
+		</div>
+	</div>
 	<p>
-		Drawpile is available for Windows in 32 and 64 bit versions.
-		If you encounter problems with the 64 bit version, try the 32 bit version also.
-		Windows Vista and XP are no longer officially supported.
+		<strong>Drawpile 2.2</strong> is still in beta, but the Windows version
+		is <strong>stable and recommended</strong> for most users. It's
+		compatible with sessions hosted by Drawpile 2.1.
 	</p>
-	<p><a href="/files/win/drawpile-{{ VERSION }}-setup.exe" class="button is-primary">Drawpile {{ VERSION }} for 64 bit Windows</a></p>
-	<p><a href="/files/win/drawpile-{{ VERSION }}-setup-w32.exe" class="button is-primary">Drawpile {{ VERSION }} for 32 bit Windows</a></p>
+	<p>
+		Supported Windows versions are 7, 8, 8.1, 10 and 11. If you run into
+		issues, found a bug, want to suggest a feature or ask for help with
+		something, <a href="/help/">take a look at the Help pages</a>!
+	</p>
+	<div class="notification">
+		<p>
+			<strong>Note:</strong> On Windows, you may get a message saying
+			<em>SmartScreen prevented an unrecognized app from starting</em>. To
+			get rid of this, we'd have to pay Microsoft a lot of money. So for
+			now, you have to dismiss the warning yourself: click on <strong>More
+			info</strong> underneath the message and then on the <strong>Run
+			anyway</strong> button that appears at the bottom.
+		</p>
+	</div>
 </div>
 
 <div id="OSX" class="tab-page content">
 	<h2 data-icon="fab fa-apple">macOS</h2>
-	<p>Minimum supported OSX version is 10.12.</p>
-	<p>If you are using macOS 10.10 (Yosemite) or 10.11 (El Capitan), you will have to use version <a href="/files/osx/Drawpile%202.1.7.dmg">2.1.7</a>.</p>
-	<p><a href="/files/osx/Drawpile%20{{ VERSION }}.dmg" class="button is-primary">Drawpile {{ VERSION }} for macOS</a></p>
-	<div class="notification is-warning">
+	<div class="columns is-multiline">
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}.dmg" class="button is-link"><span class="fab fa-apple"></span>&nbsp;Drawpile {{ BETAVERSION }}</a>
+		</div>
+		<div class="column is-narrow">
+			<a href="/files/osx/Drawpile%20{{ VERSION }}.dmg" class="button is-primary"><span class="fab fa-apple"></span>&nbsp;Drawpile {{ VERSION }}</a>
+		</div>
+	</div>
 	<p>
-		<b>Note.</b> Because I'm not a registered Apple developer, this package is not signed.
-		If you get a message saying the <em>application cannot be opened because it is from
-		an unidentified developer</em>, you must add an exception for it. Right click on the
-		app and select <em>Open</em>. You should now see the dialog again with the option
-		to open the application anyway. After this, macOS will remember your choice
-		and not show the warning for this application.
+		<strong>Drawpile 2.2</strong> is still in beta, but the macOS version
+		is <strong>stable and recommended</strong> for most users. It's
+		compatible with sessions hosted by Drawpile 2.1.
 	</p>
+	<p>
+		If you run into issues, found a bug, want to suggest a feature or ask
+		for help with something, <a href="/help/">take a look at the Help
+		pages</a>!
+	</p>
+	<div class="notification">
+		<p>
+			<strong>Note:</strong> On macOS, you may get a message saying
+			<em>application cannot be opened because it is from an unidentified
+			developer</em>. To get rid of this, we'd have to pay Apple money. So
+			for now, you have to add an exception yourself: right click on the
+			app and select <strong>Open</strong>, you should now see the dialog
+			again with the option to open the application anyway.
+		</p>
 	</div>
 </div>
 
 <div id="Linux" class="tab-page content">
-	<h2 data-icon="fab fa-linux">GNU/Linux</h2>
-	<p>The latest Linux version is available via <a href="https://flathub.org/apps/details/net.drawpile.drawpile">Flathub</a>.</p>
-
-	<p>The easiest way to run the dedicated server is to use Docker. A ready-to-use
-	image is available via <a href="https://hub.docker.com/r/drawpile/drawpile-srv">Docker Hub</a>.
-	For more information, see the <a href="/help/server/">dedicated server help page</a>.
+	<h2 data-icon="fab fa-linux">Linux</h2>
+	<div class="columns is-multiline">
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-x86_64.AppImage" class="button is-link"><i class="fab fa-linux"></i>&nbsp;Drawpile {{ BETAVERSION }} AppImage</a>
+		</div>
+		<div class="column is-narrow">
+			<a href="https://flathub.org/apps/details/net.drawpile.drawpile" class="button is-primary"><span class="fab fa-linux"></span>&nbsp;Drawpile {{ VERSION }} on Flathub</a>
+		</div>
+	</div>
+	<p>
+		<strong>Drawpile 2.2</strong> is still in beta. The Linux client is
+		<strong>stable and recommended</strong> for most users. It's compatible
+		with sessions hosted by Drawpile 2.1.
 	</p>
+	<p>
+		If you run into issues, found a bug, want to suggest a feature or ask
+		for help with something, <a href="/help/">take a look at the Help
+		pages</a>!
+	</p>
+	<p>
+		If you want to run a dedicated server, keep using version {{ VERSION }}.
+		The easiest way to run the dedicated server is to use Docker. A
+		ready-to-use image is available via
+		<a href="https://hub.docker.com/r/drawpile/drawpile-srv">Docker Hub</a>.
+		For more information, see the <a href="/help/server/">dedicated server
+		help page</a>.
+	</p>
+</div>
+
+<div id="Android" class="tab-page content">
+	<h2 data-icon="fab fa-android">Android</h2>
+	<div class="columns is-multiline">
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}.apk" class="button is-link"><i class="fab fa-android"></i>&nbsp;Drawpile {{ BETAVERSION }} APK</a>
+		</div>
+	</div>
+	<p>
+		Drawpile is only available on Android starting from version 2.2, which
+		is <strong>still in beta</strong>. If you experience issues, take a look
+		<a href="/help/">at the help pages</a> on how to report them!
+	</p>
+	<div class="notification">
+		<p>
+			<strong>Note:</strong> On Android, you have to enable apps from
+			unknown sources. How exactly this work depends on your device, but
+			it should be in the settings somewhere. To get rid of this, we'd
+			have to pay Google money.
+		</p>
+	</div>
 </div>
 
 <div id="Source" class="tab-page content">
 	<h2 data-icon="fas fa-code">Source code</h2>
-	<p>Drawpile source code is available under the <a href="https://www.gnu.org/licenses/quick-guide-gplv3.html">GPLv3 license</a>.
-	<p>The latest development version (and all past releases) can be found at <a href="https://github.com/drawpile/Drawpile">GitHub</a>.</p>
-	<p><a href="/files/src/drawpile-{{ VERSION }}.tar.gz" class="button is-primary">Drawpile {{ VERSION }} source code</a></p>
+	<div class="columns is-multiline">
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile/archive/refs/tags/{{ BETAVERSION }}.tar.gz" class="button is-link"><span class="fa fa-code"></span>&nbsp;Drawpile {{ BETAVERSION }} Source Code</a>
+		</div>
+		<div class="column is-narrow">
+			<a href="/files/src/drawpile-{{ VERSION }}.tar.gz" class="button is-primary"><span class="fa fa-code"></span>&nbsp;Drawpile {{ VERSION }} on Source Code</a>
+		</div>
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile" class="button"><span class="fab fa-github"></span>&nbsp;Drawpile on GitHub</a>
+		</div>
+	</div>
+	<p>
+		<strong>Drawpile 2.2</strong> is still in beta, but the client is
+		<strong>stable and recommended</strong> for most users. It's compatible
+		with sessions hosted by Drawpile 2.1.
+	</p>
+	<p>
+		If you need help with building from source, found a bug, want to suggest
+		a feature or ask anything else, <a href="/help/">take a look at the Help
+		pages</a>!
+	</p>
+	<p>
+		If you want to run a dedicated server, keep using version {{ VERSION }}.
+	</p>
 </div>
 
 <div id="Archive" class="tab-page content">
-	<h2 data-icon="fas fa-archive">Old versions</h2>
+	<h2 data-icon="fas fa-archive">Old Versions</h2>
 	<p>Check the <a href="/help/compatibility/">version compatibility chart</a> to see if you need to use an old version.</a></p>
 	<p>Previous stable release:</p>
 	<ul>
