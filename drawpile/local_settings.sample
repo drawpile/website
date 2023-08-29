@@ -13,3 +13,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Discord webhook URL for site admin notifications and alerts
 #ADMIN_REPORT_WEBHOOK = 'https://localhost/report/'
+
+DRAWPILE_READONLY_SITE = False
