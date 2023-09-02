@@ -100,10 +100,10 @@ document.addEventListener("DOMContentLoaded", function() {
 				initial = '#OSX';
 			} else if(navigator.platform.indexOf('Win')>=0) {
 				initial = '#Windows';
-			} else if(navigator.platform.indexOf('Linux')>=0) {
-				initial = '#Linux';
 			} else if(navigator.platform.indexOf('Android')>=0) {
 				initial = '#Android';
+			} else if(navigator.platform.indexOf('Linux')>=0) {
+				initial = '#Linux';
 			} else {
 				initial = '#Source';
 			}
