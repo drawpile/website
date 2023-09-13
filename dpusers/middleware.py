@@ -2,7 +2,7 @@ import re
 import time
 from django.utils.http import http_date
 
-_CLEAN_NAME_RE = re.compile(r'[a-zA-Z0-9_]')
+_CLEAN_NAME_RE = re.compile(r'[^a-zA-Z0-9_]')
 
 def _replace_character(m):
     return f'-{ord(m.group())}-'
