@@ -1,5 +1,14 @@
+import re
 import time
 from django.utils.http import http_date
+
+_CLEAN_NAME_RE = re.compile(r'[a-zA-Z0-9_]')
+
+def _replace_character(m):
+    return f'-{ord(m.group())}-'
+
+def _clean_up_name(username):
+    return _CLEAN_NAME_RE.sub(_replace_character, username)
 
 class UsernameCookieMiddleware:
     def __init__(self, get_response):
@@ -26,7 +35,7 @@ class UsernameCookieMiddleware:
                     expires = http_date(expires_time)
                 response.set_cookie(
                     'username',
-                    username,
+                    _clean_up_name(username),
                     max_age=max_age,
                     expires=expires,
                     domain='drawpile.net',
