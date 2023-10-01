@@ -9,6 +9,8 @@ Drawpile 2.2 beta 8 is released! **[Download it here.](/download/)**
 
 If you want to report issues or make a suggestion, have a look at the [the help page](/help/).
 
+**Note:** this is currently not available on Android because Google decided to break the toolchain. I'll figure it out.
+
 
 ## Changes in this Release
 
