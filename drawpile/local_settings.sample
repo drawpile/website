@@ -15,3 +15,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #ADMIN_REPORT_WEBHOOK = 'https://localhost/report/'
 
 DRAWPILE_READONLY_SITE = False
+
+# Keys that allow access to /api/ext-bans. Should be plain, random strings, one
+# per client so that they can be revoked. Leave a comment which key is for whom.
+DRAWPILE_EXT_BANS_KEYS = [
+]

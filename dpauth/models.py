@@ -1,12 +1,14 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import RegexValidator
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 
 from .normalization import normalize_username
 from .token import make_login_token
 from .utils import UploadNameFromContent, AvatarValidator
 
+import datetime
+import ipaddress
 import logging
 logger = logging.getLogger(__name__)
 
@@ -131,3 +133,137 @@ class Username(models.Model):
             avatar_image,
             key=key
         )
+
+
+class Ban(models.Model):
+    class Reactions(models.TextChoices):
+        NORMAL = "normal", "Normal ban: disconnect and tell client they're banned"
+        NETERROR = "neterror", "Shadow ban: disconnect with a bogus network error"
+        GARBAGE = "garbage", "Shadow ban: send garbage responses in the login process"
+        HANG = "hang", "Shadow ban: hang the login process forever with no response"
+        TIMER = "timer", "Shadow ban: sever connection after a random time elapses"
+
+    expires = models.DateField(
+        verbose_name="Until",
+        default=datetime.date.fromisoformat("9999-12-31"),
+        help_text="Date until which this ban lasts",
+    )
+    comment = models.TextField(
+        help_text="Reason and other notes for the ban, only mods can read this",
+    )
+    reason = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Reason for the ban shown to the user, may be left empty",
+    )
+    reaction = models.CharField(
+        max_length=16,
+        choices = Reactions.choices,
+        default = Reactions.NORMAL,
+        help_text="Shadow bans may help slow down ban evaders, not applied to IPs by default",
+    )
+    reaction_includes_ipbans = models.BooleanField(
+        verbose_name="Apply shadow bans to IPs",
+        default=False,
+        help_text="NOT RECOMMENDED! False positives will confuse the heck out of legitimate users",
+    )
+
+    @property
+    def ban_type(self):
+        if self.reaction == Ban.Reactions.NORMAL:
+            return "normal"
+        elif self.reaction_includes_ipbans:
+            return f"SHADOW+IP: {self.reaction}"
+        else:
+            return f"shadow: {self.reaction}"
+
+
+    def __str__(self):
+        return f"Ban ({self.id}) {repr(self.comment)} reason {repr(self.reason)} expires {self.expires}"
+
+
+class BanIpRange(models.Model):
+    class Meta:
+        verbose_name = "IP Range"
+
+    from_ip = models.CharField(
+        verbose_name="Start of IP Range",
+        max_length=64,
+        help_text="IPv4 or IPv6 address",
+    )
+    to_ip = models.CharField(
+        verbose_name="End of IP Range (inclusive)",
+        max_length=64,
+        blank=True,
+        help_text="Leave empty to affect only a single address",
+    )
+    excluded = models.BooleanField(
+        verbose_name="Exclusion",
+        default=False,
+    )
+    ban = models.ForeignKey(Ban, on_delete=models.CASCADE)
+
+    def __str__(self):
+        prefix = "Exclusion" if self.excluded else "Ban"
+        address = f"{self.from_ip}-{self.to_ip}" if self.to_ip else self.from_ip
+        return f"IP {prefix} {address} on ban {self.ban_id}"
+
+    def clean(self):
+        errors = {}
+
+        try:
+            from_ip = ipaddress.ip_address(self.from_ip)
+        except ValueError:
+            errors["from_ip"] = "Invalid IP address"
+
+        if self.to_ip:
+            try:
+                to_ip = ipaddress.ip_address(self.to_ip)
+            except ValueError:
+                errors["to_ip"] = "Invalid IP address"
+        else:
+            to_ip = None
+
+        if errors:
+            raise ValidationError(errors)
+
+        if to_ip:
+            if from_ip.version != to_ip.version:
+                errors["to_ip"] = "IP version doesn't match range start"
+                raise ValidationError(errors)
+
+            if from_ip.packed > to_ip.packed:
+                errors["to_ip"] = "Range end is before its start"
+                raise ValidationError(errors)
+
+
+class BanSystemIdentifier(models.Model):
+    class Meta:
+        verbose_name = "System Identifier"
+
+    identifier = models.CharField(
+        max_length=64,
+        help_text="UUID, shown in ClientInfo server logs under \"s\"",
+        validators=[RegexValidator(
+            r'^[0-9a-fA-F]{32}$',
+            message="Must be 32 characters of 0123456789abcdef"
+        )]
+    )
+    ban = models.ForeignKey(Ban, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"SID {repr(self.identifier)} on ban {self.ban_id}"
+
+
+class BanUser(models.Model):
+    class Meta:
+        verbose_name = "User"
+
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    ban = models.ForeignKey(Ban, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"User ({self.user.id}) on ban {self.ban_id}"
