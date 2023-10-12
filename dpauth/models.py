@@ -267,3 +267,22 @@ class BanUser(models.Model):
 
     def __str__(self):
         return f"User ({self.user.id}) on ban {self.ban_id}"
+
+
+class UserVerification(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    comment = models.TextField(
+        help_text="Verification reason, provide links to socials/galleries if possible",
+    )
+    exempt_from_bans = models.BooleanField(
+        verbose_name="Exempt from IP bans",
+        default=False,
+        help_text="System ID, user and session bans still hold regardless",
+    )
+
+    def __str__(self):
+        return f"Verification of user ({self.user.id})"

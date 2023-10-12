@@ -1,4 +1,5 @@
 from django.conf import settings
+from . import models
 
 def null_group_membership(username, group):
     """Default group membership test.
@@ -16,8 +17,15 @@ def null_group_membership(username, group):
         return None
 
     flags = ['HOST']
-    if username and username.is_mod and username.user.has_perm('dpauth.moderator'):
-        flags.append('MOD')
+    if username:
+        if username.is_mod and username.user.has_perm('dpauth.moderator'):
+            flags.append('MOD')
+        try:
+            verification = models.UserVerification.objects.get(pk=username.user_id)
+            if verification.exempt_from_bans:
+                flags.append('BANEXEMPT')
+        except models.UserVerification.DoesNotExist:
+            pass
 
     return {
         'member': False,

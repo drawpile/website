@@ -59,3 +59,17 @@ class IpBanAdmin(admin.ModelAdmin):
     list_display = ('id', 'comment', 'reason', 'expires', 'ban_type')
     list_display_links = list_display
     inlines = [BanIpRangeInline, BanSystemIdentifierInline, BanUserInline]
+
+@admin.register(models.UserVerification)
+class UserVerificationAdmin(admin.ModelAdmin):
+    fields = ('user', 'comment', 'exempt_from_bans')
+    list_display = ('user', 'comment', 'exempt_from_bans')
+    list_display_links = list_display
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        user_widget = form.base_fields['user'].widget
+        user_widget.can_add_related = False
+        user_widget.can_change_related = False
+        user_widget.can_delete_related = False
+        return form
