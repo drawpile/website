@@ -22,7 +22,7 @@ class InviteView(TemplateView):
             return None
         return ''.join([
             'drawpile://',
-            quote_plus(host),
+            quote_plus(host, safe=':[]'),
             port_suffix,
             '/',
             quote_plus(session)
