@@ -40,6 +40,9 @@ class BanUserForm(forms.ModelForm):
     class Meta:
         model = models.BanUser
         fields = ('user',)
+        widgets = {
+            'user': forms.NumberInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -60,16 +63,28 @@ class BanAdmin(admin.ModelAdmin):
     list_display_links = list_display
     inlines = [BanIpRangeInline, BanSystemIdentifierInline, BanUserInline]
 
+class UserVerificationForm(forms.ModelForm):
+    class Meta:
+        model = models.UserVerification
+        fields = ('user', 'comment', 'exempt_from_bans')
+        widgets = {
+            'user': forms.NumberInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        user_field = self.fields['user']
+        user_widget = user_field.widget
+        user_widget.can_add_related = False
+        user_widget.can_change_related = False
+        user_widget.can_delete_related = False
+        instance = kwargs.get("instance")
+        if instance and instance.user and instance.user.id:
+            user_field.disabled = True
+
 @admin.register(models.UserVerification)
 class UserVerificationAdmin(admin.ModelAdmin):
     fields = ('user', 'comment', 'exempt_from_bans')
     list_display = ('user', 'comment', 'exempt_from_bans')
     list_display_links = list_display
-
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        user_widget = form.base_fields['user'].widget
-        user_widget.can_add_related = False
-        user_widget.can_change_related = False
-        user_widget.can_delete_related = False
-        return form
+    form = UserVerificationForm
