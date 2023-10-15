@@ -13,6 +13,8 @@ urlpatterns = [
     path('accounts/', include('dpusers.urls')),
     path('communities/', include('communities.urls')),
     path('invites/', include('invites.urls')),
+    path('ban/', RedirectView.as_view(
+        url='/communities/drawpile.net/ban/', permanent=True)),
     path('readonly/', TemplateView.as_view(template_name='readonly.html')
         if settings.DRAWPILE_READONLY_SITE
         else RedirectView.as_view(url='/', permanent=False)),

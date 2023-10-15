@@ -1,0 +1,32 @@
+{% extends "communities/base.html" %}
+
+{% load commonmark %}
+
+{% block main %}
+<section class="section">
+<div class="container">
+<div class="columns">
+<div class="column is-three-quarters">
+
+<h2 class="title">Community Server Bans</h2>
+
+<div class="content">{% filter commonmark_full %}
+
+Violating the [common community guidelines](/communities/drawpile.net/ccg/) or
+rules posted [on the community server pages](/communities/) may lead to a
+temporary or permanent ban on one or more of those community servers. You won't
+be allowed to draw on these servers until the ban expires or is otherwise
+lifted. You can continue to use Drawpile on other servers or host your own.
+
+If you think a ban is wrong, you can join the [Drawpile Discord
+server](https://discord.gg/M3yyMpC) and say so in the `#help` channel. When a
+moderator has time, they will take a look at it with you.
+
+{% endfilter %}</div>{# /.content #}
+
+</div>{# ./column #}
+</div>{# ./columns #}
+</div>{# ./container #}
+</section>
+{% endblock %}
+

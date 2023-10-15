@@ -32,12 +32,14 @@ class FrontPage(ListView):
         return qs
 
 
-class YchPage(TemplateView):
-    template_name = 'communities/ych.html'
-
+class BanPage(TemplateView):
+    template_name = 'communities/ban.html'
 
 class GuideLinesPage(TemplateView):
     template_name = 'communities/ccg.html'
+
+class YchPage(TemplateView):
+    template_name = 'communities/ych.html'
 
 
 class SubmitPage(LoginRequiredMixin, CreateView):
@@ -124,7 +126,7 @@ class CommunityPage(DetailView):
             ctx['review_form'] = ReviewForm(initial={
                 'comment': obj.review_message
             })
-        
+
         if (
             getattr(settings, 'ADMIN_REPORT_WEBHOOK', '') and
             self.request.user.is_authenticated
@@ -150,10 +152,10 @@ class ServerHelpPage(DetailView):
             obj = qs.get(slug=self.kwargs[self.slug_url_kwarg])
         except Community.DoesNotExist:
             raise Http404
-        
+
         if not obj.can_admin(self.request.user):
             raise Http404
-        
+
         return obj
 
     def get_context_data(self, **kwargs):

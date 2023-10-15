@@ -8,6 +8,7 @@ from . import views
 app_name = 'communities'
 urlpatterns = [
     path('', views.FrontPage.as_view(), name='frontpage'),
+    path('drawpile.net/ban/', views.BanPage.as_view(), name='ban'),
     path('drawpile.net/ccg/', views.GuideLinesPage.as_view(), name='ccg'),
     path('drawpile.net/ych/', views.YchPage.as_view(), name='ych'),
     path('drawpile.net/submit/', views.SubmitPage.as_view(), name='submit'),
