@@ -54,9 +54,9 @@ class BanUserInline(admin.TabularInline):
     extra = 1
 
 @admin.register(models.Ban)
-class IpBanAdmin(admin.ModelAdmin):
-    fields = ('comment', 'expires', 'reason', 'reaction', 'reaction_includes_ipbans')
-    list_display = ('id', 'comment', 'reason', 'expires', 'ban_type')
+class BanAdmin(admin.ModelAdmin):
+    fields = ('comment', 'expires', 'reason', 'append_standard_reason', 'reaction', 'reaction_includes_ipbans')
+    list_display = ('id', 'comment', 'full_reason', 'expires', 'ban_type')
     list_display_links = list_display
     inlines = [BanIpRangeInline, BanSystemIdentifierInline, BanUserInline]
 

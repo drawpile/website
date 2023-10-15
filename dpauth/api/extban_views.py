@@ -56,8 +56,9 @@ class ExtBanView(View):
             "system": ExtBanView.__sids_to_json(ban),
             "users": ExtBanView.__users_to_json(ban),
         }
-        if ban.reason:
-            json["reason"] = ban.reason
+        reason = ban.full_reason
+        if reason:
+            json["reason"] = reason
         return json
 
     @staticmethod

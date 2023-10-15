@@ -143,6 +143,8 @@ class Ban(models.Model):
         HANG = "hang", "Shadow ban: hang the login process forever with no response"
         TIMER = "timer", "Shadow ban: sever connection after a random time elapses"
 
+    STANDARD_TEXT = "If you think this ban is an error, take a look at https://drawpile.net/ban/ on how to contact a moderator."
+
     expires = models.DateField(
         verbose_name="Until",
         default=datetime.date.fromisoformat("9999-12-31"),
@@ -155,6 +157,11 @@ class Ban(models.Model):
         max_length=255,
         blank=True,
         help_text="Reason for the ban shown to the user, may be left empty",
+    )
+    append_standard_reason = models.BooleanField(
+        verbose_name="Append standard text to reason",
+        default=True,
+        help_text=f"Will append the following: \"{STANDARD_TEXT}\"",
     )
     reaction = models.CharField(
         max_length=16,
@@ -177,9 +184,25 @@ class Ban(models.Model):
         else:
             return f"shadow: {self.reaction}"
 
+    @property
+    def full_reason(self):
+        if self.reason:
+            if self.append_standard_reason:
+                return f"{self.reason} {Ban.STANDARD_TEXT}"
+            else:
+                return self.reason
+        elif self.append_standard_reason:
+            return Ban.STANDARD_TEXT
+        else:
+            return None
 
     def __str__(self):
         return f"Ban ({self.id}) {repr(self.comment)} reason {repr(self.reason)} expires {self.expires}"
+
+    def clean(self):
+        self.reason = self.reason.strip()
+        if self.reason and self.append_standard_reason and len(f"{self.reason} {Ban.STANDARD_TEXT}") > 255:
+            raise ValidationError({"reason": "Reason plus standard text must not exceed 255 characters"})
 
 
 class BanIpRange(models.Model):
