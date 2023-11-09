@@ -4,9 +4,11 @@
     const button = document.getElementById('invite-link-copy-button');
 
     const hash = window.location.hash;
+    let link = input.value;
     if(hash && hash.length > 1) {
-        input.value = `${input.value}?p=${hash.substring(1)}`;
+        link += `?p=${hash.substring(1)}`;
     }
+    input.value = link;
 
     button.addEventListener('click', () => {
         input.select();
@@ -22,5 +24,5 @@
         );
     });
 
-    window.location = input.value;
+    window.location = link;
 }());
