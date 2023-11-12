@@ -7,6 +7,8 @@ Author: askmeaboutloom
 
 Drawpile 2.2 beta 9 is out now! **[Download it here.](/download/)**
 
+**Update:** There was a problem with Drawpile not starting if it was the first time you ran it. This is fixed in [2.2 beta 10](/news/release-2.2b9/)!
+
 This version is a release candidate. That means no new features are expected to be added to it until the final release, but bugfixes and translations may.
 
 That means if you have any bugs to report or stuff that's still missing for you to work properly, now is the time to report them so that they can get handled before Drawpile comes out of beta! Have a look at [the help page](/help/) on how to report things.
