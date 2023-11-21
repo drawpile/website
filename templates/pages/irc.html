@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}IRC{% endblock %}
+
+{% load commonmark %}
+
+{% block main %}
+<section class="section">
+    <div class="container content">
+{% filter commonmark_full %}
+
+## IRC Chatroom
+
+<a href="https://web.libera.chat/#drawpile" class="button is-primary is-medium" target="_blank"><span class="fa fa-hashtag"></span>&nbsp;Web Chat</a>
+
+You can jump directly into Drawpile's IRC chatroom using <a href="https://web.libera.chat/#drawpile" target="_blank">**the web chat**</a>. Just press the "start" button and talk away, you don't need an account.
+
+If you already have an IRC client, you can join the *#drawpile* channel on <a href="https://libera.chat/" target="_blank">libera.chat</a>.
+
+You can ask for help, talk about development, give feedback, provide suggestions or report bugs here. It's not meant for advertising sessions or finding people to draw with, take a look at [the community servers](/communities/) for this!
+
+For other ways to get help and contribute, check out [these pages](/help).
+
+{% endfilter %}
+    </div>
+</section>
+
+{% endblock main %}
+
