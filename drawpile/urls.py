@@ -18,6 +18,7 @@ urlpatterns = [
     path('readonly/', TemplateView.as_view(template_name='readonly.html')
         if settings.DRAWPILE_READONLY_SITE
         else RedirectView.as_view(url='/', permanent=False)),
+    path('discord/', RedirectView.as_view(url='https://discord.gg/M3yyMpC', permanent=True)),
     path('', TemplateView.as_view(template_name='pages/index.html')),
 ]
 

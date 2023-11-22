@@ -7,7 +7,7 @@ Author: askmeaboutloom
 
 After a long time and much testing behind the scenes, Drawpile 2.2 beta 4 is out! You can grab it [over here](/download/#Beta).
 
-Before getting to describing all the new stuff in this release though, I gotta get the organizational thing out of the way: after working as the lead Drawpile developer for 16 years, callaa has handed over the development to me, askmeaboutloom. The size of the "thank you" in order for creating and maintaining this project is immense beyond description. If you want to leave him your own thanks and wishes, there's a thread on the [Drawpile Discord server](https://discord.gg/M3yyMpC) where you could do so!
+Before getting to describing all the new stuff in this release though, I gotta get the organizational thing out of the way: after working as the lead Drawpile developer for 16 years, callaa has handed over the development to me, askmeaboutloom. The size of the "thank you" in order for creating and maintaining this project is immense beyond description. If you want to leave him your own thanks and wishes, there's a thread on the [Drawpile Discord server](/discord/) where you could do so!
 
 I could go on about what stuff is planned from here on out, but I already got so many new features to talk about that I'd rather do that instead and leave the rest for later.
 
