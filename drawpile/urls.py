@@ -19,6 +19,7 @@ urlpatterns = [
         if settings.DRAWPILE_READONLY_SITE
         else RedirectView.as_view(url='/', permanent=False)),
     path('discord/', RedirectView.as_view(url='https://discord.gg/M3yyMpC', permanent=True)),
+    path('localhosthelp/', RedirectView.as_view(url='https://docs.drawpile.net/help/common/hosting#hosting-on-your-computer', permanent=True)),
     path('', TemplateView.as_view(template_name='pages/index.html')),
 ]
 
