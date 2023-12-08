@@ -20,16 +20,13 @@
 	<h2 data-icon="fab fa-windows">Windows</h2>
 	<div class="columns is-multiline">
 		<div class="column is-narrow">
-			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}.msi" class="button is-link"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ BETAVERSION }} Installer</a>
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-64bit.msi" class="button is-link"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ BETAVERSION }} Installer</a>
 		</div>
 		<div class="column is-narrow">
-			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}.zip" class="button is-link"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ BETAVERSION }} Portable ZIP</a>
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-64bit.zip" class="button is-link"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ BETAVERSION }} Portable ZIP</a>
 		</div>
 		<div class="column is-narrow">
             <a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/drawpile-{{ VERSION }}-setup.exe" class="button is-primary"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ VERSION }} Installer</a>
-		</div>
-		<div class="column is-narrow">
-            <a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/drawpile-{{ VERSION }}-setup-w32.exe" class="button is-primary"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ VERSION }} Installer 32 Bit</a>
 		</div>
 	</div>
 	<p>
@@ -90,7 +87,7 @@
 	<h2 data-icon="fab fa-linux">Linux</h2>
 	<div class="columns is-multiline">
 		<div class="column is-narrow">
-			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-x86_64.AppImage" class="button is-link"><i class="fab fa-linux"></i>&nbsp;Drawpile {{ BETAVERSION }} AppImage</a>
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-x86_64.AppImage" class="button is-link"><span class="fab fa-linux"></span>&nbsp;Drawpile {{ BETAVERSION }} AppImage</a>
 		</div>
 		<div class="column is-narrow">
 			<a href="https://flathub.org/apps/details/net.drawpile.drawpile" class="button is-primary"><span class="fab fa-linux"></span>&nbsp;Drawpile {{ VERSION }} on Flathub</a>
@@ -120,7 +117,7 @@
 	<h2 data-icon="fab fa-android">Android</h2>
 	<div class="columns is-multiline">
 		<div class="column is-narrow">
-			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}.apk" class="button is-link"><i class="fab fa-android"></i>&nbsp;Drawpile {{ BETAVERSION }} APK</a>
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-arm64-v8a.apk" class="button is-link"><span class="fab fa-android"></span>&nbsp;Drawpile {{ BETAVERSION }} APK</a>
 		</div>
 	</div>
 	<p>
@@ -167,13 +164,27 @@
 </div>
 
 <div id="Archive" class="tab-page content">
-	<h2 data-icon="fas fa-archive">Old Versions</h2>
+	<h2 data-icon="fas fa-archive">Other Versions</h2>
 	<p>
 		Old releases can be found in the <a href="https://github.com/drawpile/Drawpile/releases" target="_blank">Releases on GitHub</a>. The <em>Assets</em> in each release contain the downloads.
 	</p>
 	<p>
 		All releases are also tagged in the git repository.
 	</p>
+	<p>
+		32 bit versions are available for Windows and Android.
+	</p>
+	<ul>
+		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-32bit.msi">Drawpile {{ BETAVERSION }} Installer for 32 Bit Windows</a></li>
+		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-32bit.zip">Drawpile {{ BETAVERSION }} Portable ZIP for 32 Bit Windows</a></li>
+		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/drawpile-{{ VERSION }}-setup-w32.exe">Drawpile {{ VERSION }} 32 Bit Installer for 32 Bit Windows</a></li>
+		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-armeabi-v7a.apk">Drawpile {{ BETAVERSION }} APK for 32 Bit Android</a></li>
+	</ul>
+	<div class="notification">
+		<p>
+			<strong>Note:</strong> Only use these 32 bit versions if you <em>know</em> that your device needs them. If not, use the regular Windows or Android versions, those are faster and more stable.
+		</p>
+	</div>
 </div>
 </div>{# ./tab-container #}
 
