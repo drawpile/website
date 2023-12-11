@@ -17,7 +17,7 @@
 		<div class="container">
 {% if object.status == 'submitted' %}
 			<p>This submission is awaiting review by site admins.</p>
-			
+
 			{% if review_form %}
 			<p>Hey, <i>you're a site admin!</i> You can review this page:</p>
 			<form method="POST" action="{% url "communities:review" slug=object.slug %}">
@@ -25,8 +25,8 @@
 				{% with field=review_form.comment %}<div class="field">
 					<label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
 					<div class="control">{% render_field field class+="textarea" rows=2 %}</div>
-				</div>{% endwith %}	
-				
+				</div>{% endwith %}
+
 				<p><input type="submit" class="button is-primary" value="Review"></p>
 				{% csrf_token %}
 			</form>
@@ -46,7 +46,9 @@
 <section class="section">
 <div class="container">
 
-<p class="is-size-7"><a href="{% url "communities:frontpage" %}">&larr; Back to community list</a></p>
+<div class="content">
+	<p><a href="{% url "communities:frontpage" %}">&larr; Back to community list</a></p>
+</div>
 
 <h2 class="title">{{ object.title }}</h2>
 
@@ -58,9 +60,9 @@
 
 <h3>Rules</h3>
 
-{{ object.rules|commonmark_safe }}
+<p>The rules from <a href="{% url "communities:ccg" %}">the common community guidelines</a> apply to this and all other communities.</p>
 
-<p>Additionally, <a href="{% url "communities:ccg" %}">common community guidelines</a> apply.</p>
+{{ object.rules|commonmark_safe }}
 
 </div>{# /.content #}
 
@@ -93,7 +95,7 @@
 		{% endif %}
 
 	</div>
-	
+
 	<div class="box-section">
 		{% if object.guests_allowed %}
 		<p>This server is open to unregistered users.</p>
@@ -110,8 +112,8 @@
 		{% endif %}
 	</div>
 
-	{% if object.content_rating == 'sfw' %} <div class="box-section content-rating sfw">Only SFW content allowed</div>
-	{% elif object.content_rating == 'mixed' %}<div class="box-section content-rating mixed">Adult content permitted in tagged sessions</div>
+	{% if object.content_rating == 'sfw' %} <div class="box-section content-rating sfw">Adult content forbidden</div>
+	{% elif object.content_rating == 'mixed' %}<div class="box-section content-rating mixed">Adult content permitted in sessions marked not suitable for minors (NSFM)</div>
 	{% else %}<div class="box-section content-rating nsfw">This is an adults-only community</div>
 	{% endif %}
 
@@ -137,7 +139,7 @@
 				<blockquote>{{ membership.ban_reason }}</blockquote>
 			</div>
 		{% endif %}
-		
+
 		{% if object.memberlist_visibility != "hidden" %}
 		{% if membership.is_member or object.memberlist_visibility == "visible" %}
 		<p style="margin-top: 15px"><a href="{% url 'communities:memberlist' slug=object.slug %}" target="_blank" rel="noopener" class="smallNewWindow">Member list</a></p>
@@ -161,7 +163,7 @@
 		{% endwith %}{% endfor %}
 		</ul>
 	</div>
-	
+
 	{% if membership.is_admin or perms.communities.change_community %}
 	<div class="box-section">
 		<p><b>Admin toolbox</b></p>
@@ -183,12 +185,12 @@
 		</p>
 	</div>
 	{% endif %}
-	
+
 	{% if can_report %}
 	<div class="has-text-centered">
 		<p><button disabled class="button is-text" id="abuse-report-button" data-url="{% url "api:community-report-abuse" slug=object.slug %}">
 			<span class="icon"><i class="fas fa-exclamation-triangle"></i></span>
-			<span>Report to site admins</span>
+			<span>Report community to site admins</span>
 		</button></p>
 	</div>
 	{% endif %}
@@ -201,16 +203,17 @@
 
 	{% if object|can:user|use:"login" %}
 	<div class="notification">
+		<span class="icon is-large is-pulled-left" style="margin: 0 1em 1em 0"><i class="fas fa-3x fa-lightbulb"></i></span>
 		<p>
-			<span class="icon is-large is-pulled-left" style="margin: 0 1em 1em 0"><i class="fas fa-3x fa-lightbulb"></i></span>
-			You can see these sessions directly inside Drawpile by adding this list server.<br>
-			Simply enter <code>{{ object.drawpile_server }}</code> in the <em>Join</em> dialog and click the <strong>Add</strong> button.<br>
-			Alternatively, you can add it via the <em>List Servers</em> tab of the <em>Preferences</em> dialog by copy pasting this URL: <code>{{ object.list_server }}</code>
+			You can <a href="drawpile://{% if object|can:user|use:"login" %}{{ object.drawpile_server }}{% endif %}/?list-server={{ object.list_server }}">add this community to Drawpile</a> to see these session listings directly on Drawpile's <strong>Browse</strong> page.
+		</p>
+		<p>
+			You can also add it manually by clicking on the <strong>Add</strong> button on the <strong>Browse</strong> page and entering <code>{{ object.list_server }}</code>
 		</p>
 	</div>
 	{% endif %}
 
-	<drawpile-session-list list-url="{{ object.list_server }}/sessions/" />
+	<drawpile-session-list list-url="{{ object.list_server }}/sessions/{% if object.content_rating != 'sfw' %}?nsfm=true{% endif %}" />
 </div>
 {% endif %}
 

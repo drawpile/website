@@ -76,6 +76,7 @@
 
 .community-banner {
 	max-width: 400px;
+	border-bottom: 1px solid #ccc;
 }
 
 .community-banner>img {

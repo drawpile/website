@@ -8,7 +8,15 @@
 
 <h2 class="title">Communities</h2>
 
-<p>Find public sessions to join, or a server to host your session on, from one of these communities.</p>
+<div class="content">
+	<p>These are Drawpile's official community servers. You can find public sessions to join and host your own sessions on them.</p>
+	<p>When using these servers, you have to follow <a href="{% url "communities:ccg" %}">the common community guidelines</a>. The communities may also have their own additional rules listed on their pages below.</p>
+	{% if user.is_authenticated %}
+		<p>If you run your own Drawpile server and want it to become a community, you can <a href="{% url "communities:ych" %}">submit it for inclusion here</a>.</p>
+	{% else %}
+		<p>If you run your own Drawpile server and want to submit it as a community, please <a href="/accounts/login">sign in</a> first.</p>
+	{% endif %}
+</div>
 
 <div class="community-list">
 
@@ -45,7 +53,7 @@
 	</div>
 	<div class="card-content">
 		<h1><a href="{% url "communities:ych" %}">Your Community Here?</a></h1>
-		<p>Submit your community for inclusion at drawpile.net</p>
+		<p>Submit your community to be included here</p>
 	</div>
 </article>
 {% endif %}
