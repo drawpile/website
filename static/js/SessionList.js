@@ -355,28 +355,28 @@ class SessionList extends HTMLElement {
 		if(this._sessions.length === 0) {
 			tbody.append(
 				el('tr', {class: 'empty'},
-					el('td', {colspan: 6}, 'No active sessions at the moment')
+					el('td', {colspan: 7}, 'No active sessions at the moment')
 				)
 			);
 
 		} else {
-			const sessions = [...this._sessions].sort((a,b) => {
-				let va = a[this._sortColumn];
-				let vb = b[this._sortColumn];
-				if(typeof(va) === 'string') {
-					va = va.trim().toLowerCase();
-				}
-				if(typeof(vb) === 'string') {
-					vb = vb.trim().toLowerCase();
-				}
-				if(va < vb) {
-					return this._sortDir;
-				} else if(va > vb) {
-					return -this._sortDir;
-				}
-				return 0;
-			});
-			tbody.append(...sessions
+			const sessions = [...this._sessions]
+				.sort((a,b) => {
+					let va = a[this._sortColumn];
+					let vb = b[this._sortColumn];
+					if(typeof(va) === 'string') {
+						va = va.trim().toLowerCase();
+					}
+					if(typeof(vb) === 'string') {
+						vb = vb.trim().toLowerCase();
+					}
+					if(va < vb) {
+						return this._sortDir;
+					} else if(va > vb) {
+						return -this._sortDir;
+					}
+					return 0;
+				})
 				.filter(s => {
 					return (this._filters.password || !s.password)
 						&& (this._filters.closed || !s.closed)
@@ -397,7 +397,16 @@ class SessionList extends HTMLElement {
 					td(''+s.users),
 					td(uptime(s.started, now)),
 					el('td', {class: 'column-version'}, versionFlair(s))
-				)));
+				));
+			if(sessions.length === 0) {
+				tbody.append(
+					el('tr', {class: 'empty'},
+						el('td', {colspan: 7}, 'All sessions have been filtered out')
+					)
+				);
+			} else {
+				tbody.append(...sessions);
+			}
 		}
 	}
 }
