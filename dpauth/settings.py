@@ -3,8 +3,9 @@ from . import models
 
 def null_group_membership(username, group):
     """Default group membership test.
-    Gives HOST permission to all users and MOD permission to those
-    with dpauth.moderator Django permission.
+    Gives HOST permission to all users, MOD permission to those
+    with dpauth.moderator Django permission and GHOST permission to those
+    with dpauth.ghost Django permission.
 
     Custom implementations can delegate to this one if group is blank.
 
@@ -20,6 +21,8 @@ def null_group_membership(username, group):
     if username:
         if username.is_mod and username.user.has_perm('dpauth.moderator'):
             flags.append('MOD')
+            if username.is_ghost and username.user.has_perm('dpauth.ghost'):
+                flags.append('GHOST')
         try:
             verification = models.UserVerification.objects.get(pk=username.user_id)
             if verification.exempt_from_bans:

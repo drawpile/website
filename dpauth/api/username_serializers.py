@@ -9,7 +9,7 @@ class UsernameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Username
-        fields = ('name', 'is_mod', 'avatar', 'is_primary')
+        fields = ('name', 'is_mod', 'is_ghost', 'avatar', 'is_primary')
 
     def validate_name(self, value):
         if Username.exists(value, self.instance.pk if self.instance else None):
@@ -31,7 +31,7 @@ class UsernameSerializer(serializers.ModelSerializer):
         if is_primary:
             obj.make_primary()
         return obj
-    
+
     def update(self, instance, validated_data):
         is_primary = validated_data.pop('is_primary', False)
         super().update(instance, validated_data)

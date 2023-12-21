@@ -28,6 +28,9 @@ class Username(models.Model):
 
     The "dpauth.moderator" permission makes a user a moderator. The moderator
     privilege can then be activated on a per-username basis.
+
+    The "dpauth.ghost" permission also lets that user assign ghost status to
+    usernames.
     """
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -57,10 +60,15 @@ class Username(models.Model):
         upload_to=avatar_upload_to,
         validators=[avatar_validator]
     )
+    is_ghost = models.BooleanField(
+        default=False,
+        help_text="Enable ghost status for this username if the user has the ghost permission."
+    )
 
     class Meta:
         permissions = (
             ("moderator", "Can activate moderator privileges"),
+            ("ghost", "Can activate ghost privileges"),
         )
         ordering = ['user', 'id']
 

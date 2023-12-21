@@ -26,11 +26,11 @@ async function sendData(url, method, data) {
     if(!response.ok) {
         throw new Error(await response.text());
     }
-    
+
     return response;
 }
 
-function Username({user, refresh, setError, row}) {
+function Username({user, refresh, setError, row, isMod, isGhost}) {
     const fileInput = useRef();
     const [loading, setLoading] = useState(false);
 
@@ -71,7 +71,7 @@ function Username({user, refresh, setError, row}) {
                 },
                 body: formdata
             });
-        
+
             if(!response.ok) {
                 if(response.status === 400) {
                     const err = await response.json();
@@ -104,10 +104,16 @@ function Username({user, refresh, setError, row}) {
                 <div class="content">
                     <p>
                         <b class="button is-static">${user.name}</b>
-                        <button class="button is-text ${loading==='is_mod' ? 'is-loading' : ''}" onclick=${update('is_mod', !user.is_mod)}>
-                            <span class="icon"><i class="fas fa-${user.is_mod ? 'check-' : ''}circle"></i></span>
-                            <span>Enable moderator role when available</span>
-                        </button>
+                        ${isMod && html`
+                            <button class="button is-text ${loading==='is_mod' ? 'is-loading' : ''}" onclick=${update('is_mod', !user.is_mod)}>
+                                <span class="icon"><i class="fas fa-${user.is_mod ? 'check-' : ''}circle"></i></span>
+                                <span>Enable moderator role when available</span>
+                            </button>`}
+                        ${isMod && isGhost && user.is_mod && html`
+                            <button class="button is-text ${loading==='is_ghost' ? 'is-loading' : ''}" onclick=${update('is_ghost', !user.is_ghost)}>
+                                <span class="icon"><i class="fas fa-${user.is_ghost ? 'check-' : ''}circle"></i></span>
+                                <span>Enable ghost role when available</span>
+                            </button>`}
                     </p>
                     <p>
                         ${!user.is_primary && html`
@@ -137,7 +143,7 @@ function Username({user, refresh, setError, row}) {
 	</div>`
 }
 
-function Usernames({users, refresh, setError}) {
+function Usernames({users, refresh, setError, isMod, isGhost}) {
     const newuser = useRef();
 
     let addUserTpl = '';
@@ -169,12 +175,14 @@ function Usernames({users, refresh, setError}) {
     }
 
     return html`<div class="tile is-ancestor is-vertical">
-        ${users.map((u,row) => html`<${Username} user=${u} refresh=${refresh} setError=${setError} row=${row} />`)}
-        ${addUserTpl}   
+        ${users.map((u,row) => html`<${Username} user=${u} refresh=${refresh} setError=${setError} row=${row} isMod=${isMod} isGhost=${isGhost}/>`)}
+        ${addUserTpl}
     </div>`
 }
 
-function App() {
+function App({permissions}) {
+    const isMod = permissions.indexOf('MOD') !== -1;
+    const isGhost = permissions.indexOf('GHOST') !== -1;
     const [usernames, setUsernames] = useState(null);
     const [error, setError] = useState(null);
 
@@ -190,8 +198,10 @@ function App() {
     return html`
         ${error !== null && html`<p class="notification is-danger">${error.toString()}</p>`}
         ${usernames === null && error === null && html`<p>Loading...</p>`}
-        ${usernames !== null && html`<${Usernames} users=${usernames} refresh=${fetchUsers} setError=${setError} />`}
-    `
+        ${usernames !== null && html`<${Usernames} users=${usernames} refresh=${fetchUsers} setError=${setError} isMod=${isMod} isGhost=${isGhost}/>`}
+    `;
 }
 
-render(html`<${App}  />`, document.getElementById("username-list"))
+const rootElement = document.getElementById("username-list");
+const permissions = rootElement.dataset.permissions;
+render(html`<${App} permissions=${permissions}/>`, rootElement);

@@ -15,12 +15,13 @@
 <div class="message">
 	<div class="message-body">
 		<div class="content">
-			<p>Here you can manage the names to use on the public server and this web site.
-			Setting the Mod flag activates moderator privileges ({{ mod_status }}) for that username.</p>
-			<p>Note that alternative usernames are not hidden! If you need alts for privacy, you must register
-			a separate account with another email address.</p>
+			<p>Here you can reserve names for use on <a href="/communities/">the community servers</a> and any other Drawpile server that uses drawpile.net accounts.</p>
+			<p>Note that alternative usernames are not hidden! If you need alts for privacy, you must register a separate account with another email address.</p>
+			{% if mod_available %}
+				<p>Setting the Mod flag activates moderator privileges for that username. {{ mod_status|capfirst }}.</p>
+			{% endif %}
 		</div>
-		<div id="username-list"></div>
+		<div id="username-list" data-permissions="{{ permissions }}"></div>
 	</div>
 </div>
 
