@@ -43,11 +43,13 @@ document.addEventListener("DOMContentLoaded", function() {
 	/* Links that open in new windows */
 	function openSmallNewWindow(e) {
 		e.preventDefault();
-		for(let i=0;i<e.path.length;++i) {
-			if(e.path[i].nodeName == 'A') {
-				window.open(e.path[i].href, 'smallwindow', 'width=500,height=600');
+		let target = e.target;
+		while(target) {
+			if(target.href) {
+				window.open(target.href, 'smallwindow', 'width=500,height=600');
 				break;
 			}
+			target = target.parentElement;
 		}
 	}
 	document.querySelectorAll("a.smallNewWindow").forEach(e => e.onclick=openSmallNewWindow);
