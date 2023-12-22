@@ -230,6 +230,7 @@ class Membership(models.Model):
 
     is_host = models.BooleanField(default=False)
     is_trusted = models.BooleanField(default=False)
+    is_ghost = models.BooleanField(default=False)
 
     ban_reason = models.CharField(
         max_length=200,

@@ -254,10 +254,10 @@ class UsernameView(LoginRequiredMixin, TemplateView):
         if self.request.user.has_perm('dpauth.moderator'):
             mod_available = True
             if self.request.user.has_perm('dpauth.ghost'):
-                mod_status.append('you have global mod+ghost status')
+                mod_status.append('Global moderator and ghost status.')
                 ghost_available = True
             else:
-                mod_status.append('you have global mod status')
+                mod_status.append('Global moderator status.')
 
         memberships = Membership.objects.filter(
             user=self.request.user,
@@ -266,16 +266,13 @@ class UsernameView(LoginRequiredMixin, TemplateView):
 
         if len(memberships) > 0:
             mod_available = True
-            if mod_status:
-                mod_status.append('and')
-            mod_status.append("you're a moderator in")
             for m in memberships:
-                mod_status.append(m.community.title)
-                mod_status.append(',')
-
-            mod_status.pop()
-            if len(memberships) > 1:
-                mod_status[-2] = 'and'
+                if m.is_ghost:
+                    ghost_available = True
+                    what = 'Moderator and ghost'
+                else:
+                    what = 'Moderator'
+                mod_status.append(f'{what} in {m.community.title}.')
 
         if mod_available:
             if ghost_available:
@@ -288,7 +285,7 @@ class UsernameView(LoginRequiredMixin, TemplateView):
         ctx.update({
             'profile_page': 'usernames',
             'max_users': extauth_settings['ALT_COUNT'],
-            'mod_status': ' '.join(mod_status),
+            'mod_status': mod_status,
             'mod_available': mod_available,
             'permissions': permissions,
         })

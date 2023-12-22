@@ -49,6 +49,8 @@ def community_membership_extauth(username, group):
 
     if membership.is_mod and username.is_mod:
         flags.append('MOD')
+        if membership.is_ghost and username.is_ghost:
+            flags.append('GHOST')
 
     return {
         'member': membership.is_member,

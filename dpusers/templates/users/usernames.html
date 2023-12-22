@@ -18,7 +18,12 @@
 			<p>Here you can reserve names for use on <a href="/communities/">the community servers</a> and any other Drawpile server that uses drawpile.net accounts.</p>
 			<p>Note that alternative usernames are not hidden! If you need alts for privacy, you must register a separate account with another email address.</p>
 			{% if mod_available %}
-				<p>Setting the Mod flag activates moderator privileges for that username. {{ mod_status|capfirst }}.</p>
+				<p>Setting the Mod flag activates moderator privileges for that username. You have the following moderator role{{ mod_status|length|pluralize }}:</p>
+				<ul>
+					{% for m in mod_status %}
+					<li>{{ m }}</li>
+					{% endfor %}
+				</ul>
 			{% endif %}
 		</div>
 		<div id="username-list" data-permissions="{{ permissions }}"></div>
