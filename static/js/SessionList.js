@@ -267,6 +267,9 @@ class SessionList extends HTMLElement {
 				background-color: #2366d1;
 				text-decoration: none;
 			}
+			.nsfw .column-title a {
+				color: #f14668;
+			}
 			.nsfw .btn {
 				background-color: #f14668;
 			}
