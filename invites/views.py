@@ -8,9 +8,10 @@ class InviteView(TemplateView):
     __PORT_RE = re.compile(r':([0-9]{1,5})')
 
     def get(self, request, host, port, session, *args, **kwargs):
-        url = InviteView.__build_url(host, port, session, request.GET)
+        url, web_url = InviteView.__build_url(host, port, session, request.GET)
         if url:
-            return self.render_to_response(self.get_context_data(url=url))
+            return self.render_to_response(self.get_context_data(
+                host=host, url=url, web_url=web_url))
         else:
             raise Http404()
 
@@ -20,13 +21,25 @@ class InviteView(TemplateView):
             port_suffix = InviteView.__parse_port(port)
         except ValueError:
             return None
-        return ''.join([
+        url = ''.join([
             'drawpile://',
             quote_plus(host, safe=':[]'),
             port_suffix,
             '/',
-            quote_plus(session)
+            quote_plus(session),
         ])
+
+        if "web" in params:
+            web_url = ''.join([
+                'https://web.drawpile.net/?host=',
+                quote_plus(host),
+                '&session=',
+                quote_plus(session),
+            ])
+        else:
+            web_url = None
+
+        return (url, web_url)
 
     @staticmethod
     def __parse_port(port):

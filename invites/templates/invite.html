@@ -4,7 +4,7 @@
 {% block extrameta %}
 <meta property="og:type" content="website">
 <meta property="og:title" content="Drawpile Session Invitation">
-<meta property="og:description" content="Join a collaborative drawing session at {{ url }}">
+<meta property="og:description" content="Join a collaborative drawing session at {{ url }}{% if web_url %} in the application or directly via your Web browser{% endif %}">
 <meta property="og:image" content="https://drawpile.net/files/og/logo.png">
 {% endblock %}
 
@@ -19,7 +19,7 @@
         <div class="columns">
             <div class="column is-half is-offset-one-quarter">
                 <div class="content is-large has-text-centered">
-                    <p id="invite-link-title">You've been invited to join a Drawpile&nbsp;session!</p>
+                    <p id="invite-link-title">Join a Drawpile session at {{host}}</p>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                         <input id="invite-link-input" type="text" class="input is-medium" value="{{ url }}" readonly>
                     </div>
                     <div class="control">
-                        <button id="invite-link-copy-button" class="button is-link is-medium">
+                        <button id="invite-link-copy-button" class="button is-medium">
                             <span class="icon">
                                 <i class="fa fa-copy"></i>
                             </span>
@@ -38,19 +38,35 @@
                         </button>
                     </div>
                 </div>
-                <a class="button is-primary is-medium is-fullwidth" href="{{ url }}">
-                    <span class="icon">
-                        <i class="fas fa-sign-in-alt"></i>
-                    </span>
-                    <span>Open in Drawpile</span>
-                </a>
+                <div class="field">
+                    <a id="invite-link-open" class="button is-primary is-medium is-fullwidth" href="{{ url }}">
+                        <span class="icon">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </span>
+                        <span>Open in Drawpile</span>
+                    </a>
+                </div>
+                {% if web_url %}
+                    <div class="field">
+                        <a id="invite-link-web" class="button is-link is-medium is-fullwidth" href="{{ web_url }}">
+                            <span class="icon">
+                                <i class="fas fa-globe"></i>
+                            </span>
+                            <span>Join via Web Browser</span>
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div class="columns">
             <div class="column is-half is-offset-one-quarter">
                 <div class="content is-medium has-text-centered">
                     <p>
-                        If you don't have Drawpile yet, you can <a href="/download/" target="_blank">download&nbsp;it&nbsp;here</a>.
+                        {% if web_url %}
+                            You don't need to install anything if you join via Web browser. If you want to use the desktop or mobile application, you can <a href="/download/" target="_blank">download&nbsp;it&nbsp;here</a>.
+                        {% else %}
+                            If you don't have Drawpile yet, you can <a href="/download/" target="_blank">download&nbsp;it&nbsp;here</a>.
+                        {% endif %}
                     </p>
                 </div>
             </div>
