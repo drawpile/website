@@ -160,8 +160,8 @@ LOGGING = {
 }
 
 # CORS Headers
-# Allow requests from any URL.
-CORS_ALLOW_ALL_ORIGINS = True
+# Allow requests from the web client.
+CORS_ALLOWED_ORIGINS = ["https://web.drawpile.net"]
 # Only allow them for the ext-auth endpoint.
 CORS_URLS_REGEX = r'^/api/ext-auth/?$'
 # And only allow the methods actually required.
