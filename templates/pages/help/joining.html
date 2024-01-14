@@ -1,32 +1,8 @@
 {% extends "pages/help/_base.html" %}
-
-{% load commonmark %}
-
-{% block title %}Joining sessions - {{ block.super }}{% endblock %}
-
 {% block content %}
 <article class="content">
-{% filter commonmark_full %}
-
-# Joining a drawing session
-
-<p class="has-text-centered">{% include "components/image.html" with name="joindialog.png" alt="[join dialog screenshot]" %}</p>
-
-To join a session, select the **Join** action from the *Session* menu.
-
-You will see a list of sessions from servers you have added, as well as servers running on the local network (Nearby) if you have Bonjour installed.
-You can find servers to add by visiting the [communities](/communities/) page. Enter the server's address and click the <em>Add Server</em> button
-to add it to the list. Note that not all servers provide the listing functionality.
-
-You can enter a whole session URL, a server address or a room code to join.
-
-Clicking on the record button next to the address box will allow you to capture the sessions history from the very
-beginning.
-
-It may take some time to get up to speed with the session.
-If you start drawing and your strokes disappear, it is probably because you haven't caught up yet.
-The strokes will reappear once the whole session has been synchronized.
-
-{% endfilter %}
+<h1>Joining Sessions</h1>
+<p>This page has moved to <a href="https://docs.drawpile.net/help/common/joining">docs.drawpile.net</a>.</p>
+</article>
 {% endblock %}
 
