@@ -76,19 +76,22 @@
 	<h2 data-icon="fab fa-linux">Linux</h2>
 	<div class="columns is-multiline">
 		<div class="column is-narrow">
+			<a href="https://flathub.org/apps/net.drawpile.drawpile" class="button is-link" target="_blank"><span class="fab fa-linux"></span>&nbsp;Drawpile {{ VERSION }} on Flathub</a>
+		</div>
+		<div class="column is-narrow">
 			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-x86_64.AppImage" class="button is-link"><span class="fab fa-linux"></span>&nbsp;Drawpile {{ VERSION }} AppImage</a>
 		</div>
 	</div>
 	<p>
-		Drawpile 2.2.0 is backward-compatible, so you can join sessions hosted with the previous 2.1 series. To find out how to run the AppImage, take a look at <a href="https://docs.appimage.org/introduction/quickstart.html" target="_blank">the AppImage manual</a> and <a href="https://docs.appimage.org/user-guide/troubleshooting/fuse.html" target="_blank">troubleshooting page</a>. The Flatpak version is currently <a href="https://github.com/flathub/net.drawpile.drawpile/pull/4#issuecomment-1890193057" target="_blank">waiting to be integrated</a>.
+		Drawpile 2.2.0 is backward-compatible, so you can join sessions hosted with the previous 2.1 series.
+	</p>
+	<p>
+		Flatpak comes pre-installed on some Linux distributions and is generally easy to set up. Take a look at <a href="https://flathub.org/setup" target="_blank">the Flathub setup page</a> for how to install it. It does not include the dedicated server or command-line tools. The AppImage is self-contained, but needs to be downloaded and updated manually. To find out how to use it take a look at <a href="https://docs.appimage.org/introduction/quickstart.html" target="_blank">the AppImage manual</a> and <a href="https://docs.appimage.org/user-guide/troubleshooting/fuse.html" target="_blank">troubleshooting page</a>. It includes the client, server and command line tools, run it with <code>--help</code> to see what's included. If you want to set up a server on Linux, take a look at <a href="https://docs.drawpile.net/help/server/dedicatedserver">the dedicated server help page</a>.
 	</p>
 	<p>
 		If you run into issues, found a bug, want to suggest a feature or ask
 		for help with something, <a href="/help/">take a look at the Help
 		pages</a>!
-	</p>
-	<p>
-		The AppImage includes the dedicated server, which you can run by passing <code>--server</code> as the first argument. There's also other options to run the dedicated server, such as via Docker or by compiling from source, with some scripts provided if you want to set up a server from scratch. For more information, take a look at <a href="https://docs.drawpile.net/help/server/dedicatedserver">the dedicated server help page</a>.
 	</p>
 </div>
 
@@ -158,7 +161,6 @@
 	<ul>
 		<li><a href="https://github.com/drawpile/Drawpile/releases/download/2.1.20/drawpile-2.1.20-setup.exe">Drawpile 2.1.20 Installer for Windows</a></li>
 		<li><a href="https://github.com/drawpile/Drawpile/releases/download/2.1.20/Drawpile.2.1.20.dmg">Drawpile 2.1.20 Disk Image for macOS</a></li>
-		<li><a href="https://flathub.org/apps/details/net.drawpile.drawpile">Drawpile 2.1.20 Flatpak for Linux</a></li>
 	</ul>
 	<p>
 		For systems that require it, there's a <a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/drawpile-2.1.20-setup-w32.exe">Drawpile 2.1.20 Installer for 32 Bit Windows</a>. Do not use this unless you know you need it.
