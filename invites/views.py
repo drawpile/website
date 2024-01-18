@@ -8,10 +8,10 @@ class InviteView(TemplateView):
     __PORT_RE = re.compile(r':([0-9]{1,5})')
 
     def get(self, request, host, port, session, *args, **kwargs):
-        url, web_url = InviteView.__build_url(host, port, session, request.GET)
+        url, web_url, nsfm = InviteView.__build_url(host, port, session, request.GET)
         if url:
             return self.render_to_response(self.get_context_data(
-                host=host, url=url, web_url=web_url))
+                host=host, url=url, web_url=web_url, nsfm=nsfm))
         else:
             raise Http404()
 
@@ -39,7 +39,7 @@ class InviteView(TemplateView):
         else:
             web_url = None
 
-        return (url, web_url)
+        return (url, web_url, "nsfm" in params)
 
     @staticmethod
     def __parse_port(port):

@@ -21,6 +21,14 @@
                 <div class="content is-large has-text-centered">
                     <p id="invite-link-title">Join a Drawpile session at {{host}}</p>
                 </div>
+                {% if nsfm %}
+                    <article class="message is-danger">
+                        <div class="message-body">
+                            <span class="fas fa-exclamation-triangle"></span>
+                            This session indicates that its contents are <strong>🔞 not suitable for minors</strong> (NSFM). You must be over the age of 18 and be allowed to consume adult content to proceed.
+                        </div>
+                    </article>
+                {% endif %}
             </div>
         </div>
         <div class="columns">
