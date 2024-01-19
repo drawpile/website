@@ -30,10 +30,12 @@ class Community(models.Model):
     )
 
     HOST_EVERYONE = 'all-host'
+    HOST_ACCOUNT = 'account-host'
     HOST_MEMBERS = 'member-host'
     HOST_LIMITED = 'limited-host'
     HOST_POLICY = (
         (HOST_EVERYONE, 'Everyone can host sessions'),
+        (HOST_ACCOUNT, 'Anyone with an account can host'),
         (HOST_MEMBERS, 'Only group members can host'),
         (HOST_LIMITED, 'Only select users can host'),
     )
