@@ -1,6 +1,7 @@
 from django.db import connection
 
 from dpauth.settings import null_group_membership
+from dpauth.models import UserVerification
 from .models import Community, Membership
 
 def community_membership_extauth(username, group):
@@ -51,6 +52,13 @@ def community_membership_extauth(username, group):
         flags.append('MOD')
         if membership.is_ghost and username.is_ghost:
             flags.append('GHOST')
+
+    try:
+        verification = UserVerification.objects.get(pk=username.user_id)
+        if verification.exempt_from_bans:
+            flags.append('BANEXEMPT')
+    except UserVerification.DoesNotExist:
+        pass
 
     return {
         'member': membership.is_member,
