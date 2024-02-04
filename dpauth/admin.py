@@ -40,9 +40,6 @@ class BanUserForm(forms.ModelForm):
     class Meta:
         model = models.BanUser
         fields = ('user',)
-        widgets = {
-            'user': forms.NumberInput(),
-        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -52,6 +49,7 @@ class BanUserForm(forms.ModelForm):
         user_widget.can_delete_related = False
 
 class BanUserInline(admin.TabularInline):
+    autocomplete_fields = ('user',)
     model = models.BanUser
     form = BanUserForm
     extra = 1
@@ -67,9 +65,6 @@ class UserVerificationForm(forms.ModelForm):
     class Meta:
         model = models.UserVerification
         fields = ('user', 'comment', 'exempt_from_bans')
-        widgets = {
-            'user': forms.NumberInput(),
-        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -85,6 +80,7 @@ class UserVerificationForm(forms.ModelForm):
 @admin.register(models.UserVerification)
 class UserVerificationAdmin(admin.ModelAdmin):
     fields = ('user', 'comment', 'exempt_from_bans')
+    autocomplete_fields = ('user',)
     list_display = ('user', 'comment', 'exempt_from_bans')
     list_display_links = list_display
     form = UserVerificationForm
