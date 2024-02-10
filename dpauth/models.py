@@ -67,6 +67,9 @@ class Username(models.Model):
     )
 
     class Meta:
+        indexes = [
+            models.Index(fields=["normalized_name"]),
+        ]
         permissions = (
             ("moderator", "Can activate moderator privileges"),
             ("ghost", "Can activate ghost privileges"),
