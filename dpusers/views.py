@@ -20,7 +20,6 @@ from .token import (
     make_emailchange_token, parse_emailchange_token
     )
 from .mail import send_template_mail
-from .deletion import get_cascade_deletion_list
 
 import logging
 logger = logging.getLogger(__name__)
@@ -311,7 +310,6 @@ class DeleteAccountView(LoginRequiredMixin, FormView):
         ctx = super().get_context_data(**kwargs)
         ctx.update({
             'profile_page': 'account',
-            'tbd': get_cascade_deletion_list(self.request.user),
         })
         return ctx
 

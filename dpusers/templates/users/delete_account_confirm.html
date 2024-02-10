@@ -22,14 +22,6 @@
 			{% if form.errors.password %}<div class="help is-danger">{{ form.errors.password }}</div>{% endif %}
 			<div class="content">
 				<p>Warning: undeletion is not possible!</p>
-				{% if tbd %}
-				<p>The following things will also be deleted:</p>
-				<ul>
-				{% for count, label in tbd %}
-					<li>{{ count }} {{ label }}</li>
-				{% endfor %}
-				</ul>
-				{% endif %}
 			</div>
 		</div>{# /.field #}
 
