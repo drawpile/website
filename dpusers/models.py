@@ -21,3 +21,14 @@ class EmailAddress(models.Model):
         indexes = [
             models.Index(fields=["normalized_address"]),
         ]
+
+
+class PendingDeletion(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    deactivated_at = models.DateTimeField(
+        help_text="When deletion was initiated by the user",
+    )

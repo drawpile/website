@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django import forms
 import re
 from .token import parse_signup_token, parse_emailchange_token
-from .models import EmailAddress
+from .models import EmailAddress, PendingDeletion
 from .normalization import normalize_email
 from dpauth.models import Username, username_pattern
 

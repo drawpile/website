@@ -6,10 +6,12 @@ from django.views.generic import TemplateView, FormView, UpdateView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.db import transaction
+from django.utils import timezone
 
 from dpauth.models import Username
 from dpauth.settings import extauth_settings
 from communities.models import Membership
+from .models import PendingDeletion
 
 from .forms import (
     SignupForm, FinishSignupForm, EmailChangeForm,
@@ -316,7 +318,15 @@ class DeleteAccountView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         user = self.request.user
         logout(self.request)
-        logger.info("Deleting user #%d %s (%s)", user.id, user.username, user.email)
-        user.delete()
+        logger.info("Deactivating #%d %s (%s)", user.id, user.username, user.email)
+        with transaction.atomic():
+            user.is_active = False
+            user.save()
+            try:
+                pd = PendingDeletion.objects.get(pk=user.id)
+            except PendingDeletion.DoesNotExist:
+                pd = PendingDeletion(user_id=user.id)
+            pd.deactivated_at = timezone.now()
+            pd.save()
         return super().form_valid(form)
 
