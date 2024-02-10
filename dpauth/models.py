@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 avatar_upload_to = UploadNameFromContent('avatar/', 'avatar')
 avatar_validator = AvatarValidator(max_dims=(64, 64))
+username_pattern = r'^[^"@]{1,22}$'
 
 
 class Username(models.Model):
@@ -41,7 +42,7 @@ class Username(models.Model):
     name = models.CharField(max_length=22,
         help_text="The original username",
         validators=[RegexValidator(
-            r'^[^"]{1,22}$',
+            username_pattern,
             message="Invalid username"
         )]
     )

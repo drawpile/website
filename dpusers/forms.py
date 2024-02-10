@@ -1,9 +1,16 @@
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
 from django import forms
-
+import re
 from .token import parse_signup_token, parse_emailchange_token
-from dpauth.models import Username
+from dpauth.models import Username, username_pattern
+
+
+_username_regex = re.compile(username_pattern)
+
+def _username_valid(name):
+    return bool(_username_regex.search(name))
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(label='Username or email address')
@@ -17,6 +24,9 @@ class SignupForm(forms.Form):
 
     def clean_username(self):
         name = self.cleaned_data['username']
+        if not _username_valid(name):
+            raise forms.ValidationError("Invalid username.")
+
         if Username.exists(name):
             raise forms.ValidationError("This name is already taken.")
 
@@ -40,8 +50,12 @@ class FinishSignupForm(forms.Form):
         cleaned_data = super().clean()
         token = parse_signup_token(cleaned_data.get('token', ''))
 
+        name = token['name']
+        if not _username_valid(name):
+            raise forms.ValidationError("Invalid username.")
+
         if Username.exists(token['name']):
-            raise forms.ValidationError("Oh no! Someone just reserved this name!")
+            raise forms.ValidationError("This name is already taken.")
 
         if get_user_model().objects.filter(email=token['email']).exists():
             raise forms.ValidationError('This email address has already been registered.')
