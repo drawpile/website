@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from django import forms
 import re
 from .token import parse_signup_token, parse_emailchange_token
+from .models import EmailAddress
+from .normalization import normalize_email
 from dpauth.models import Username, username_pattern
 
 
@@ -10,6 +12,17 @@ _username_regex = re.compile(username_pattern)
 
 def _username_valid(name):
     return bool(_username_regex.search(name))
+
+def _email_already_registered(email, exclude_user_id=None):
+    if get_user_model().objects.filter(email=email).exists():
+        return True
+
+    q = EmailAddress.objects.filter(
+        normalized_address=normalize_email(email)
+    )
+    if exclude_user_id is not None:
+        q = q.exclude(user_id=exclude_user_id)
+    return q.exists()
 
 
 class LoginForm(forms.Form):
@@ -36,6 +49,10 @@ class SignupForm(forms.Form):
         email = self.cleaned_data['email']
         if get_user_model().objects.filter(email=email, is_active=False).exists():
             raise forms.ValidationError("This user account has been blocked.")
+
+        if _email_already_registered(email):
+            raise forms.ValidationError('This email address has already been registered.')
+
         return email
 
 
@@ -57,7 +74,7 @@ class FinishSignupForm(forms.Form):
         if Username.exists(token['name']):
             raise forms.ValidationError("This name is already taken.")
 
-        if get_user_model().objects.filter(email=token['email']).exists():
+        if _email_already_registered(token['email']):
             raise forms.ValidationError('This email address has already been registered.')
 
         return cleaned_data
@@ -66,10 +83,14 @@ class FinishSignupForm(forms.Form):
 class EmailChangeForm(forms.Form):
     email = forms.EmailField()
 
+    def __init__(self, *args, **kwargs):
+        self.__user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+
     def clean_email(self):
         email = self.cleaned_data['email']
 
-        if get_user_model().objects.filter(email=email).exists():
+        if _email_already_registered(email, self.__user.id):
             raise forms.ValidationError('This email address has already been registered.')
 
         return email
@@ -94,11 +115,12 @@ class ConfirmEmailChangeForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
         token = parse_emailchange_token(cleaned_data.get('token', ''))
+        user_id = self.__user.id
 
-        if token['user'] != self.__user.id:
+        if token['user'] != user_id:
             raise forms.ValidationError('This address change confirmation was meant for another user')
 
-        if get_user_model().objects.filter(email=token['email']).exists():
+        if _email_already_registered(token['email'], user_id):
             raise forms.ValidationError('This email address has already been registered.')
 
         return cleaned_data

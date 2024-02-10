@@ -163,6 +163,11 @@ class EmailChangeView(LoginRequiredMixin, FormView):
     form_class = EmailChangeForm
     success_url = reverse_lazy('users:profile-emailchange-confirm')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx.update({
