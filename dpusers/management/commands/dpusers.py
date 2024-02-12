@@ -27,8 +27,8 @@ class Command(BaseCommand):
             raise CommandError("Action must be one of: purge-unused, delete-pending")
 
     def __purge_unused(self, older):
-        if older < 1:
-            raise CommandError("Purge cutoff should be at least one day")
+        if older < 365:
+            raise CommandError("Purge cutoff should be at least one year")
 
         cutoff = timezone.now() - timedelta(days=older)
         User = get_user_model()
