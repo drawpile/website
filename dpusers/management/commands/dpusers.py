@@ -44,7 +44,7 @@ class Command(BaseCommand):
             min_verbosity = 1 if deleted_count > 0 else 2
             if self.verbosity > min_verbosity:
                 print(
-                    f"Deleted {deleted_count} account(s) that have not logged in since {cutoff}"
+                    f"Deleted {deleted_types.get('auth.User', 0)} account(s) that have not logged in since {cutoff}"
                 )
 
     def __delete_pending(self, older):
@@ -66,7 +66,7 @@ class Command(BaseCommand):
             )
             if self.verbosity > 1:
                 print(
-                    f"Deleted {deleted_count} account(s) pending deletion since {cutoff}"
+                    f"Deleted {deleted_types.get('auth.User'), 0} account(s) pending deletion since {cutoff}"
                 )
         elif self.verbosity > 2:
             print(f"No accounts pending deletion since {cutoff}")
