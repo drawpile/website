@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("action", type=str)
-        parser.add_argument("--older-than", type=str, default="6 months", dest="older")
+        parser.add_argument("--older-than", type=str, dest="older", required=True)
         parser.add_argument("--dry-run", action="store_true", dest="dryrun")
 
     def handle(self, *args, **kwargs):
