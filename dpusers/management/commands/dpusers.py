@@ -1,8 +1,8 @@
-from django.core.management.base import BaseCommand, CommandError
-from django.contrib.auth import get_user_model
-from django.utils import timezone
 from datetime import timedelta
-
+from django.contrib.auth import get_user_model
+from django.core.management.base import BaseCommand, CommandError
+from django.utils import timezone
+from dpusers.models import PendingDeletion
 import re
 
 
@@ -22,6 +22,7 @@ class Command(BaseCommand):
         if action == "purge-unused":
             self.__purge_unused(_parse_datedelta_string(kwargs["older"]))
         elif action == "delete-pending":
+            self.__delete_pending(_parse_datedelta_string(kwargs["older"]))
         else:
             raise CommandError("Action must be one of: purge-unused, delete-pending")
 
@@ -34,19 +35,41 @@ class Command(BaseCommand):
         unused_accounts = User.objects.filter(last_login__lt=cutoff)
 
         if self.dryrun:
+            user_ids = list(unused_accounts.values_list("id", flat=True))
             print(
-                "Would delete {} accounts that have not logged in since {}".format(
-                    unused_accounts.count(), cutoff
-                )
+                f"Would delete {len(user_ids)} account(s) that have not logged in since {cutoff}: {user_ids}"
             )
         else:
             deleted_count, deleted_types = unused_accounts.delete()
+            min_verbosity = 1 if deleted_count > 0 else 2
+            if self.verbosity > min_verbosity:
+                print(
+                    f"Deleted {deleted_count} account(s) that have not logged in since {cutoff}"
+                )
+
+    def __delete_pending(self, older):
+        if older < 30:
+            raise CommandError("Delete pending cutoff should be at least 30 days")
+        cutoff = timezone.now() - timedelta(days=older)
+        user_ids = list(
+            PendingDeletion.objects.filter(deactivated_at__lt=cutoff).values_list(
+                "user_id", flat=True
+            )
+        )
+        if self.dryrun:
+            print(
+                f"Would delete {len(user_ids)} account(s) pending deletion since {cutoff}: {user_ids}"
+            )
+        elif user_ids:
+            deleted_count, deleted_types = (
+                get_user_model().objects.filter(id__in=user_ids).delete()
+            )
             if self.verbosity > 1:
                 print(
-                    "Deleted {} accounts that have not logged in since {}".format(
-                        deleted_count, cutoff
-                    )
+                    f"Deleted {deleted_count} account(s) pending deletion since {cutoff}"
                 )
+        elif self.verbosity > 2:
+            print(f"No accounts pending deletion since {cutoff}")
 
 
 def _parse_datedelta_string(datestr):
