@@ -34,8 +34,7 @@
 			</div>
 			{% if form.errors.email %}<div class="help is-danger">{{ form.errors.email }}</div>{% endif %}
 			<p>Your email address will only be used for notification and user profile management purposes.
-			It will not be shown to other users on this site or shared with third parties. Accounts are
-			deleted after 1 year of inactivity.</p>
+			It will not be shown to other users on this site or shared with third parties.</p>
 		</div>{# /.field #}
 
 		<div class="field">
@@ -51,6 +50,7 @@
 		<div class="field">
 			<p>A link to activate your account will be sent to the email address.</p>
 			<p>If you already registered an account, but forgotten your password, you can <a href="{% url 'users:password_reset' %}">reset it here</a>.</p>
+			<p>You do not need an account to use Drawpile, but some community servers require it and having an account lets you reserve usernames there. Accounts are deleted after one year of inactivity.</p>
 		</div>
 
 		<input type="submit" class="button is-fullwidth is-link is-large" value="Sign up">
