@@ -243,7 +243,9 @@ class ConfirmEmailChangeView(LoginRequiredMixin, FormView):
         token = parse_emailchange_token(cd['token'])
 
         logger.info("Changing user #%s email to %s", token['user'], token['email'])
-        get_user_model().objects.filter(id=token['user']).update(email=token['email'])
+        user = get_user_model().objects.get(id=token['user'])
+        user.email = token['email']
+        user.save()
 
         return super().form_valid(form)
 
