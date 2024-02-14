@@ -24,13 +24,13 @@
 		</div>
 		{% else %}
 
-		<form method="post">
+		<form method="post" class="disable-button-on-submit">
 			{% if form.non_field_errors %}
 				<div class="notification is-danger">{{ form.non_field_errors }}</div>
 			{% elif tokenError %}
 				<div class="notification is-danger">{{ tokenError }}</div>
 			{% endif %}
-		
+
 		<div class="field">
 			<label class="label">Current email address</label>
 			<div class="control">

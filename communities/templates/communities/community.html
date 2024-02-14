@@ -20,7 +20,7 @@
 
 			{% if review_form %}
 			<p>Hey, <i>you're a site admin!</i> You can review this page:</p>
-			<form method="POST" action="{% url "communities:review" slug=object.slug %}">
+			<form method="POST" action="{% url "communities:review" slug=object.slug %}" class="disable-button-on-submit">
 				{% include "components/radio-field.html" with field=review_form.verdict %}
 				{% with field=review_form.comment %}<div class="field">
 					<label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>

@@ -14,7 +14,7 @@
 
 	<h2 class="title has-text-centered">Sign in</h2>
 
-	<form method="POST" action="{% url 'users:login' %}">
+	<form method="POST" action="{% url 'users:login' %}" class="disable-button-on-submit">
 		{% if form.non_field_errors %}
 		<div class="notification is-danger">{{ form.non_field_errors }}</div>
 		{% endif %}

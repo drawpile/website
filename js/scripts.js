@@ -45,6 +45,17 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .querySelectorAll("a.smallNewWindow")
     .forEach((e) => (e.onclick = openSmallNewWindow));
+
+  /* Some users double-click on submit buttons, prevent double-submissions */
+  document.querySelectorAll("form.disable-button-on-submit").forEach((form) => {
+    form.addEventListener("submit", (event) => {
+      event.target
+        .querySelectorAll("button[type=submit], input[type=submit]")
+        .forEach((button) => {
+          button.disabled = true;
+        });
+    });
+  });
 });
 
 window.getCookie = function (name) {

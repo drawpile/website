@@ -10,10 +10,10 @@
 
 <p>You must be at least eighteen years old to access it.</p>
 
-<form action="{% url "communities:confirm-age" slug=object.slug %}" method="POST">
+<form action="{% url "communities:confirm-age" slug=object.slug %}" method="POST" class="disable-button-on-submit">
 <p class="has-text-centered">
 	{% csrf_token %}
-	<button class="button is-large is-danger is-outlined">I am over 18 years old</button>
+	<button type="submit" class="button is-large is-danger is-outlined">I am over 18 years old</button>
 	<a href="{% url "communities:frontpage" %}" class="button is-large">Go back</a>
 </p>
 </form>
