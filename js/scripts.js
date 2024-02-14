@@ -2,10 +2,12 @@ import { el } from "./el";
 
 document.addEventListener("DOMContentLoaded", function () {
   /* Navbar toggle (mobile) */
-  document.getElementById("navbar-toggle").onclick = function () {
-    this.classList.toggle("is-active");
-    document.getElementById("navbar-menu").classList.toggle("is-active");
-  };
+  document.querySelectorAll("#navbar-toggle").forEach((elem) => {
+    elem.onclick = function () {
+      this.classList.toggle("is-active");
+      document.getElementById("navbar-menu").classList.toggle("is-active");
+    };
+  });
 
   /* Thumbnail modal links */
   const closeModal = () => modal.classList.remove("is-active");
@@ -49,11 +51,16 @@ document.addEventListener("DOMContentLoaded", function () {
   /* Some users double-click on submit buttons, prevent double-submissions */
   document.querySelectorAll("form.disable-button-on-submit").forEach((form) => {
     form.addEventListener("submit", (event) => {
-      event.target
-        .querySelectorAll("button[type=submit], input[type=submit]")
-        .forEach((button) => {
-          button.disabled = true;
-        });
+      if (event.target.dataset.submitted) {
+        event.preventDefault();
+        event.target
+          .querySelectorAll("button[type=submit], input[type=submit]")
+          .forEach((button) => {
+            button.disabled = true;
+          });
+      } else {
+        event.target.dataset.submitted = "true";
+      }
     });
   });
 });
