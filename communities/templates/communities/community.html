@@ -6,8 +6,8 @@
 {% load cando %}
 
 {% block extrascripts %}
-<script src="{% static "js/SessionList.js" %}"></script>
-{% if user.is_authenticated %}<script src="{% static "js/community.js" %}"></script>{% endif %}
+<script src="{% static "js/sessionlist.min.js" %}"></script>
+{% if user.is_authenticated %}<script src="{% static "js/community.min.js" %}"></script>{% endif %}
 {% endblock %}
 
 {% block main %}

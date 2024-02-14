@@ -9,3 +9,4 @@ allstatic/
 /venv/
 /dpweb
 /*.db
+node_modules

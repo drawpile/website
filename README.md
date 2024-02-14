@@ -1,5 +1,4 @@
-Drawpile.net website
----------------------
+# drawpile.net website
 
 This is the source code to the drawpile.net website.
 
@@ -13,13 +12,15 @@ Next, create a Python 3 virtualenv for the project and run `pip install -r requi
 Copy `drawpile/local_settings.sample` to `drawpile/local_settings.py` and
 edit to suit your environment.
 
-Run `./manage.py migrate` to initialize the database.  
+Run `./manage.py migrate` to initialize the database.
 Run `./update-assets.sh` to populate the database with the basic content.
 
 Run './manage.py dpauth' to generate a keypair for external authentication. Copy&paste
 the output into your `local_settings.py` file.
 
 You should now have a local copy of the website, ready for development!
+
+If you want to modify the JavaScript files, you need node.js. To set things up, run `npm install`. To build and bundle the scripts, run `npm run build:all`.
 
 ### Deployment
 
