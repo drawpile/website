@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
+{% load static %}
 {% load page_tags %}
 
 {% block title %}Download - {{ block.super }}{% endblock %}
+{% block extrascripts %}<script src="{% static "js/download.min.js" %}"></script>{% endblock %}
 {% block main %}
 
 {% templatevar 'VERSION' as VERSION %}
