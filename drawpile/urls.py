@@ -11,6 +11,7 @@ urlpatterns = [
     path('api/', include('drawpile.api_urls')),
     path('news/', include('news.urls')),
     path('accounts/', include('dpusers.urls')),
+    path('auth/', include('dpauth.urls')),
     path('communities/', include('communities.urls')),
     path('invites/', include('invites.urls')),
     path('ban/', RedirectView.as_view(

@@ -2,6 +2,7 @@
   "name": "drawpile-website",
   "version": "1.0.0",
   "scripts": {
+    "build:auth_finish": "esbuild js/auth_finish.js --bundle --minify --outfile=dpauth/static/js/auth_finish.min.js",
     "build:community": "esbuild js/community.js --bundle --minify --outfile=communities/static/js/community.min.js",
     "build:download": "esbuild js/download.js --bundle --minify --outfile=static/js/download.min.js",
     "build:invite": "esbuild js/invite.js --bundle --minify --outfile=invites/static/js/invite.min.js",
@@ -9,7 +10,7 @@
     "build:memberlist": "esbuild js/memberlist.js --bundle --minify --outfile=communities/static/js/memberlist.min.js",
     "build:scripts": "esbuild js/scripts.js --bundle --minify --outfile=static/js/scripts.min.js",
     "build:sessionlist": "esbuild js/sessionlist.js --bundle --minify --outfile=static/js/sessionlist.min.js",
-    "build:all": "npm run build:community && npm run build:download && npm run build:invite && npm run build:manage_usernames && npm run build:memberlist && npm run build:scripts && npm run build:sessionlist"
+    "build:all": "npm run build:auth_finish && npm run build:community && npm run build:download && npm run build:invite && npm run build:manage_usernames && npm run build:memberlist && npm run build:scripts && npm run build:sessionlist"
   },
   "license": "MIT",
   "devDependencies": {

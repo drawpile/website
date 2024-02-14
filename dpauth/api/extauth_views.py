@@ -8,7 +8,11 @@ from rest_framework.permissions import AllowAny
 
 from dpauth.settings import extauth_settings
 from dpauth.models import Username
-from dpauth.api.auth_serializers import AuthAttemptSerializer, AccountQuerySerializer
+from dpauth.api.auth_serializers import (
+    AuthAttemptSerializer,
+    CookieAuthAttemptSerializer,
+    AccountQuerySerializer,
+)
 
 from importlib import import_module
 
@@ -19,7 +23,11 @@ class ExtAuthView(APIView):
 
     def post(self, request, format=None):
         if "password" in request.data:
-            return Response(self.__handle_auth_attempt(request))
+            return Response(
+                self.__handle_cookie_auth_attempt(request)
+                if request.data["password"] is False
+                else self.__handle_auth_attempt(request)
+            )
         else:
             return Response(self.__handle_account_query(request))
 
@@ -36,6 +44,28 @@ class ExtAuthView(APIView):
         if not username or not check_password(data["password"], username.user.password):
             return {"status": "badpass"}
 
+        return self.__finish_auth_attempt(data, username)
+
+    def __handle_cookie_auth_attempt(self, request):
+        """A real authentication attempt using a browser cookie."""
+        serializer = CookieAuthAttemptSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        if not request.user.is_authenticated:
+            return {"status": "badpass"}
+
+        username = Username.getByName(data["username"])
+        if username and not username.user.is_active:
+            return {"status": "banned"}
+
+        username = Username.getByName(data["username"])
+        if not username or username.user_id != request.user.id:
+            return {"status": "badpass"}
+
+        return self.__finish_auth_attempt(data, username)
+
+    def __finish_auth_attempt(self, data, username):
         group_membership = _group_membership_function()(username, data.get("group"))
 
         if group_membership is None:

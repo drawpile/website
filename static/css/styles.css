@@ -46,6 +46,15 @@ span.avatar-placeholder {
 	margin: 0 auto;
 }
 
+.initial-fade-in {
+	animation: initial-fade-in-frames 0.5s;
+}
+
+@keyframes initial-fade-in-frames {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 /* bulma adjustments */
 button.button.is-text {
 	text-decoration: none;

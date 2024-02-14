@@ -1,0 +1,61 @@
+{% extends "framebase.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Choose Username - {{ block.super }}{% endblock %}
+
+{% block extrahead %}<link rel="stylesheet" href="{% static "css/auth_usernames.css" %}">{% endblock %}
+
+{% block main %}
+{% if form.non_field_errors %}
+<div class="notification is-danger">{{ form.non_field_errors }}</div>
+{% endif %}
+{% if form.errors.username %}
+<div class="notification is-danger">{{ form.errors.username }}</div>
+{% endif %}
+<div class="message">
+	<div class="message-body">
+		<div class="content">
+			<p>Choose the username you want to log in with. You can change your reserved usernames <a href="{% url 'users:profile-usernames' %}" target="_blank">in your account settings</a>.</p>
+		</div>
+		<form id="auth-usernames-form" method="POST" action="{% url 'auth:usernames' %}" class="tile is-ancestor is-vertical disable-button-on-submit">
+			{% for username in usernames %}
+				<button type="submit" class="tile is-child box auth-username" name="username" value="{{ username.name }}">
+					<div class="media">
+						<div class="media-left">
+							<figure class="image is-64x64">
+								{% if username.avatar %}
+									<img src="{{ username.avatar.url }}" alt="Avatar for {{ username.name }}">
+								{% else %}
+									<span class="avatar-placeholder"></span>
+								{% endif %}
+							</figure>
+						</div>
+						<div class="media-content">
+							<div class="content is-large">
+								<p>{{ username.name }}</p>
+							</div>
+						</div>
+					</div>
+				</button>
+			{% endfor %}
+			{% csrf_token %}
+		</form>
+	</div>
+</div>
+<hr>
+<div class="field is-grouped">
+	<div class="control is-expanded">
+		<a class="button is-fullwidth" href=".">
+			<span class="fa fa-sync-alt"></span>&nbsp;Refresh
+		</a>
+	</div>
+	<form method="POST" action="{% url 'auth:logout' %}" class="control disable-button-on-submit is-expanded">
+		<button type="submit" class="button is-fullwidth is-danger">
+			<span class="fa fa-sign-out-alt"></span>&nbsp;Log Out
+		</button>
+		{% csrf_token %}
+	</form>
+</div>
+{% endblock %}

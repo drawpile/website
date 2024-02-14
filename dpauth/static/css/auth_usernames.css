@@ -1,0 +1,40 @@
+#auth-usernames-form {
+    margin-top: 2em;
+}
+
+.auth-username {
+    border: 1px solid #dbdbdb;
+    box-shadow: none;
+    cursor: pointer;
+    transition-property: border;
+    user-select: none;
+    width: 100%;
+}
+
+.auth-username:disabled {
+    border: 1px solid #dbdbdb;
+    cursor:not-allowed;
+    opacity: 75%;
+}
+
+.auth-username:hover {
+    border: 1px solid #b5b5b5;
+}
+
+.auth-username:active {
+    border: 1px solid #4a4a4a;
+}
+
+.auth-username:focus:not(:active) {
+    box-shadow: 0 0 0 .25em rgba(50, 115, 220, 0.25);
+}
+
+.auth-username > .media > .media-content {
+    align-items: center;
+    display: flex;
+    height: 64px;
+}
+
+.auth-username > .media > .media-content > .content {
+    padding-bottom: 0.2em;
+}

@@ -1,0 +1,19 @@
+{% extends "framebase.html" %}
+
+{% load static %}
+
+{% block title %}Logging in - {{ block.super }}{% endblock %}
+
+{% block extrascripts %}<script src="{% static "js/auth_finish.min.js" %}"></script>{% endblock %}
+
+{% block main %}
+<div id="auth" data-username="{{ name }}" data-frameancestors="{{ frame_ancestors }}" class="content is-large has-text-centered">
+	<p id="auth-message">
+		<span class="fa fa-spinner fa-pulse"></span>
+		Logging in as {{ name }}…
+	</p>
+	<noscript>
+		<p>You need to enable scripts for drawpile.net for this to work.</p>
+	</noscript>
+</div>
+{% endblock %}

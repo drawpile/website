@@ -14,6 +14,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Discord webhook URL for site admin notifications and alerts
 #ADMIN_REPORT_WEBHOOK = 'https://localhost/report/'
 
+# Allowed frame-ancestors for Content-Security-Policy, separated by spaces.
+DRAWPILE_AUTH_FRAME_ANCESTORS = 'https://web.drawpile.net'
+
 DRAWPILE_READONLY_SITE = False
 
 # Keys that allow access to /api/ext-bans. Should be plain, random strings, one

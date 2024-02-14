@@ -1,0 +1,49 @@
+{% extends "framebase.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}Sign in - {{ block.super }}{% endblock %}
+
+{% block main %}
+<form method="POST" action="{% url 'auth:login' %}" class="disable-button-on-submit">
+	{% if form.non_field_errors %}
+	<div class="notification is-danger">{{ form.non_field_errors }}</div>
+	{% endif %}
+
+	<div class="field">
+		<div class="control has-icons-left">
+			{% render_field form.username class+="input is-large" placeholder="Username or email" %}
+			<span class="icon is-small is-left"> <i class="fa fa-at"></i> </span>
+		</div>
+		{% if form.errors.username %}<p class="help is-danger">{{ form.errors.username }}</p>{% endif %}
+	</div>
+
+	<div class="field">
+		<div class="control has-icons-left">
+			{% render_field form.password class+="input is-large" placeholder="Password" %}
+			<span class="icon is-small is-left"> <i class="fa fa-lock"></i> </span>
+		</div>
+		{% if form.errors.password %}<p class="help is-danger">{{ form.errors.password }}</p>{% endif %}
+	</div>
+
+	<div class="field">
+		<p>If you do not already have a drawpile.net account, you can <a href="{% url 'users:signup' %}" target="_blank">sign up here</a>.</p>
+		<p>If you have forgotten your password, you can <a href="{% url 'users:password_reset' %}" target="_blank">reset it here</a>.</p>
+		<p>Accounts are deleted after one year of inactivity.</p>
+	</div>
+
+	<div class="field">
+		<button type="submit" class="button is-fullwidth is-link is-large">
+			<span class="fa fa-sign-in-alt"></span>&nbsp;Sign In
+		</button>
+	</div>
+	<hr>
+	<div class="field">
+		<a class="button is-fullwidth" href=".">
+			<span class="fa fa-sync-alt"></span>&nbsp;Refresh
+		</a>
+	</div>
+	{% csrf_token %}
+</form>
+{% endblock %}
+

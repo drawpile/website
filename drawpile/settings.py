@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'dpusers.middleware.UsernameCookieMiddleware',
+    'dpauth.middleware.AuthCorpMiddleware',
 ]
 
 if DEBUG_TOOLBAR:
