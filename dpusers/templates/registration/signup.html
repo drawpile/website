@@ -18,6 +18,9 @@
 		{% if form.non_field_errors %}
 		<div class="notification is-danger">{{ form.non_field_errors }}</div>
 		{% endif %}
+		{% if form.errors.program %}
+		<div class="notification is-danger">Spam protection.</div>
+		{% endif %}
 
 		<div class="field">
 			<label class="label" for="{{ form.username.auto_id }}">{{ form.username.label }}</label>
@@ -52,6 +55,25 @@
 			<p>If you already registered an account, but forgotten your password, you can <a href="{% url 'users:password_reset' %}">reset it here</a>.</p>
 			<p>You do not need an account to use Drawpile, but some community servers require it and having an account lets you reserve usernames there. Accounts are deleted after one year of inactivity.</p>
 		</div>
+
+		{# We're getting spam signup attempts. They're not very advanced though, so this is sufficient. #}
+		<div id="program-field" class="field">
+			<label class="label" for="{{ form.program.auto_id }}">Spam protection</label>
+			<div class="control">
+				{% render_field form.program class+="input" %}
+			</div>
+			{% if form.errors.program %}<div class="help is-danger">{{ form.errors.program }}</div>{% endif %}
+			<p>Please enter the name of this drawing program into the field above (it's called Drawpile.)</p>
+		</div>
+		<script>
+			(function () {
+				const programField = document.querySelector("#program-field");
+				programField.style.display = "none";
+				window.setTimeout(() => {
+					programField.querySelector("input").value = "Drawpile";
+				}, 2345);
+			})();
+		</script>
 
 		<input type="submit" class="button is-fullwidth is-link is-large" value="Sign up">
 		{% csrf_token %}

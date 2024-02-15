@@ -1,11 +1,15 @@
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
 from django import forms
+from difflib import SequenceMatcher
 import re
 from .token import parse_signup_token, parse_emailchange_token
 from .models import EmailAddress, PendingDeletion
 from .normalization import normalize_email
 from dpauth.models import Username, username_pattern
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 _username_regex = re.compile(username_pattern)
@@ -34,6 +38,7 @@ class SignupForm(forms.Form):
     username = forms.CharField(max_length=22)
     email = forms.EmailField()
     accept_tos = forms.BooleanField(required=True)
+    program = forms.CharField(required=False)
 
     def clean_username(self):
         name = self.cleaned_data['username']
@@ -54,6 +59,14 @@ class SignupForm(forms.Form):
             raise forms.ValidationError('This email address has already been registered.')
 
         return email
+
+    def clean_program(self):
+        program = self.cleaned_data['program'].strip().casefold()
+        expected = "drawpile"
+        if program != expected and SequenceMatcher(None, program, expected).ratio() < 0.7:
+            logger.warning("Spam protection hit with '%s'", program)
+            raise forms.ValidationError("That's not what this program is called.")
+        return expected
 
 
 class FinishSignupForm(forms.Form):
