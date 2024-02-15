@@ -20,3 +20,7 @@ DRAWPILE_READONLY_SITE = False
 # per client so that they can be revoked. Leave a comment which key is for whom.
 DRAWPILE_EXT_BANS_KEYS = [
 ]
+
+# CORS Headers
+# Allow requests from the web client.
+CORS_ALLOWED_ORIGINS = ["https://web.drawpile.net"]
