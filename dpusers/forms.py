@@ -1,7 +1,6 @@
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
 from django import forms
-from difflib import SequenceMatcher
 import re
 from .token import parse_signup_token, parse_emailchange_token
 from .models import EmailAddress, PendingDeletion
@@ -63,7 +62,7 @@ class SignupForm(forms.Form):
     def clean_program(self):
         program = self.cleaned_data['program'].strip().casefold()
         expected = "drawpile"
-        if program != expected and SequenceMatcher(None, program, expected).ratio() < 0.7:
+        if program != expected:
             logger.warning("Spam protection hit with '%s'", program)
             raise forms.ValidationError("That's not what this program is called.")
         return expected
