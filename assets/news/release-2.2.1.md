@@ -97,6 +97,13 @@ Where appropriate, there'll be links to the development blog entries where you c
     * Properly convert between IPv4 and IPv6 when checking IP bans. Thanks Bluestrings for reporting.
     * Save catchup keys to file-backed sessions so that the counter doesn't reset upon a server restart.
     * Log client host and join attempts even when unsuccessful. Thanks Bluestrings for reporting.
+* Translations:
+    * Arabic translation updated by Blozzom.
+    * French translation updated by Artcanthe and Damien.
+    * German translation updated by askmeaboutloom.
+    * Italian translation updated by Bluu.
+    * Japanese translation updated by ubanis.
+    * Simplified Chinese translation updated by xxxx.
 
 ## Acknowledgements
 
