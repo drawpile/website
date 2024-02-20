@@ -41,7 +41,10 @@
 	<p>
 		Supported Windows versions are 7, 8, 8.1, 10 and 11. If you run into
 		issues, found a bug, want to suggest a feature or ask for help with
-		something, <a href="/help/">take a look at the Help pages</a>!
+		something, <a href="/help/">take a look at the help pages</a>!
+	</p>
+	<p>
+		A 32 Bit version as well as the dedicated server and command-line tools are available under <a href="#Archive"><span class="fas fa-archive"></span>&nbsp;Extras</a>.
 	</p>
 	<div class="notification">
 		<p>
@@ -67,7 +70,7 @@
 	</p>
 	<p>
 		If you run into issues, found a bug, want to suggest a feature or ask
-		for help with something, <a href="/help/">take a look at the Help
+		for help with something, <a href="/help/">take a look at the help
 		pages</a>!
 	</p>
 	<div class="notification">
@@ -96,11 +99,14 @@
 		Drawpile {{ VERSION }} is backward-compatible, so you can join sessions hosted with the previous 2.1 series.
 	</p>
 	<p>
-		Flatpak comes pre-installed on some Linux distributions and is generally easy to set up. Take a look at <a href="https://flathub.org/setup" target="_blank">the Flathub setup page</a> for how to install it. It does not include the dedicated server or command-line tools. The AppImage is self-contained, but needs to be downloaded and updated manually. To find out how to use it take a look at <a href="https://docs.appimage.org/introduction/quickstart.html" target="_blank">the AppImage manual</a> and <a href="https://docs.appimage.org/user-guide/troubleshooting/fuse.html" target="_blank">troubleshooting page</a>. It includes the client, server and command line tools, run it with <code>--help</code> to see what's included. If you want to set up a server on Linux, take a look at <a href="https://docs.drawpile.net/help/server/dedicatedserver">the dedicated server help page</a>.
+		Flatpak comes pre-installed on some Linux distributions and is generally easy to set up. Take a look at <a href="https://flathub.org/setup" target="_blank">the Flathub setup page</a> for how to install it. It does not include the dedicated server or command-line tools. The AppImage is self-contained, but needs to be downloaded and updated manually. To find out how to use it take a look at <a href="https://docs.appimage.org/introduction/quickstart.html" target="_blank">the AppImage manual</a> and <a href="https://docs.appimage.org/user-guide/troubleshooting/fuse.html" target="_blank">troubleshooting page</a>. It includes the client, server and command line tools, run it with <code>--help</code> to see what's included.
+	</p>
+	<p>
+		If you want to set up a server on Linux, take a look at <a href="https://docs.drawpile.net/help/server/dedicatedserver">the dedicated server help page</a>.
 	</p>
 	<p>
 		If you run into issues, found a bug, want to suggest a feature or ask
-		for help with something, <a href="/help/">take a look at the Help
+		for help with something, <a href="/help/">take a look at the help
 		pages</a>!
 	</p>
 </div>
@@ -117,8 +123,11 @@
 	</p>
 	<p>
 		If you run into issues, found a bug, want to suggest a feature or ask
-		for help with something, <a href="/help/">take a look at the Help
+		for help with something, <a href="/help/">take a look at the help
 		pages</a>!
+	</p>
+	<p>
+		A 32 Bit version is available under <a href="#Archive"><span class="fas fa-archive"></span>&nbsp;Extras</a>.
 	</p>
 	<div class="notification">
 		<p>
@@ -131,7 +140,7 @@
 </div>
 
 <div id="Source" class="tab-page content">
-	<h2 data-icon="fas fa-code">Source code</h2>
+	<h2 data-icon="fas fa-code">Source</h2>
 	<div class="columns is-multiline">
 		<div class="column is-narrow">
 			<a href="https://github.com/drawpile/Drawpile/archive/refs/tags/{{ VERSION }}.tar.gz" class="button is-link"><span class="fa fa-code"></span>&nbsp;Drawpile {{ VERSION }} Source Code</a>
@@ -145,47 +154,58 @@
 	</div>
 	<p>
 		If you need help with building from source, found a bug, want to suggest
-		a feature or ask anything else, <a href="/help/">take a look at the Help
+		a feature or ask anything else, <a href="/help/">take a look at the help
 		pages</a>!
 	</p>
 </div>
 
 <div id="Archive" class="tab-page content">
-	<h2 data-icon="fas fa-archive">Other Versions</h2>
+	<h2 data-icon="fas fa-archive">Extras</h2>
+	<h3>Server and Tools</h3>
+	<p>
+		The dedicated server <em>drawpile-srv</em> and the command-line tools <em>dprectool</em>, <em>drawpile-cmd</em> and <em>drawpile-timelapse</em> are available as follows:
+	</p>
+	<ul>
+		<li>For Windows, there's the <a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-Tools-{{ VERSION }}-64bit.zip"><span class="fab fa-windows"></span>&nbsp;Drawpile Server and Tools {{ VERSION }} Portable ZIP</a>.</li>
+		<li>For macOS, they're included in the disk image under <a href="#OSX"><span class="fab fa-apple"></span>&nbsp;macOS</a>.</li>
+		<li>For Linux, they're included in the AppImage under <a href="#Linux"><span class="fab fa-linux"></span>&nbsp;Linux</a>. Run the AppImage with <code>--help</code> for instructions.</li>
+	</ul>
+	<p>
+		Instructions for the dedicated server can be found on <a href="https://docs.drawpile.net/help/server/dedicatedserver">the dedicated server help page</a>.
+	</p>
+	<h3>32 Bit Versions</h3>
 	<p>
 		32 bit versions are available for Windows and Android.
 	</p>
 	<ul>
-		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-32bit.msi">Drawpile {{ VERSION }} Installer for 32 Bit Windows</a></li>
-		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-32bit.zip">Drawpile {{ VERSION }} Portable ZIP for 32 Bit Windows</a></li>
-		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-armeabi-v7a.apk">Drawpile {{ VERSION }} APK for 32 Bit Android</a></li>
+		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-32bit.msi"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ VERSION }} Installer for 32 Bit Windows</a></li>
+		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-32bit.zip"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ VERSION }} Portable ZIP for 32 Bit Windows</a></li>
+		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-armeabi-v7a.apk"><span class="fab fa-android"></span>&nbsp;Drawpile {{ VERSION }} APK for 32 Bit Android</a></li>
 	</ul>
 	<div class="notification">
 		<p>
 			<strong>Note:</strong> Only use these 32 bit versions if you <em>know</em> that your device needs them. If not, use the regular Windows or Android versions, those are faster and more stable.
 		</p>
 	</div>
+	<h3>Previous Versions</h3>
 	<p>
-		You can get the previous Drawpile version 2.1.20 here. Support for this version will go away in the future though, so if you are having issues with 2.2, <a href="/help/">report them now</a> so that they can be resolved before that happens. You do <em>not</em> need this version to join sessions hosted with Drawpile 2.1, Drawpile 2.2 is compatible with them.
+		You can get the previous 2.1 version of Drawpile here. Support for this will go away in the future though, so if you are having issues with 2.2, <a href="/help/">report them now</a> so that they can be resolved before that happens. You do <em>not</em> need this version to join sessions hosted with Drawpile 2.1, Drawpile 2.2 is compatible with them.
 	</p>
 	<ul>
-		<li><a href="https://github.com/drawpile/Drawpile/releases/download/2.1.20/drawpile-2.1.20-setup.exe">Drawpile 2.1.20 Installer for Windows</a></li>
-		<li><a href="https://github.com/drawpile/Drawpile/releases/download/2.1.20/Drawpile.2.1.20.dmg">Drawpile 2.1.20 Disk Image for macOS</a></li>
+		<li><a href="https://github.com/drawpile/Drawpile/releases/download/2.1.20/drawpile-2.1.20-setup.exe"><span class="fab fa-windows"></span>&nbsp;Drawpile 2.1.20 Installer for Windows</a></li>
+		<li><a href="https://github.com/drawpile/Drawpile/releases/download/2.1.20/Drawpile.2.1.20.dmg"><span class="fab fa-apple"></span>&nbsp;Drawpile 2.1.20 Disk Image for macOS</a></li>
 	</ul>
 	<p>
-		For systems that require it, there's a <a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/drawpile-2.1.20-setup-w32.exe">Drawpile 2.1.20 Installer for 32 Bit Windows</a>. Do not use this unless you know you need it.
+		For systems that require it, there's a <a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/drawpile-2.1.20-setup-w32.exe"><span class="fab fa-windows"></span>&nbsp;Drawpile 2.1.20 Installer for 32 Bit Windows</a>. Do not use this unless you know you need it.
 	</p>
 	<p>
-		Even older releases can be found in the <a href="https://github.com/drawpile/Drawpile/releases" target="_blank">Releases on GitHub</a>. The <em>Assets</em> in each release contain the downloads.
-	</p>
-	<p>
-		All releases are also tagged in the git repository.
+		All releases are tagged in the git repository. Dwnloads can be found in the <a href="https://github.com/drawpile/Drawpile/releases" target="_blank"><span class="fab fa-github"></span>&nbsp;Releases on GitHub</a>, in the <em>Assets</em> section at the bottom of each release.
 	</p>
 </div>
 </div>{# ./tab-container #}
 
 <hr>
-<p>The Downloads on this page are provided through GitHub.</p>
+<p>The downloads on this page are provided through GitHub.</p>
 
 </div>{# ./container #}
 </section>
