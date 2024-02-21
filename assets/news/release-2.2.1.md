@@ -15,7 +15,9 @@ There's also experimental support for high-DPI displays now. If you have a displ
 
 Another significant addition is support for the web browser version of Drawpile. If you're drawing on a server that supports it and the server owner permits it, your session invite links will automatically include a button that lets people join through their browser. In that case, the session settings will also show the option to toggle if you want to allow joining from the browser or not.
 
-Server owners have to set up their servers to enable browser access. How this works is currently still being documented, keep an eye [on the help pages](/help/). The same goes for other documentation, like the stuff that changed between 2.1.20 and 2.2.0. Once that's done to a reasonable degree, the updater in 2.1 will start prompting for automatic updates too.
+Server owners have to set up their servers to enable browser access. How this works is documented [on this help page](https://docs.drawpile.net/help/server/websocket).
+
+Other documentation is still being worked on, like the stuff that changed between 2.1.20 and 2.2.0. Once that's done to a reasonable degree, the updater in 2.1 will start prompting for automatic updates too.
 
 ## Changes in this Release
 
