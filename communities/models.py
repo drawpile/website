@@ -58,6 +58,17 @@ class Community(models.Model):
         (CONTENT_ADULT, "This is an adults only community"),
     )
 
+    WEB_DISABLED = 'disabled'
+    WEB_MANUAL = 'manual'
+    WEB_PASSWORDED = 'passworded'
+    WEB_OPEN = 'open'
+    WEB_POLICY = (
+        (WEB_DISABLED, 'Joining via web browser disabled'),
+        (WEB_MANUAL, 'Joining via web browser only for manually-approved sessions'),
+        (WEB_PASSWORDED, 'Joining via web browser only for passworded and manually-approved sessions'),
+        (WEB_OPEN, 'Joining via web browser allowed without restrictions'),
+    )
+
     created = models.DateTimeField(auto_now_add=True, editable=False)
     modified = models.DateTimeField(auto_now=True, editable=False)
 
@@ -136,6 +147,13 @@ class Community(models.Model):
         default=STATUS_SUBMITTED
     )
     review_message = models.TextField(blank=True)
+
+    web_policy = models.CharField(
+        verbose_name="How is joining via web browser handled?",
+        max_length=16,
+        choices=WEB_POLICY,
+        default=WEB_DISABLED,
+    )
 
     class Meta:
         verbose_name_plural = "communities"

@@ -54,13 +54,14 @@ class EditCommunityForm(forms.ModelForm):
             'rules', 'group_policy', 'memberlist_visibility',
             'drawpile_server', 'list_server', 'homepage',
             'guests_allowed', 'host_policy', 'trust_members',
-            'content_rating'
+            'content_rating', 'web_policy',
         )
         widgets = {
             'group_policy': forms.RadioSelect(),
             'memberlist_visibility': forms.RadioSelect(),
             'host_policy': forms.RadioSelect(),
             'content_rating': forms.RadioSelect(),
+            'web_policy': forms.RadioSelect(),
         }
     
     def clean_badge(self):

@@ -96,7 +96,7 @@
 
 	</div>
 
-	<div class="box-section">
+	<div class="box-section content">
 		<p>
 			{% if object.guests_allowed %}
 				{% if object.host_policy == 'all-host' %}
@@ -117,12 +117,25 @@
 					An account is required to join sessions on this server. Hosting sessions is limited to specific users.
 				{% endif %}
 			{% endif %}
+		</p>
+		<p>
 			{% if object.account_host %}
 				{% if object.require_group_membership %}
 					You can use <strong>{{ object.account_host }}</strong> accounts on this server and you <strong>must be a member of this group</strong>.
 				{% else %}
 					You can use <strong>{{ object.account_host }}</strong> accounts on this server.
 				{% endif %}
+			{% endif %}
+		</p>
+		<p>
+			{% if object.web_policy == 'manual' %}
+				Sessions approved by the server owner can be joined via web browser.
+			{% elif object.web_policy == 'passworded' %}
+				Sessions with a password can be joined via web browser.
+			{% elif object.web_policy == 'open' %}
+				Any session can be joined via web browser.
+			{% else %}
+				This server does not support joining sessions via web browser.
 			{% endif %}
 		</p>
 	</div>
@@ -176,7 +189,6 @@
 				<span class="username">{{ mod.name }}</span>
 			</span>
 		{% endwith %}{% endfor %}
-		</ul>
 	</div>
 
 	{% if membership.is_admin or perms.communities.change_community %}
@@ -217,7 +229,7 @@
 	<h3 class="is-size-4" style="clear: right">Sessions</h3>
 
 	{% if object|can:user|use:"login" %}
-	<div class="notification">
+	<div class="notification content">
 		<span class="icon is-large is-pulled-left" style="margin: 0 1em 1em 0"><i class="fas fa-3x fa-lightbulb"></i></span>
 		<p>
 			You can <a href="drawpile://{% if object|can:user|use:"login" %}{{ object.drawpile_server }}{% endif %}/?list-server={{ object.list_server }}">add this community to Drawpile</a> to see these session listings directly on Drawpile's <strong>Browse</strong> page.
@@ -228,7 +240,7 @@
 	</div>
 	{% endif %}
 
-	<drawpile-session-list list-url="{{ object.list_server }}/sessions/{% if object.content_rating != 'sfw' %}?nsfm=true{% endif %}" />
+	<drawpile-session-list list-url="{{ object.list_server }}/sessions/{% if object.content_rating != 'sfw' %}?nsfm=true{% endif %}"></drawpile-session-list>
 </div>
 {% endif %}
 
