@@ -133,3 +133,24 @@
 }
 
 .config-examples .example-table td { border: none }
+
+.community-card-fields {
+	cursor: help;
+	width: 100%;
+}
+
+.community-card-fields > * {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+	border-bottom: 1px solid #ccc;
+}
+
+.community-card-fields > *:nth-child(odd) {
+	background-color: #fafafa;
+}
+
+.community-card-fields > *:hover {
+	text-decoration: underline dashed;
+}

@@ -35,8 +35,101 @@
 			{% endif %}
 		</figure>
 	</div>
+	<div class="community-card-fields">
+		{% if object.guests_allowed %}
+			<div title="You don't need an account to join sessions on this server.">
+				<span class="fas fa-sign-in-alt"></span>
+				anyone can join
+			</div>
+		{% else %}
+			<div title="You need an account to join sessions on this server.">
+				<span class="fas fa-sign-in-alt"></span>
+				account required to join
+			</div>
+		{% endif %}
+
+		{% if object.host_policy == 'all-host' and object.guests_allowed %}
+			<div title="You don't need an account to host sessions on this server.">
+				<span class="fas fa-server"></span>
+				anyone can host
+			</div>
+		{% elif object.host_policy == 'all-host' or object.host_policy == 'account-host' %}
+			<div title="You need an account to host sessions on this server.">
+				<span class="fas fa-server"></span>
+				account required to host
+			</div>
+		{% elif object.host_policy == 'member-host' %}
+			<div title="You need an account to host sessions on this server and must be a member of this community.">
+				<span class="fas fa-server"></span>
+				membership required to host
+			</div>
+		{% else %}
+			<div title="Only users chosen by the owner are allowed to host sessions on this server.">
+				<span class="fas fa-server"></span>
+				only select users can host
+			</div>
+		{% endif %}
+
+		{% if object.content_rating == 'sfw' %}
+			<div title="This server does not allow any adult content.">
+				<span class="fas fa-tags"></span>
+				adult content forbidden
+			</div>
+		{% elif object.content_rating == 'mixed' %}
+			<div title="This server allows adult content, but such sessions must be marked not safe for minors (NSFM).">
+				<span class="fas fa-tags"></span>
+				adult content permitted if marked
+			</div>
+		{% else %}
+			<div title="This server is only for users age 18 and over. All sessions must be marked not safe for minors (NSFM).">
+				<span class="fas fa-tags"></span>
+				adults-only
+			</div>
+		{% endif %}
+
+		{% if object.web_policy == 'manual' %}
+			<div title="Only sessions manually approved can be joined via web browser.">
+				<span class="fas fa-globe"></span>
+				web browser limited
+			</div>
+		{% elif object.web_policy == 'passworded' %}
+			<div title="Only sessions with a password can be joined via web browser.">
+				<span class="fas fa-globe"></span>
+				web browser only with password
+			</div>
+		{% elif object.web_policy == 'open' %}
+			<div title="Any session can be joined via web browser.">
+				<span class="fas fa-globe"></span>
+				web browser allowed
+			</div>
+		{% else %}
+			<div title="This server does not allow joining sessions via web browser.">
+				<span class="fas fa-globe"></span>
+				no web browser support
+			</div>
+		{% endif %}
+
+		{% if object.account_host %}
+			{% if object.account_host == 'drawpile.net' %}
+				<div title="You can use your account from this website on this server. Your usernames will be reserved.">
+					<span class="fas fa-user-circle"></span>
+					drawpile.net accounts
+				</div>
+			{% else %}
+				<div title="This server uses an external account system. You can't use your drawpile.net account here.">
+					<span class="fas fa-user-circle"></span>
+					external {{ object.account_host }} accounts
+				</div>
+			{% endif %}
+		{% else %}
+			<div title="This server doesn't use accounts at all.">
+				<span class="fas fa-user-circle"></span>
+				no accounts
+			</div>
+		{% endif %}
+	</div>
 	<div class="card-content">
-		<h1><a href="{{ community_url }}">{{ object.title }}</a></h1>
+		<h3><a href="{{ community_url }}">{{ object.title }}</a></h3>
 		{{ object.short_description }}
 	</div>
 </article>
