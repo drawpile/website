@@ -29,6 +29,16 @@
                         </div>
                     </article>
                 {% endif %}
+                {% if needs_password %}
+                    <noscript id="invite-needs-password">
+                        <article class="message is-info">
+                            <div class="message-body">
+                                <span class="fas fa-lock"></span>
+                                This session requires a password to join.
+                            </div>
+                        </article>
+                    </noscript>
+                {% endif %}
             </div>
         </div>
         <div class="columns">

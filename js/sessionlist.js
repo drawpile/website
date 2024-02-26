@@ -254,6 +254,9 @@
     if (session.nsfm) {
       params.push("nsfm");
     }
+    if (session.password) {
+      params.push("pw");
+    }
     const suffix = params.length === 0 ? "" : `?${params.join("&")}`;
     return `https://drawpile.net/invites/${encodedHost}/${encodedId}${suffix}`;
   };
