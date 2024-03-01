@@ -12,77 +12,61 @@
 <div class="column is-three-quarters">
 <h2>About Drawpile</h2>
 
-<p class="is-pulled-left rd-margin">
-	{% include "components/thumbnail.html" with name="screenshot1.png" %}
-</p>
-
 {% filter commonmark_full %}
-Drawpile is a [Free/Libre](https://www.gnu.org/philosophy/free-sw.html) networked
-drawing program that allows multiple people to sketch on the same image simultaneously.
-It supports the [OpenRaster](https://www.openraster.org/)
-image file format and thus works well with applications such as
-[MyPaint](http://mypaint.org/), [Krita](https://krita.org/) and [GIMP](https://gimp.org/).
 
-<h2 style="clear: left">Feature Highlights</h2>
+Drawpile is a Free, Libre and Open Source program that lets you draw, paint, sketch and animate together with other people on the same canvas. Basically a drawing program with a multiplayer mode. It can also be used offline, where it's a fast and lightweight drawing program.
 
-<p class="is-pulled-left rd-margin">
-	{% include "components/image.html" with name="tooldock.png" %}
-</p>
+### Cross-Platform
 
-### Brushes and Layers
+You can [download Drawpile for **Windows**, **macOS**, **Linux** and **Android**](/download/).
 
-You can paint with a pixel pen, soft brush or a watercolor brush.
-Brushes can be organized into presets and quick access tabs.
-Use a dedicated eraser tool or turn any brush into an ad hoc eraser.
+A **Web Browser** version is also available, which you can use to [join sessions you're invited to](https://docs.drawpile.net/help/common/joining#joining-via-web-browser). This works on just about any platform, including iPad and iPhone.
 
-Both brushes and layers support various color blending modes.
+Drawpile supports [pressure-sensitive drawing tablets](https://docs.drawpile.net/help/tech/tablet) on all platforms.
 
-<h3 style="clear: left">Collaboration and User Management</h3>
+### Fully-Featured
 
-Host drawing sessions locally with the built-in server or using a dedicated server.
-Discover public sessions with the [list server](/servers/) or join a friend with
-a handy private room code.
+Drawpile comes with over 200 brushes built-in. It has multiple different brush engine and has a brush editor to [configure your own brushes](https://docs.drawpile.net/help/draw/brushsettings). It also comes with [a stabilizer](https://docs.drawpile.net/help/draw/stabilization) to smoothe out your strokes.
 
-Drawpile provides a wide variety of tools to help manage sessions:
+It has layers and layer groups (also known as layer folders) with various different blend modes. It supports [alpha preserve, clipping groups, masking and alpha lock](https://docs.drawpile.net/help/draw/clipping) for rendering and shading pictures.
 
- * Lock or mute individual users
- * Lock individual layers or allow per-user access
- * Restrict certain application features, such as image uploads, layer management and text box creation
- * Revert session to an earlier state in case of vandalism
- * Kick and ban troublemakers
- * Password protect sessions and set user count limits
- * Server supports password protected usernames
- * Session templates provide always available sessions for dedicated servers
+It also lets you [create animations](https://docs.drawpile.net/help/draw/animation), coming with a timeline and onion skins. You can either work together on a single animation or animate something as part of a larger canvas.
 
-### Recording and Animation
+Like in most other programs, you also have tools to make lines, curves and other shapes, as well as selections, transforms and [flood filling](https://docs.drawpile.net/help/draw/floodfill).
 
-Record a whole drawing session using Drawpile's recording feature. The recording
-can later be played back and exported into video, or used as a backup. Drawpile also
-has basic support for creating short animations, using layers as frames. Animation
-specific features like onionskin layer mode and a flipbook preview are supported.
+If Drawpile doesn't support something you need, you can save your canvas to the OpenRaster (ORA) format, supported by e.g. Krita, MyPaint or GIMP, or to PSD, supported by many proprietary programs, and make your edits or finish off your picture there. You can also paste images directly from files or other programs into your shared canvas.
 
-<h2 style="clear: both">Free/Libre Software</h2>
+### Collaborate Online
 
-You can follow Drawpile's development over at [GitHub](https://github.com/drawpile/Drawpile).
-Help is always appreciated, but you don't need to be a programmer to participate!
-Ways to help include:
+There's [official community servers](/communities/) where you can [host your sessions](https://docs.drawpile.net/help/common/hosting) for free, without having to set up any server stuff yourself. If you put a password on your session, it will be private for only yourself and anyone that you invite. You can also browse for open sessions at the bottom of those community pages.
 
- * [Reporting bugs](https://github.com/drawpile/Drawpile/issues)
- * [Translating Drawpile to your language](https://github.com/drawpile/Drawpile/wiki/Translating)
- * [Commenting on design discussions](https://github.com/drawpile/Drawpile/issues?q=is%3Aopen+is%3Aissue+label%3ADiscussion)
+If you want to set up a canvas to draw with your friends, host your session on pub.drawpile.net with a password and send them the invite link. If you want to host a public session, you can leave out the password - but read up on [how to run a public session](https://docs.drawpile.net/help/server/sessionoperation) so that you know how to deal with permissions!
 
-If you know C++, help with application development is very welcome,
-especially things related to Windows and Mac compatiblity.
+### Developed and Operated by Artists
 
-If you're a web developer interested in helping out, the [source code for this website](https://github.com/drawpile/Website/) is up on Github!
-Another project (which I haven't yet started), that I could use help with is rewriting the old server
-[web admin site](https://github.com/drawpile/Drawpile/tree/stable-1.x/server/webadmin) for version 2.0.
+Drawpile is made and run by the people that use it. There's no ads on this website or in the program. We don't want your personal data and you don't need an account for most things. We also don't feed the stuff you draw to some infernal AI.
+
+The program, this website and everything else involved is [free and open source software](https://github.com/drawpile). The code is [owned by the public](https://github.com/drawpile/Drawpile/blob/main/LICENSE.txt), so no one can take Drawpile and make it proprietary. If you want, you can also [set up your own server](https://docs.drawpile.net/help/server/dedicatedserver).
+
+Currently, you can't even pay for Drawpile if you wanted to! Although there will probably be a way to donate to it or letting you support it by buying a version of it on Steam or the Play Store or whatever at some point, since we'd like to keep working on it and maybe not starve. But the folks involved aren't in it for money, so we haven't gotten to setting that stuff up yet.
+
+### Contributing
+
+There's a few different ways to help with Drawpile, such as:
+
+* Helping folks that have questions [on Discord](/discord/) or [IRC](/irc/).
+* [Translating Drawpile to other languages](https://hosted.weblate.org/engage/drawpile/).
+* Providing pictures that we could use to make this website look a bit prettier.
+* Writing or translating stuff for [the help pages](https://drawpile.net/help/).
+* Or with programming of course, on the client, server, this website etc.
+
+For more information on how to contribute, take a look [at the Contributing help page](https://docs.drawpile.net/help/development/contributing). It explains things in more detail.
 
 {% endfilter %}
 
-</div>{# ./column #}
-</div>{# ./columns #}
-</div>{# ./container #}
+</div>
+</div>
+</div>
 </section>
 
 {% endblock main %}
