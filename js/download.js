@@ -57,8 +57,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let initial = window.location.hash;
     if (!initial || !tabbar.querySelector(`#tab-${initial.substring(1)}>a`)) {
-      const os = new UAParser().getOS().name;
-      if (os.indexOf("Mac") !== -1) {
+      const ua = new UAParser();
+      const os = ua.getOS()?.name || "";
+      const device = ua.getDevice()?.model || "";
+      if (device.indexOf("iPad") !== -1 || device.indexOf("iPhone") !== -1) {
+        initial = "#Browser";
+      } else if (os.indexOf("Mac") !== -1) {
         initial = "#OSX";
       } else if (os.indexOf("Windows") !== -1) {
         initial = "#Windows";
