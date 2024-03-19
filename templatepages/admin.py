@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from templatepages.models import Image, TemplateVar
+from templatepages.models import Documentation, Image, TemplateVar
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
@@ -10,3 +10,6 @@ class ImageAdmin(admin.ModelAdmin):
 class TemplateVarAdmin(admin.ModelAdmin):
     list_display = ('name', 'text')
 
+@admin.register(Documentation)
+class DocumentationAdmin(admin.ModelAdmin):
+    list_display = ('slug', 'title', 'permission')

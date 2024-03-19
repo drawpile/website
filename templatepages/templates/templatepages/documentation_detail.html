@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load commonmark %}
+
+{% block title %}{{ documentation.title }} - {{ block.super }}{% endblock %}
+
+{% block main %}
+<section class="section">
+    <div class="container">
+        <article>
+            <h1 class="title">{{ documentation.title }}</h1>
+            <div class="content">{{ documentation.content|commonmark_full }}</div>
+        </article>
+    </div>
+</section>
+{% endblock main %}
+

@@ -1,6 +1,7 @@
+from django.core.validators import RegexValidator
 from django.db import models
-from django.utils import timezone
 from django.urls import reverse
+from django.utils import timezone
 from easy_thumbnails.fields import ThumbnailerImageField
 
 
@@ -24,3 +25,12 @@ class TemplateVar(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Documentation(models.Model):
+    slug = models.CharField(
+        max_length=50, unique=True, validators=[RegexValidator(r"^[-.\w]+$")]
+    )
+    permission = models.CharField(max_length=512, blank=True)
+    title = models.CharField(max_length=200)
+    content = models.TextField(blank=True)

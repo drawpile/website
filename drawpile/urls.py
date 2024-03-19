@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.views.generic import RedirectView, TemplateView
 from django.conf import settings
 
-from templatepages.views import TemplatePageView
+from templatepages.views import DocumentationDetailView, TemplatePageView
 
 urlpatterns = [
     path('_admin/', admin.site.urls),
@@ -33,5 +33,6 @@ if settings.DEBUG_TOOLBAR:
     urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]
 
 urlpatterns += [
+    path('docs/<slug:slug>/', DocumentationDetailView.as_view(), name='documentation-detail'),
     re_path(r'^(?P<path>.*)/$', TemplatePageView.as_view()),
 ]

@@ -1,7 +1,9 @@
-from django.views.generic import TemplateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.views.generic import DetailView, TemplateView
 from django.template.response import TemplateResponse
 from django.template.exceptions import TemplateDoesNotExist
 from django.http import Http404
+from .models import Documentation
 
 
 class TemplatePageResponse(TemplateResponse):
@@ -33,3 +35,11 @@ class TemplatePageView(TemplateView):
             self.template_root + path + ".html",
             self.template_root + path + "/index.html",
         )
+
+
+class DocumentationDetailView(PermissionRequiredMixin, DetailView):
+    model = Documentation
+
+    def get_permission_required(self):
+        permission = self.get_object().permission
+        return [permission] if permission else []
