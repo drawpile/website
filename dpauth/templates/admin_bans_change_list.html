@@ -1,0 +1,6 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls %}
+{% block object-tools %}
+    {{ block.super }}
+    <p>⚠️ <em>Make sure to read <strong><a href="/docs/extbans/" target="_blank">the instructions</a></strong> first!</em></p>
+{% endblock %}

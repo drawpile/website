@@ -62,6 +62,8 @@ class BanAdmin(admin.ModelAdmin):
     list_display = ('id', 'comment', 'full_reason', 'expires', 'ban_type')
     list_display_links = list_display
     inlines = [BanIpRangeInline, BanSystemIdentifierInline, BanUserInline]
+    change_form_template = 'admin_bans_change_form.html'
+    change_list_template = 'admin_bans_change_list.html'
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
