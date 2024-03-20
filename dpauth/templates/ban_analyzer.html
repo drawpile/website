@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Community Ban Analyzer - {{ block.super }}{% endblock %}
+
+{% block extrascripts %}<script src="{% static "js/ban_analyzer.min.js" %}"></script>{% endblock %}
+
+{% block main %}
+<section class="section">
+    <div class="container">
+		<h1 class="title">Community Ban Analyzer</h1>
+		<div class="content">
+			<p>To use this, join the offending session and go into Session → Event Log. Filter for <code>"address"</code>. Alternatively, look in the server logs themselves.</p>
+			<p>Copy the results into the text field below and the table will take it apart. It will ignore extra data, so just copy a bunch of stuff and it will figure it out.</p>
+			<p>Include the <strong>Username</strong> into the "Description" field, along with the reason for the ban.</p>
+			<p><strong>IP Address</strong> goes into the "Start of IP Range" field. Leave the "End of IP Range (inclusive)" field empty.</p>
+			<p><strong>System Identifier</strong> and <strong>User ID</strong> go into those respective fields.</p>
+			<p>Make sure to <a href="/docs/extbans/" target="_blank">read the instructions</a> on bans. Also, remember to paste the data into the <code>#community-moderators</code> chat on Discord, so that others can check what you did, it helps avoid mistakes.</p>
+		</div>
+		<div class="field">
+			<textarea id="ban-analyzer-input" class="textarea" placeholder="Paste logs here" rows="5"></textarea>
+		</div>
+		<div class="table-container">
+			<table class="table is-bordered is-hoverable is-fullwidth is-striped">
+				<thead>
+					<tr>
+						<th>Username</th>
+						<th>IP Address</th>
+						<th>System Identifer</th>
+						<th>User ID</th>
+					</tr>
+				</thead>
+				<tbody id="ban-analyzer-results">
+					<tr><td colspan="4">Loading…</td></tr>
+				</tbody>
+			</table>
+		</div>
+    </div>
+</section>
+{% endblock %}

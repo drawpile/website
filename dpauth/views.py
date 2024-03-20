@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse
 from django.views.generic import FormView, TemplateView
@@ -66,3 +66,8 @@ class AuthFinishView(LoginRequiredMixin, TemplateView):
             }
         )
         return ctx
+
+
+class BanAnalyzerView(PermissionRequiredMixin, TemplateView):
+    template_name = "ban_analyzer.html"
+    permission_required = "dpauth.change_ban"

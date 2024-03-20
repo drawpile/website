@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build:auth_finish": "esbuild js/auth_finish.js --bundle --minify --outfile=dpauth/static/js/auth_finish.min.js",
+    "build:ban_analyzer": "esbuild js/ban_analyzer.js --bundle --minify --outfile=dpauth/static/js/ban_analyzer.min.js",
     "build:community": "esbuild js/community.js --bundle --minify --outfile=communities/static/js/community.min.js",
     "build:download": "esbuild js/download.js --bundle --minify --outfile=static/js/download.min.js",
     "build:invite": "esbuild js/invite.js --bundle --minify --outfile=invites/static/js/invite.min.js",
