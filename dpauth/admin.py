@@ -42,6 +42,9 @@ class BanUserForm(forms.ModelForm):
     class Meta:
         model = models.BanUser
         fields = ('user',)
+        widgets = {
+            'user': forms.TextInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -51,7 +54,6 @@ class BanUserForm(forms.ModelForm):
         user_widget.can_delete_related = False
 
 class BanUserInline(admin.TabularInline):
-    autocomplete_fields = ('user',)
     model = models.BanUser
     form = BanUserForm
     extra = 1
