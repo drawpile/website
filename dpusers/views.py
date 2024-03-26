@@ -39,9 +39,6 @@ class SignupView(FormView):
     a token for the next phase, which actually creates the account.
     The token is mailed to the given email address to ensure the
     address is real.
-
-    If the email address is registered already, a password recovery mail is
-    sent instead.
     """
 
     template_name = "registration/signup.html"
@@ -50,24 +47,8 @@ class SignupView(FormView):
 
     def form_valid(self, form):
         cd = form.cleaned_data
-
-        if get_user_model().objects.filter(email=cd["email"]).exists():
-            self.send_password_recovery(cd["username"], cd["email"])
-        else:
-            self.send_signup_token(cd["username"], cd["email"])
-
+        self.send_signup_token(cd["username"], cd["email"])
         return super().form_valid(form)
-
-    def send_password_recovery(self, username, email):
-        opts = {
-            "use_https": self.request.is_secure(),
-            "email_template_name": "registration/mail/reset_password.txt",
-            "request": self.request,
-        }
-        logger.info("Sending password recovery mail for '%s' to '%s'", username, email)
-        form = ResetPasswordForm({"email": email})
-        form.is_valid()
-        form.save(**opts)
 
     def send_signup_token(self, username, email):
         token = make_signup_token(username, email)
