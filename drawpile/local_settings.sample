@@ -24,6 +24,13 @@ DRAWPILE_READONLY_SITE = False
 DRAWPILE_EXT_BANS_KEYS = [
 ]
 
+# Maximum number of total emails allowed to be sent in 24 hours.
+DRAWPILE_EMAIL_MAX_TOTAL_PER_DAY = 50
+# Maximum number of total emails allowed to be sent in one hour.
+DRAWPILE_EMAIL_MAX_TOTAL_PER_HOUR = 15
+# Maximum number emails allowed to be sent in one hour to a single address.
+DRAWPILE_EMAIL_MAX_ADDRESS_PER_HOUR = 3
+
 # CORS Headers
 # Allow requests from the web client.
 CORS_ALLOWED_ORIGINS = ["https://web.drawpile.net"]

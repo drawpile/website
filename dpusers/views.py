@@ -10,7 +10,7 @@ from dpauth.models import Username
 from dpauth.settings import extauth_settings
 from communities.models import Membership
 from django.contrib.auth import views as auth_views
-from .models import PendingDeletion
+from .models import PendingDeletion, SentEmail
 from .forms import (
     SignupForm,
     FinishSignupForm,
@@ -55,6 +55,7 @@ class SignupView(FormView):
         protocol = "https" if self.request.is_secure() else "http"
         domain = self.request.get_host()
         logger.info("Sending signup token mail for '%s' to '%s'", username, email)
+        SentEmail.store_sent_email(SentEmail.EmailType.SIGNUP, email)
         send_template_mail(
             email,
             "registration/mail/signup.txt",
@@ -176,6 +177,7 @@ class EmailChangeView(LoginRequiredMixin, FormView):
             user.email,
             cd["email"],
         )
+        SentEmail.store_sent_email(SentEmail.EmailType.EMAIL_CHANGE, email)
         send_template_mail(
             cd["email"],
             "users/mail/change_email.txt",

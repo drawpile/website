@@ -2,7 +2,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
 from django import forms
 from .token import parse_signup_token, parse_emailchange_token
-from .models import EmailAddress, PendingDeletion
+from .models import EmailAddress, PendingDeletion, SentEmail
 from .normalization import normalize_email
 from dpauth.models import Username, username_pattern
 import django.contrib.auth.forms as auth_forms
@@ -39,6 +39,13 @@ class SignupForm(forms.Form):
     email = forms.EmailField()
     accept_tos = forms.BooleanField(required=True)
     program = forms.CharField(required=False)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get("email")
+        if email:
+            SentEmail.validate_total_limit(SentEmail.EmailType.SIGNUP, email)
+        return cleaned_data
 
     def clean_username(self):
         name = self.cleaned_data["username"]
@@ -104,6 +111,13 @@ class EmailChangeForm(forms.Form):
         self.__user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
 
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get("email")
+        if email:
+            SentEmail.validate_total_limit(SentEmail.EmailType.EMAIL_CHANGE, email)
+        return cleaned_data
+
     def clean_email(self):
         email = self.cleaned_data["email"]
 
@@ -112,6 +126,7 @@ class EmailChangeForm(forms.Form):
                 "This email address has already been registered."
             )
 
+        SentEmail.validate_address_limit(SentEmail.EmailType.EMAIL_CHANGE, email)
         return email
 
 
@@ -168,6 +183,18 @@ class ConfirmDeleteAccountForm(forms.Form):
 class ResetPasswordForm(auth_forms.PasswordResetForm):
     program = forms.CharField(required=False)
 
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get("email")
+        if email:
+            SentEmail.validate_total_limit(SentEmail.EmailType.PASSWORD_RESET, email)
+        return cleaned_data
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        SentEmail.validate_address_limit(SentEmail.EmailType.PASSWORD_RESET, email)
+        return email
+
     def clean_program(self):
         program = self.cleaned_data["program"].strip().casefold()
         expected = "drawpile"
@@ -208,6 +235,7 @@ class ResetPasswordForm(auth_forms.PasswordResetForm):
             user.id,
             to_email,
         )
+        SentEmail.store_sent_email(SentEmail.EmailType.PASSWORD_RESET, to_email)
         super().send_mail(
             subject_template_name,
             email_template_name,
