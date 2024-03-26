@@ -45,19 +45,19 @@ class SignupView(FormView):
         cd = form.cleaned_data
 
         if get_user_model().objects.filter(email=cd['email']).exists():
-            self.send_password_recovery(cd['email'])
+            self.send_password_recovery(cd['username'], cd['email'])
         else:
             self.send_signup_token(cd['username'], cd['email'])
 
         return super().form_valid(form)
 
-    def send_password_recovery(self, email):
+    def send_password_recovery(self, username, email):
         opts = {
             'use_https': self.request.is_secure(),
             'email_template_name': 'registration/mail/reset_password.txt',
             'request': self.request,
         }
-        logger.info("Sending password recovery mail to %s", email)
+        logger.info("Sending password recovery mail for '%s' to '%s'", username, email)
         form = PasswordResetForm({'email': email})
         form.is_valid()
         form.save(**opts)
@@ -66,7 +66,7 @@ class SignupView(FormView):
         token = make_signup_token(username, email)
         protocol = 'https' if self.request.is_secure() else 'http'
         domain = self.request.get_host()
-        logger.info("Sending signup token mail to %s", email)
+        logger.info("Sending signup token mail for '%s' to '%s'", username, email)
         send_template_mail(
             email,
             'registration/mail/signup.txt',
