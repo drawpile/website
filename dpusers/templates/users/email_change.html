@@ -10,6 +10,9 @@
 	<div class="message-header">Email address</div>
 	<div class="message-body">
 		<form method="post" class="disable-button-on-submit">
+		{% if form.non_field_errors %}
+		<div class="notification is-danger">{{ form.non_field_errors }}</div>
+		{% endif %}
 		<div class="field">
 			<label class="label">Current email address</label>
 			<div class="control">
