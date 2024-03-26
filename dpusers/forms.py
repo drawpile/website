@@ -60,13 +60,14 @@ class SignupForm(forms.Form):
                 "This email address has already been registered."
             )
 
+        SentEmail.validate_address_limit(SentEmail.EmailType.SIGNUP, email)
         return email
 
     def clean_program(self):
         program = self.cleaned_data["program"].strip().casefold()
         expected = "drawpile"
         if program != expected:
-            logger.warning("Spam protection hit with '%s'", program)
+            logger.warning("Signup spam protection hit with '%s'", program)
             raise forms.ValidationError("That's not what this program is called.")
         return expected
 
@@ -165,6 +166,16 @@ class ConfirmDeleteAccountForm(forms.Form):
 
 
 class ResetPasswordForm(auth_forms.PasswordResetForm):
+    program = forms.CharField(required=False)
+
+    def clean_program(self):
+        program = self.cleaned_data["program"].strip().casefold()
+        expected = "drawpile"
+        if program != expected:
+            logger.warning("Reset password spam protection hit with '%s'", program)
+            raise forms.ValidationError("That's not what this program is called.")
+        return expected
+
     def get_users(self, email):
         users = list(super().get_users(email))
         count = len(users)
