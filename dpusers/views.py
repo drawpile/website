@@ -7,24 +7,29 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.db import transaction
 from django.utils import timezone
-
 from dpauth.models import Username
 from dpauth.settings import extauth_settings
 from communities.models import Membership
 from .models import PendingDeletion
-
 from .forms import (
-    SignupForm, FinishSignupForm, EmailChangeForm,
-    ConfirmEmailChangeForm, ConfirmDeleteAccountForm,
-    )
+    SignupForm,
+    FinishSignupForm,
+    EmailChangeForm,
+    ConfirmEmailChangeForm,
+    ConfirmDeleteAccountForm,
+)
 from .token import (
-    make_signup_token, parse_signup_token,
-    make_emailchange_token, parse_emailchange_token
-    )
+    make_signup_token,
+    parse_signup_token,
+    make_emailchange_token,
+    parse_emailchange_token,
+)
 from .mail import send_template_mail
 
 import logging
+
 logger = logging.getLogger(__name__)
+
 
 class SignupView(FormView):
     """New user signup: first phase.
@@ -37,43 +42,49 @@ class SignupView(FormView):
     If the email address is registered already, a password recovery mail is
     sent instead.
     """
-    template_name = 'registration/signup.html'
+
+    template_name = "registration/signup.html"
     form_class = SignupForm
-    success_url = reverse_lazy('users:finish-signup')
+    success_url = reverse_lazy("users:finish-signup")
 
     def form_valid(self, form):
         cd = form.cleaned_data
 
-        if get_user_model().objects.filter(email=cd['email']).exists():
-            self.send_password_recovery(cd['username'], cd['email'])
+        if get_user_model().objects.filter(email=cd["email"]).exists():
+            self.send_password_recovery(cd["username"], cd["email"])
         else:
-            self.send_signup_token(cd['username'], cd['email'])
+            self.send_signup_token(cd["username"], cd["email"])
 
         return super().form_valid(form)
 
     def send_password_recovery(self, username, email):
         opts = {
-            'use_https': self.request.is_secure(),
-            'email_template_name': 'registration/mail/reset_password.txt',
-            'request': self.request,
+            "use_https": self.request.is_secure(),
+            "email_template_name": "registration/mail/reset_password.txt",
+            "request": self.request,
         }
         logger.info("Sending password recovery mail for '%s' to '%s'", username, email)
-        form = PasswordResetForm({'email': email})
+        form = PasswordResetForm({"email": email})
         form.is_valid()
         form.save(**opts)
 
     def send_signup_token(self, username, email):
         token = make_signup_token(username, email)
-        protocol = 'https' if self.request.is_secure() else 'http'
+        protocol = "https" if self.request.is_secure() else "http"
         domain = self.request.get_host()
         logger.info("Sending signup token mail for '%s' to '%s'", username, email)
         send_template_mail(
             email,
-            'registration/mail/signup.txt',
-            'Complete your drawpile.net account creation',
+            "registration/mail/signup.txt",
+            "Complete your drawpile.net account creation",
             {
-                'SIGNUP_URL': protocol + '://' + domain + str(self.success_url) + '?token=' + token,
-            }
+                "SIGNUP_URL": protocol
+                + "://"
+                + domain
+                + str(self.success_url)
+                + "?token="
+                + token,
+            },
         )
 
 
@@ -83,49 +94,45 @@ class FinishSignupView(FormView):
     Finishing the signup process requires a valid token that
     was generated in the first phase.
     """
-    template_name = 'registration/finish-signup.html'
+
+    template_name = "registration/finish-signup.html"
     form_class = FinishSignupForm
-    success_url = '/'
+    success_url = "/"
 
     def get_initial(self):
-        return {
-            'token': self.request.GET.get('token', '')
-        }
+        return {"token": self.request.GET.get("token", "")}
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        if self.request.method == 'POST':
-            token = self.request.POST.get('token', '')
+        if self.request.method == "POST":
+            token = self.request.POST.get("token", "")
         else:
-            token = self.request.GET.get('token', '')
+            token = self.request.GET.get("token", "")
 
         if not token:
-            ctx['noToken'] = True
+            ctx["noToken"] = True
         else:
             try:
-                ctx['token'] = parse_signup_token(token)
+                ctx["token"] = parse_signup_token(token)
             except ValidationError as e:
-                ctx['tokenError'] = e.message
+                ctx["tokenError"] = e.message
 
         return ctx
 
     def form_valid(self, form):
         cd = form.cleaned_data
-        token = parse_signup_token(cd['token'])
+        token = parse_signup_token(cd["token"])
 
-        logger.info("%s (%s) signup complete", token['name'], token['email'])
+        logger.info("%s (%s) signup complete", token["name"], token["email"])
         with transaction.atomic():
             user = get_user_model().objects.create_user(
-                token['name'],
-                token['email'],
-                cd['password']
-                )
-            Username.objects.create(
-                user=user,
-                name=token['name']
-                )
+                token["name"], token["email"], cd["password"]
+            )
+            Username.objects.create(user=user, name=token["name"])
 
-        user = authenticate(self.request, username=user.username, password=cd['password'])
+        user = authenticate(
+            self.request, username=user.username, password=cd["password"]
+        )
         login(self.request, user)
 
         return super().form_valid(form)
@@ -134,21 +141,19 @@ class FinishSignupView(FormView):
 class AccountView(LoginRequiredMixin, TemplateView):
     """General account settings"""
 
-    template_name = 'users/account.html'
+    template_name = "users/account.html"
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx.update({
-            'profile_page': 'account'
-        })
+        ctx.update({"profile_page": "account"})
         return ctx
 
     def post(self, request):
-        action = request.POST.get('action', '')
-        if action == 'change-email':
-            print ("Changing email")
+        action = request.POST.get("action", "")
+        if action == "change-email":
+            print("Changing email")
 
-        return redirect('users:profile-account')
+        return redirect("users:profile-account")
 
 
 class EmailChangeView(LoginRequiredMixin, FormView):
@@ -160,44 +165,48 @@ class EmailChangeView(LoginRequiredMixin, FormView):
     the address is actually changed.
     """
 
-    template_name = 'users/email_change.html'
+    template_name = "users/email_change.html"
     form_class = EmailChangeForm
-    success_url = reverse_lazy('users:profile-emailchange-confirm')
+    success_url = reverse_lazy("users:profile-emailchange-confirm")
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
+        kwargs["user"] = self.request.user
         return kwargs
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx.update({
-            'profile_page': 'account'
-        })
+        ctx.update({"profile_page": "account"})
         return ctx
 
     def form_valid(self, form):
         cd = form.cleaned_data
-        token = make_emailchange_token(self.request.user.id, cd['email'])
+        token = make_emailchange_token(self.request.user.id, cd["email"])
 
-        protocol = 'https' if self.request.is_secure() else 'http'
+        protocol = "https" if self.request.is_secure() else "http"
         domain = self.request.get_host()
 
         logger.info(
             "Sending email change (from %s) confirmation message to %s",
             self.request.user.email,
-            cd['email']
-            )
+            cd["email"],
+        )
         send_template_mail(
-            cd['email'],
-            'users/mail/change_email.txt',
-            'Changing your drawpile.net account email address',
+            cd["email"],
+            "users/mail/change_email.txt",
+            "Changing your drawpile.net account email address",
             {
-                'CHANGE_URL': protocol + '://' + domain + str(self.success_url) + '?token=' + token,
-            }
+                "CHANGE_URL": protocol
+                + "://"
+                + domain
+                + str(self.success_url)
+                + "?token="
+                + token,
+            },
         )
 
         return super().form_valid(form)
+
 
 class ConfirmEmailChangeView(LoginRequiredMixin, FormView):
     """Change an account's email address.
@@ -206,52 +215,50 @@ class ConfirmEmailChangeView(LoginRequiredMixin, FormView):
     left logged in, this also requires the current password.
     """
 
-    template_name = 'users/email_change_confirm.html'
+    template_name = "users/email_change_confirm.html"
     form_class = ConfirmEmailChangeForm
-    success_url = reverse_lazy('users:profile-account')
+    success_url = reverse_lazy("users:profile-account")
 
     def get_initial(self):
-        return {
-            'token': self.request.GET.get('token', '')
-        }
+        return {"token": self.request.GET.get("token", "")}
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
+        kwargs["user"] = self.request.user
         return kwargs
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        if self.request.method == 'POST':
-            token = self.request.POST.get('token', '')
+        if self.request.method == "POST":
+            token = self.request.POST.get("token", "")
         else:
-            token = self.request.GET.get('token', '')
+            token = self.request.GET.get("token", "")
 
         if not token:
-            ctx['noToken'] = True
+            ctx["noToken"] = True
         else:
             try:
-                ctx['token'] = parse_emailchange_token(token)
+                ctx["token"] = parse_emailchange_token(token)
             except ValidationError as e:
-                ctx['tokenError'] = e.message
+                ctx["tokenError"] = e.message
 
-        ctx['profile_page'] = 'account'
+        ctx["profile_page"] = "account"
         return ctx
 
     def form_valid(self, form):
         cd = form.cleaned_data
-        token = parse_emailchange_token(cd['token'])
+        token = parse_emailchange_token(cd["token"])
 
-        logger.info("Changing user #%s email to %s", token['user'], token['email'])
-        user = get_user_model().objects.get(id=token['user'])
-        user.email = token['email']
+        logger.info("Changing user #%s email to %s", token["user"], token["email"])
+        user = get_user_model().objects.get(id=token["user"])
+        user.email = token["email"]
         user.save()
 
         return super().form_valid(form)
 
 
 class UsernameView(LoginRequiredMixin, TemplateView):
-    template_name = 'users/usernames.html'
+    template_name = "users/usernames.html"
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -259,62 +266,65 @@ class UsernameView(LoginRequiredMixin, TemplateView):
         mod_status = []
         mod_available = False
         ghost_available = False
-        if self.request.user.has_perm('dpauth.moderator'):
+        if self.request.user.has_perm("dpauth.moderator"):
             mod_available = True
-            if self.request.user.has_perm('dpauth.ghost'):
-                mod_status.append('Global moderator and ghost status.')
+            if self.request.user.has_perm("dpauth.ghost"):
+                mod_status.append("Global moderator and ghost status.")
                 ghost_available = True
             else:
-                mod_status.append('Global moderator status.')
+                mod_status.append("Global moderator status.")
 
         memberships = Membership.objects.filter(
-            user=self.request.user,
-            status__in=Membership.MOD_STATUSES
-        ).select_related('community')
+            user=self.request.user, status__in=Membership.MOD_STATUSES
+        ).select_related("community")
 
         if len(memberships) > 0:
             mod_available = True
             for m in memberships:
                 if m.is_ghost:
                     ghost_available = True
-                    what = 'Moderator and ghost'
+                    what = "Moderator and ghost"
                 else:
-                    what = 'Moderator'
-                mod_status.append(f'{what} in {m.community.title}.')
+                    what = "Moderator"
+                mod_status.append(f"{what} in {m.community.title}.")
 
         if mod_available:
             if ghost_available:
-                permissions = 'MOD,GHOST'
+                permissions = "MOD,GHOST"
             else:
-                permissions = 'MOD'
+                permissions = "MOD"
         else:
-            permissions = ''
+            permissions = ""
 
-        ctx.update({
-            'profile_page': 'usernames',
-            'max_users': extauth_settings['ALT_COUNT'],
-            'mod_status': mod_status,
-            'mod_available': mod_available,
-            'permissions': permissions,
-        })
+        ctx.update(
+            {
+                "profile_page": "usernames",
+                "max_users": extauth_settings["ALT_COUNT"],
+                "mod_status": mod_status,
+                "mod_available": mod_available,
+                "permissions": permissions,
+            }
+        )
         return ctx
 
 
 class DeleteAccountView(LoginRequiredMixin, FormView):
-    template_name = 'users/delete_account_confirm.html'
+    template_name = "users/delete_account_confirm.html"
     form_class = ConfirmDeleteAccountForm
-    success_url = '/'
+    success_url = "/"
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
+        kwargs["user"] = self.request.user
         return kwargs
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx.update({
-            'profile_page': 'account',
-        })
+        ctx.update(
+            {
+                "profile_page": "account",
+            }
+        )
         return ctx
 
     def form_valid(self, form):
@@ -331,4 +341,3 @@ class DeleteAccountView(LoginRequiredMixin, FormView):
             pd.deactivated_at = timezone.now()
             pd.save()
         return super().form_valid(form)
-
