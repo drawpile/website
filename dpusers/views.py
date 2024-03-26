@@ -163,14 +163,17 @@ class EmailChangeView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         cd = form.cleaned_data
-        token = make_emailchange_token(self.request.user.id, cd["email"])
+        user = self.request.user
+        token = make_emailchange_token(user.id, cd["email"])
 
         protocol = "https" if self.request.is_secure() else "http"
         domain = self.request.get_host()
 
         logger.info(
-            "Sending email change (from %s) confirmation message to %s",
-            self.request.user.email,
+            "Sending email change confirmation for '%s' (%s) from '%s' to '%s'",
+            user.username,
+            user.id,
+            user.email,
             cd["email"],
         )
         send_template_mail(
