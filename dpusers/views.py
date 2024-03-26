@@ -1,7 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.contrib.auth.forms import PasswordResetForm
 from django.views.generic import TemplateView, FormView, UpdateView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -10,6 +9,7 @@ from django.utils import timezone
 from dpauth.models import Username
 from dpauth.settings import extauth_settings
 from communities.models import Membership
+from django.contrib.auth import views as auth_views
 from .models import PendingDeletion
 from .forms import (
     SignupForm,
@@ -17,6 +17,7 @@ from .forms import (
     EmailChangeForm,
     ConfirmEmailChangeForm,
     ConfirmDeleteAccountForm,
+    ResetPasswordForm,
 )
 from .token import (
     make_signup_token,
@@ -64,7 +65,7 @@ class SignupView(FormView):
             "request": self.request,
         }
         logger.info("Sending password recovery mail for '%s' to '%s'", username, email)
-        form = PasswordResetForm({"email": email})
+        form = ResetPasswordForm({"email": email})
         form.is_valid()
         form.save(**opts)
 
@@ -341,3 +342,10 @@ class DeleteAccountView(LoginRequiredMixin, FormView):
             pd.deactivated_at = timezone.now()
             pd.save()
         return super().form_valid(form)
+
+
+class ResetPasswordView(auth_views.PasswordResetView):
+    template_name = "registration/reset_password.html"
+    email_template_name = "registration/mail/reset_password.txt"
+    success_url = reverse_lazy("users:password_reset_done")
+    form_class = ResetPasswordForm

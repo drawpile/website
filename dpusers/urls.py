@@ -51,11 +51,7 @@ else:
         ),
         path(
             'password_reset/',
-            auth_views.PasswordResetView.as_view(
-                template_name='registration/reset_password.html',
-                email_template_name='registration/mail/reset_password.txt',
-                success_url=reverse_lazy('users:password_reset_done')
-            ),
+            views.ResetPasswordView.as_view(),
             name='password_reset'
         ),
         path(

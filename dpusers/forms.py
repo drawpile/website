@@ -5,6 +5,7 @@ from .token import parse_signup_token, parse_emailchange_token
 from .models import EmailAddress, PendingDeletion
 from .normalization import normalize_email
 from dpauth.models import Username, username_pattern
+import django.contrib.auth.forms as auth_forms
 import logging
 import re
 
@@ -161,3 +162,46 @@ class ConfirmDeleteAccountForm(forms.Form):
             raise forms.ValidationError("Incorrect password!")
 
         return password
+
+
+class ResetPasswordForm(auth_forms.PasswordResetForm):
+    def get_users(self, email):
+        users = list(super().get_users(email))
+        count = len(users)
+        if count == 1:
+            return users
+        elif count > 1:
+            logger.warning(
+                "Multiple users registered to email %s, using first one", email
+            )
+            return [users[0]]
+        elif count == 0:
+            logger.info(
+                "Not sending password recovery to unregistered email '%s'", email
+            )
+            return []
+
+    def send_mail(
+        self,
+        subject_template_name,
+        email_template_name,
+        context,
+        from_email,
+        to_email,
+        html_email_template_name=None,
+    ):
+        user = context["user"]
+        logger.info(
+            "Sending password recovery for '%s' (%d) to '%s'",
+            user.username,
+            user.id,
+            to_email,
+        )
+        super().send_mail(
+            subject_template_name,
+            email_template_name,
+            context,
+            from_email,
+            to_email,
+            html_email_template_name,
+        )
