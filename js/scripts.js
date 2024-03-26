@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
   /* Some users double-click on submit buttons, prevent double-submissions */
   document.querySelectorAll("form.disable-button-on-submit").forEach((form) => {
     form.addEventListener("submit", (event) => {
-      if (event.target.dataset.submitted) {
+      if (form.dataset.submitted) {
         event.preventDefault();
         event.target
           .querySelectorAll("button[type=submit], input[type=submit]")
@@ -59,8 +59,13 @@ document.addEventListener("DOMContentLoaded", function () {
             button.disabled = true;
           });
       } else {
-        event.target.dataset.submitted = "true";
+        form.dataset.submitted = "true";
       }
+    });
+    // Clear submitted flag whenever the page is loaded. Otherwise returning to
+    // the form via the back button reloads it in an unusable state.
+    window.addEventListener("pageshow", () => {
+      delete form.dataset.submitted;
     });
   });
 });
