@@ -7,16 +7,34 @@ import { el } from "./el";
 
   function extractUsername(line) {
     const matchWithIp = /\b[0-9]+;[0-9a-f:\.]+;(.+?):?\s+{/.exec(line);
-    if(matchWithIp) {
+    if (matchWithIp) {
       return matchWithIp[1];
     }
 
     const matchWithoutIp = /\b[0-9]+;(.+?):?\s+{/.exec(line);
-    if(matchWithoutIp) {
+    if (matchWithoutIp) {
       return matchWithoutIp[1];
     }
 
     return "";
+  }
+
+  function extractOs(os) {
+    if (os === "android") {
+      return "Android";
+    } else if (os === "emscripten") {
+      return "Browser";
+    } else if (os === "linux") {
+      return "Linux";
+    } else if (os === "darwin") {
+      return "macOS";
+    } else if (os === "winnt") {
+      return "Windows";
+    } else if (os) {
+      return `${os}`;
+    } else {
+      return "";
+    }
   }
 
   function extractAddress(address) {
@@ -45,6 +63,7 @@ import { el } from "./el";
         try {
           const data = JSON.parse(line);
           return {
+            os: extractOs(data.os),
             username,
             address: extractAddress(data.address),
             sid: data.s || "",
@@ -58,12 +77,27 @@ import { el } from "./el";
     }
   }
 
+  function isDuplicateResult(candidates, result) {
+    for (const candidate of candidates) {
+      if (
+        result.os === candidate.os &&
+        result.username === candidate.username &&
+        result.address === candidate.address &&
+        result.sid === candidate.sid &&
+        result.userId === candidate.userId
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   function analyze() {
     const results = [];
     for (const line of inputElement.value.split("\n")) {
       try {
         const result = analyzeLine(line.trim());
-        if (result) {
+        if (result && !isDuplicateResult(results, result)) {
           results.push(result);
         }
       } catch (e) {
@@ -90,6 +124,7 @@ import { el } from "./el";
           el(
             "tr",
             {},
+            el("td", {}, result.os),
             el("td", {}, result.username),
             el("td", {}, result.address),
             el("td", {}, result.sid),
