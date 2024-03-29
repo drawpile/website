@@ -11,7 +11,7 @@
     "build:memberlist": "esbuild js/memberlist.js --bundle --minify --outfile=communities/static/js/memberlist.min.js",
     "build:scripts": "esbuild js/scripts.js --bundle --minify --outfile=static/js/scripts.min.js",
     "build:sessionlist": "esbuild js/sessionlist.js --bundle --minify --outfile=static/js/sessionlist.min.js",
-    "build:all": "npm run build:auth_finish && npm run build:community && npm run build:download && npm run build:invite && npm run build:manage_usernames && npm run build:memberlist && npm run build:scripts && npm run build:sessionlist"
+    "build:all": "npm run build:auth_finish && npm run build:ban_analyzer && npm run build:community && npm run build:download && npm run build:invite && npm run build:manage_usernames && npm run build:memberlist && npm run build:scripts && npm run build:sessionlist"
   },
   "license": "MIT",
   "devDependencies": {
