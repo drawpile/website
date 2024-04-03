@@ -32,7 +32,7 @@
 	</div>
 
 	{% else %}
-	<h2 class="title has-text-centered">Create a Drawpile.net account</h2>
+	<h2 class="title has-text-centered">Create a drawpile.net account</h2>
 
 	<form method="POST" action="{% url 'users:finish-signup' %}" class="disable-button-on-submit">
 		{% if form.non_field_errors %}
@@ -44,26 +44,30 @@
 		{% if not tokenError %}
 
 		<div class="field">
-			<label class="label">Username</label>
-			<div class="control">
-				<input class="input" type="text" disabled value="{{ token.name }}">
+			<div class="control has-icons-left" title="Username">
+				<input class="input is-large" type="text" disabled value="{{ token.name }}">
+				<span class="icon is-left"><span class="fa fa-at"></span></span>
 			</div>
 		</div>{# /.field #}
 
 		<div class="field">
-			<label class="label">Email address</label>
-			<div class="control">
-				<input class="input" type="text" disabled value="{{ token.email }}">
+			<div class="control has-icons-left" title="Email">
+				<input class="input is-large" type="text" disabled value="{{ token.email }}">
+				<span class="icon is-left"><span class="fa fa-envelope"></span></span>
 			</div>
 		</div>{# /.field #}
 
 		<div class="field">
-			<label class="label" for="{{ form.password.auto_id }}">Choose a password</label>
-			<div class="control">
-				{% render_field form.password class+="input" %}
+			<div class="control has-icons-left">
+				{% render_field form.password class+="input is-large" placeholder="Choose a password" %}
+				<span class="icon is-left"><span class="fa fa-lock"></span></span>
 			</div>
 			{% if form.errors.password %}<div class="help is-danger">{{ form.errors.password }}</div>{% endif %}
 		</div>{# /.field #}
+
+		<div class="content">
+			<p>Choose a password for your account to finish signing up.</p>
+		</div>
 
 		{{ form.token }}
 		<input type="submit" class="button is-fullwidth is-link is-large" value="Create account">

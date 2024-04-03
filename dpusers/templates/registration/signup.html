@@ -12,7 +12,11 @@
 <div class="columns">
 <div class="column is-half is-offset-one-quarter">
 
-	<h2 class="title has-text-centered">Create a Drawpile.net account</h2>
+	<h2 class="title has-text-centered">Create a drawpile.net account</h2>
+
+	<div class="content">
+		<span class="fa fa-splotch"></span> You don't need an account to use Drawpile, most sessions can be joined without one! Creating an account mostly just lets you reserve usernames.
+	</div>
 
 	<form method="POST" action="{% url 'users:signup' %}" class="disable-button-on-submit">
 		{% if form.non_field_errors %}
@@ -23,24 +27,24 @@
 		{% endif %}
 
 		<div class="field">
-			<label class="label" for="{{ form.username.auto_id }}">{{ form.username.label }}</label>
-			<div class="control">
-				{% render_field form.username class+="input" %}
+			<div class="control has-icons-left">
+				{% render_field form.username class+="input is-large" placeholder="Username" %}
+				<span class="icon is-left"><span class="fa fa-at"></span></span>
 			</div>
 			{% if form.errors.username %}<div class="help is-danger">{{ form.errors.username }}</div>{% endif %}
+			<p class="help">You can change your username and add additional ones after creating your account.</p>
 		</div>{# /.field #}
 
 		<div class="field">
-			<label class="label" for="{{ form.email.auto_id }}">Email address</label>
-			<div class="control">
-				{% render_field form.email class+="input" %}
+			<div class="control has-icons-left">
+				{% render_field form.email class+="input is-large" placeholder="Email" %}
+				<span class="icon is-left"><span class="fa fa-envelope"></span></span>
 			</div>
 			{% if form.errors.email %}<div class="help is-danger">{{ form.errors.email }}</div>{% endif %}
-			<p>Your email address will only be used for notification and user profile management purposes.
-			It will not be shown to other users on this site or shared with third parties.</p>
+			<p class="help">Your email address is only used to confirm your account or to reset your password. It won't be visible to anyone else and is not shared with third parties. We don't send marketing emails or any other garbage like that either.</p>
 		</div>{# /.field #}
 
-		<div class="field">
+		<div class="field notification">
 			<div class="control">
 				<label class="checkbox">
 					{{ form.accept_tos }}
@@ -50,12 +54,6 @@
 			{% if form.errors.accept_tos %}<div class="help is-danger">{{ form.errors.accept_tos }}</div>{% endif %}
 		</div>{# /.field #}
 
-		<div class="field">
-			<p>A link to activate your account will be sent to the email address.</p>
-			<p>If you already registered an account, but forgotten your password, you can <a href="{% url 'users:password_reset' %}">reset it here</a>.</p>
-			<p>You do not need an account to use Drawpile, but some community servers require it and having an account lets you reserve usernames there. Accounts are deleted after one year of inactivity.</p>
-		</div>
-
 		{# We're getting spam signup attempts. They're not very advanced though, so this is sufficient. #}
 		<div id="program-field" class="field">
 			<label class="label" for="{{ form.program.auto_id }}">Spam protection</label>
@@ -63,7 +61,7 @@
 				{% render_field form.program class+="input" %}
 			</div>
 			{% if form.errors.program %}<div class="help is-danger">{{ form.errors.program }}</div>{% endif %}
-			<p>Please enter the name of this drawing program into the field above (it's called Drawpile.)</p>
+			<p class="help">Please enter the name of this drawing program into the field above (it's called Drawpile.)</p>
 		</div>
 		<script>
 			(function () {
@@ -74,6 +72,11 @@
 				}, 2345);
 			})();
 		</script>
+
+		<div class="content">
+			<p>If you already registered an account, you can <a href="{% url 'users:login' %}">log in here</a>. If you forgot your password, you can <a href="{% url 'users:password_reset' %}">reset it here</a>.</p>
+			<p>Accounts are deleted after one year of inactivity.</p>
+		</div>
 
 		<input type="submit" class="button is-fullwidth is-link is-large" value="Sign up">
 		{% csrf_token %}

@@ -22,7 +22,7 @@
 		<div class="field">
 			<div class="control has-icons-left">
 				{% render_field form.username class+="input is-large" placeholder="Username or email" %}
-				<span class="icon is-small is-left"> <i class="fa fa-at"></i> </span>
+				<span class="icon is-left"><span class="fa fa-at"></span></span>
 			</div>
 			{% if form.errors.username %}<p class="help is-danger">{{ form.errors.username }}</p>{% endif %}
 		</div>
@@ -30,15 +30,15 @@
 		<div class="field">
 			<div class="control has-icons-left">
 				{% render_field form.password class+="input is-large" placeholder="Password" %}
-				<span class="icon is-small is-left"> <i class="fa fa-lock"></i> </span>
+				<span class="icon is-left"><span class="fa fa-lock"></span></span>
 			</div>
 			{% if form.errors.password %}<p class="help is-danger">{{ form.errors.password }}</p>{% endif %}
 		</div>
 
-		<div class="field">
-			<p>If you do not already have a drawpile.net account, you can <a href="{% url 'users:signup' %}">sign up here</a>.</p>
-			<p>You do not need an account to use Drawpile, but some community servers require it and having an account lets you reserve usernames there. Accounts are deleted after one year of inactivity.</p>
+		<div class="content">
+			<p>If you don't have a drawpile.net account yet, you can <a href="{% url 'users:signup' %}">sign up here</a>.</p>
 			<p>If you have forgotten your password, you can <a href="{% url 'users:password_reset' %}">reset it here</a>.</p>
+			<p>Accounts are deleted after one year of inactivity.</p>
 		</div>
 
 		<input type="submit" class="button is-fullwidth is-link is-large" value="Sign in">
