@@ -165,7 +165,8 @@ class EmailChangeView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         cd = form.cleaned_data
         user = self.request.user
-        token = make_emailchange_token(user.id, cd["email"])
+        email = cd["email"]
+        token = make_emailchange_token(user.id, email)
 
         protocol = "https" if self.request.is_secure() else "http"
         domain = self.request.get_host()
@@ -175,11 +176,11 @@ class EmailChangeView(LoginRequiredMixin, FormView):
             user.username,
             user.id,
             user.email,
-            cd["email"],
+            email,
         )
         SentEmail.store_sent_email(SentEmail.EmailType.EMAIL_CHANGE, email)
         send_template_mail(
-            cd["email"],
+            email,
             "users/mail/change_email.txt",
             "Changing your drawpile.net account email address",
             {
