@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout, get_user_model
@@ -32,6 +33,20 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+def _allow_username(username):
+    for regex in settings.DRAWPILE_USERNAME_REJECTIONS:
+        if regex.search(username):
+            return False
+    return True
+
+
+def _allow_email(email):
+    for regex in settings.DRAWPILE_EMAIL_REJECTIONS:
+        if regex.search(email):
+            return False
+    return True
+
+
 class SignupView(FormView):
     """New user signup: first phase.
 
@@ -47,7 +62,12 @@ class SignupView(FormView):
 
     def form_valid(self, form):
         cd = form.cleaned_data
-        self.send_signup_token(cd["username"], cd["email"])
+        username = cd["username"]
+        email = cd["email"]
+        if _allow_username(username) and _allow_email(email):
+            self.send_signup_token(username, email)
+        else:
+            logger.warning("Not sending signup mail for '%s' to '%s'", username, email)
         return super().form_valid(form)
 
     def send_signup_token(self, username, email):
@@ -166,32 +186,41 @@ class EmailChangeView(LoginRequiredMixin, FormView):
         cd = form.cleaned_data
         user = self.request.user
         email = cd["email"]
-        token = make_emailchange_token(user.id, email)
+        if _allow_email(email):
+            token = make_emailchange_token(user.id, email)
 
-        protocol = "https" if self.request.is_secure() else "http"
-        domain = self.request.get_host()
+            protocol = "https" if self.request.is_secure() else "http"
+            domain = self.request.get_host()
 
-        logger.info(
-            "Sending email change confirmation for '%s' (%s) from '%s' to '%s'",
-            user.username,
-            user.id,
-            user.email,
-            email,
-        )
-        SentEmail.store_sent_email(SentEmail.EmailType.EMAIL_CHANGE, email)
-        send_template_mail(
-            email,
-            "users/mail/change_email.txt",
-            "Changing your drawpile.net account email address",
-            {
-                "CHANGE_URL": protocol
-                + "://"
-                + domain
-                + str(self.success_url)
-                + "?token="
-                + token,
-            },
-        )
+            logger.info(
+                "Sending email change confirmation for '%s' (%s) from '%s' to '%s'",
+                user.username,
+                user.id,
+                user.email,
+                email,
+            )
+            SentEmail.store_sent_email(SentEmail.EmailType.EMAIL_CHANGE, email)
+            send_template_mail(
+                email,
+                "users/mail/change_email.txt",
+                "Changing your drawpile.net account email address",
+                {
+                    "CHANGE_URL": protocol
+                    + "://"
+                    + domain
+                    + str(self.success_url)
+                    + "?token="
+                    + token,
+                },
+            )
+        else:
+            logger.warning(
+                "Not sending email change confirmation for '%s' (%s) from '%s' to '%s'",
+                user.username,
+                user.id,
+                user.email,
+                email,
+            )
 
         return super().form_valid(form)
 
