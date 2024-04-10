@@ -1,5 +1,28 @@
-.navbar-item img{
-	max-height: 100px;
+@media screen and (max-width: 380px) {
+	#drawpile-navbar-banner {
+		width: 200px;
+		max-width: 200px;
+		height: 50px;
+		max-height: 50px;
+	}
+}
+
+@media screen and (min-width: 381px) and (max-width: 500px) {
+	#drawpile-navbar-banner {
+		width: 300px;
+		max-width: 300px;
+		height: 75px;
+		max-height: 75px;
+	}
+}
+
+@media screen and (min-width: 501px) {
+	#drawpile-navbar-banner {
+		width: 400px;
+		max-width: 400px;
+		height: 100px;
+		max-height: 100px;
+	}
 }
 
 article {
