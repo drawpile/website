@@ -22,6 +22,7 @@ urlpatterns = [
     path('discord/', RedirectView.as_view(url='https://discord.gg/M3yyMpC', permanent=True)),
     path('localhosthelp/', RedirectView.as_view(url='https://docs.drawpile.net/help/common/hosting#hosting-on-your-computer', permanent=True)),
     path('sharedarraybufferhelp/', RedirectView.as_view(url='https://docs.drawpile.net/help/tech/browser#sharedarraybuffer-issues', permanent=True)),
+    path('lgm/', TemplateView.as_view(template_name='lgm.html')),
     path('', TemplateView.as_view(template_name='pages/index.html')),
 ]
 
