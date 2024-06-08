@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Monitor Bot{% endblock %}
+
+{% block main %}
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-three-quarters content">
+                <h1>Monitor Bot</h1>
+                <p>
+                    When you use the public Drawpile server, you have to follow its rules. <strong><a href="/communities/drawpile.net/ccg/">You can read them here.</a></strong>
+                </p>
+                <p>
+                   Monitor Bot will automatically detect offensive session titles and usernames in open sessions. These must be clean because they show up on the website by default.
+                </p>
+                <p>
+                    To avoid most cases of being bothered by the bot, <strong>properly mark your session as not suitable for minors (NSFM)</strong>. You can do that by ticking the checkbox either when hosting the session or in a running session by clicking on Session at the top and then going into Settings.
+                </p>
+                <p><a href="{% static "images/nsfm.png" %}"><img src="{% static "images/nsfm.png" %}" alt="Marking a session NSFM"></a></p>
+                <p>
+                    Monitor Bot <strong>will never ban you</strong> and <strong>doesn't analyze what you're drawing.</strong> It only takes care of offensive names appearing publicly so that the human server admins don't need to.
+                </p>
+                <p>
+                     We know it's possible to circumvent Monitor Bot if you doctor names enough. Don't do that, even if you disagree with what the bot considers offensive. A human server admin can see that you're intentionally breaking the rules and <strong>will</strong> ban you for it.
+                </p>
+                <p>
+                    If you disagree with the rules on the public server, you can <a href="https://docs.drawpile.net/help/server/dedicatedserver">set up your own server</a> instead and make your own rules. If you need help doing this, check out <a href="/help/">the help page</a>!
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main %}
