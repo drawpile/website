@@ -23,7 +23,7 @@ urlpatterns = [
     path('localhosthelp/', RedirectView.as_view(url='https://docs.drawpile.net/help/common/hosting#hosting-on-your-computer', permanent=True)),
     path('sharedarraybufferhelp/', RedirectView.as_view(url='https://docs.drawpile.net/help/tech/browser#sharedarraybuffer-issues', permanent=True)),
     path('lgm/', TemplateView.as_view(template_name='lgm.html')),
-    path('monitorbot/', TemplateView.as_view(template_name='monitorbot.html')),
+    path('namecheckbot/', TemplateView.as_view(template_name='namecheckbot.html')),
     path('', TemplateView.as_view(template_name='pages/index.html')),
 ]
 
