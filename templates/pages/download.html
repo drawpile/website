@@ -16,6 +16,7 @@
 {% block main %}
 
 {% templatevar 'VERSION' as VERSION %}
+{% templatevar 'BETAVERSION' as BETAVERSION %}
 
 <section class="section">
 <div class="container">
@@ -23,6 +24,92 @@
 <div class="tab-container">
 <div class="tabs is-centered is-hidden-mobile">
 	<ul></ul>
+</div>
+
+<div id="Beta" class="tab-page content">
+	<h2 data-icon="fas fa-flask">Beta</h2>
+	<p>
+		Drawpile {{ BETAVERSION }} has many bugfixes and new features, like improved selections, a magic wand, animation exports to video, better pen tablet support and more. It's fully compatible with previous versions, so you can use it in the same session with folks who are still on the non-beta version. While it's still in development, it should be pretty stable, but the new stuff is still in flux.
+	</p>
+	<p>
+		If you run into issues, found a bug, want to suggest a feature or ask for help with something, <a href="/help/">take a look at the help pages</a> on how to get in touch! Also, consider <a href="https://docs.drawpile.net/help/tech/crashdumps" target="_blank">enabling crash dumps</a>, they help a lot to figure out what went wrong if the program crashes.
+	</p>
+	<h3 class="title"><span class="fab fa-windows"></span> Windows Beta</h3>
+	<div class="columns is-multiline">
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-x86_64.msi" class="button is-link"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ BETAVERSION }} Installer</a>
+		</div>
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-x86_64.zip" class="button is-link"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ BETAVERSION }} Portable ZIP</a>
+		</div>
+	</div>
+	<div class="notification">
+		<p>
+			<strong>Note 1:</strong> On Windows, you may get a message saying
+			<em>SmartScreen prevented an unrecognized app from starting</em>. To
+			get rid of this, we'd have to pay Microsoft a lot of money. So for
+			now, you have to dismiss the warning yourself: click on <strong>More
+			info</strong> underneath the message and then on the <strong>Run
+			anyway</strong> button that appears at the bottom.
+		</p>
+		<p>
+			<strong>Note 2:</strong> If you get an error about missing the Visual Studio Redistributable or a VCRUNTIME DLL, you need to install those first. They are provided by Microsoft, you can <a href="https://aka.ms/vs/17/release/vc_redist.x64.exe">download them here</a>.
+		</p>
+	</div>
+
+	<h3 class="title"><span class="fab fa-apple"></span> macOS Beta</h3>
+	<div class="columns is-multiline">
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-arm64.dmg" class="button is-link"><span class="fab fa-apple"></span>&nbsp;Drawpile {{ BETAVERSION }} for Apple Silicon Mac</a>
+		</div>
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-x86_64.dmg" class="button is-link"><span class="fab fa-apple"></span>&nbsp;Drawpile {{ BETAVERSION }} for Intel Mac</a>
+		</div>
+	</div>
+	<div class="notification">
+		<p>
+			<strong>Note 1:</strong> If you don't know whether you have an Apple Silicon Mac or an Intel Mac, take a look at <a href="https://support.apple.com/en-us/116943" target="_blank">Apple's help page about that</a>.
+		</p>
+		<p>
+			<strong>Note 2:</strong> On macOS, you may get a message saying
+			<em>application cannot be opened because it is from an unidentified
+			developer</em>. To get rid of this, we'd have to pay Apple money. So
+			for now, you have to add an exception yourself: right click on the
+			app and select <strong>Open</strong>, you should now see the dialog
+			again with the option to open the application anyway.
+		</p>
+	</div>
+
+	<h3 class="title"><span class="fab fa-linux"></span> Linux Beta</h3>
+	<div class="columns is-multiline">
+		<div class="column is-narrow">
+			<a href="https://docs.drawpile.net/help/development/releases#flathub-beta" class="button is-link" target="_blank"><span class="fab fa-linux"></span>&nbsp;Drawpile {{ BETAVERSION }} on Flathub Beta</a>
+		</div>
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-x86_64.AppImage" class="button is-link"><span class="fab fa-linux"></span>&nbsp;Drawpile {{ BETAVERSION }} AppImage</a>
+		</div>
+	</div>
+
+	<h3 class="title"><span class="fab fa-android"></span> Android Beta</h3>
+	<div class="columns is-multiline">
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-arm64-v8a.apk" class="button is-link"><span class="fab fa-android"></span>&nbsp;Drawpile {{ BETAVERSION }} APK</a>
+		</div>
+	</div>
+	<div class="notification">
+		<p>
+			<strong>Note:</strong> On Android, you have to enable apps from
+			unknown sources. How exactly this works depends on your device, but
+			it should be in the settings somewhere. To get rid of this, we'd
+			have to pay Google money.
+		</p>
+	</div>
+
+	<h3 class="title"><span class="fas fa-archive"></span> Other Beta Stuff</h3>
+	<p>
+		You can find source code and other versions <a href="https://github.com/drawpile/Drawpile/releases/tag/{{ BETAVERSION }}">in the release on GitHub</a>. Downloads are at the bottom in the <em>Assets</em> section.
+	</p>
+
 </div>
 
 <div id="Windows" class="tab-page content">
@@ -48,12 +135,15 @@
 	</p>
 	<div class="notification">
 		<p>
-			<strong>Note:</strong> On Windows, you may get a message saying
+			<strong>Note 1:</strong> On Windows, you may get a message saying
 			<em>SmartScreen prevented an unrecognized app from starting</em>. To
 			get rid of this, we'd have to pay Microsoft a lot of money. So for
 			now, you have to dismiss the warning yourself: click on <strong>More
 			info</strong> underneath the message and then on the <strong>Run
 			anyway</strong> button that appears at the bottom.
+		</p>
+		<p>
+			<strong>Note 2:</strong> If you get an error about missing the Visual Studio Redistributable or a VCRUNTIME DLL, you need to install those first. They are provided by Microsoft, you can <a href="https://aka.ms/vs/17/release/vc_redist.x64.exe">download them here</a>.
 		</p>
 	</div>
 </div>
@@ -66,7 +156,7 @@
 		</div>
 	</div>
 	<p>
-		Drawpile {{ VERSION }} is backward-compatible, so you can join sessions hosted with the previous 2.1 series.
+		Drawpile {{ VERSION }} is backward-compatible, so you can join sessions hosted with the previous versions.
 	</p>
 	<p>
 		If you run into issues, found a bug, want to suggest a feature or ask
@@ -96,7 +186,7 @@
 		</div>
 	</div>
 	<p>
-		Drawpile {{ VERSION }} is backward-compatible, so you can join sessions hosted with the previous 2.1 series.
+		Drawpile {{ VERSION }} is backward-compatible, so you can join sessions hosted with the previous versions.
 	</p>
 	<p>
 		Flatpak comes pre-installed on some Linux distributions and is generally easy to set up. Take a look at <a href="https://flathub.org/setup" target="_blank">the Flathub setup page</a> for how to install it. It does not include the dedicated server or command-line tools. The AppImage is self-contained, but needs to be downloaded and updated manually. To find out how to use it take a look at <a href="https://docs.appimage.org/introduction/quickstart.html" target="_blank">the AppImage manual</a> and <a href="https://docs.appimage.org/user-guide/troubleshooting/fuse.html" target="_blank">troubleshooting page</a>. It includes the client, server and command line tools, run it with <code>--help</code> to see what's included.
@@ -115,11 +205,11 @@
 	<h2 data-icon="fab fa-android">Android</h2>
 	<div class="columns is-multiline">
 		<div class="column is-narrow">
-			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-arm64-v8a.apk" class="button is-link"><span class="fab fa-android"></span>&nbsp;Drawpile {{ VERSION }} APK</a>
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-arm64-v8a.apk" class="button is-link"><span class="fab fa-android"></span>&nbsp;Drawpile {{ BETAVERSION }} APK</a>
 		</div>
 	</div>
 	<p>
-		Drawpile {{ VERSION }} is backward-compatible, so you can join sessions hosted with the previous 2.1 series.
+		On Android, Drawpile {{ BETAVERSION }} is more stable than {{ VERSION }}, so that's what's recommended. It's fully compatible with previous versions, so you can draw with folks on the older version.
 	</p>
 	<p>
 		If you run into issues, found a bug, want to suggest a feature or ask
@@ -132,7 +222,7 @@
 	<div class="notification">
 		<p>
 			<strong>Note:</strong> On Android, you have to enable apps from
-			unknown sources. How exactly this work depends on your device, but
+			unknown sources. How exactly this works depends on your device, but
 			it should be in the settings somewhere. To get rid of this, we'd
 			have to pay Google money.
 		</p>
@@ -157,9 +247,6 @@
 	<div class="columns is-multiline">
 		<div class="column is-narrow">
 			<a href="https://github.com/drawpile/Drawpile/archive/refs/tags/{{ VERSION }}.tar.gz" class="button is-link"><span class="fa fa-code"></span>&nbsp;Drawpile {{ VERSION }} Source Code</a>
-		</div>
-		<div class="column is-narrow">
-            <a href="https://github.com/drawpile/Drawpile/archive/refs/tags/{{ VERSION }}.tar.gz" class="button is-primary"><span class="fa fa-code"></span>&nbsp;Drawpile {{ VERSION }} Source Code</a>
 		</div>
 		<div class="column is-narrow">
 			<a href="https://github.com/drawpile/Drawpile" target="_blank" class="button"><span class="fab fa-github"></span>&nbsp;Drawpile on GitHub</a>
@@ -193,24 +280,17 @@
 	<ul>
 		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-32bit.msi"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ VERSION }} Installer for 32 Bit Windows</a></li>
 		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-32bit.zip"><span class="fab fa-windows"></span>&nbsp;Drawpile {{ VERSION }} Portable ZIP for 32 Bit Windows</a></li>
-		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-armeabi-v7a.apk"><span class="fab fa-android"></span>&nbsp;Drawpile {{ VERSION }} APK for 32 Bit Android</a></li>
+		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-armeabi-v7a.apk"><span class="fab fa-android"></span>&nbsp;Drawpile {{ BETAVERSION }} APK for 32 Bit Android</a></li>
 	</ul>
 	<div class="notification">
 		<p>
-			<strong>Note:</strong> Only use these 32 bit versions if you <em>know</em> that your device needs them. If not, use the regular Windows or Android versions, those are faster and more stable.
+			<strong>Note 1:</strong> Only use these 32 bit versions if you <em>know</em> that your device needs them. If not, use the regular Windows or Android versions, those are faster and more stable.
+		</p>
+		<p>
+			<strong>Note 2:</strong> If you get an error on Windows about missing the Visual Studio Redistributable or a VCRUNTIME DLL, you need to install those first. They are provided by Microsoft, you can <a href="https://aka.ms/vs/17/release/vc_redist.x86.exe">download them here</a>.
 		</p>
 	</div>
 	<h3>Previous Versions</h3>
-	<p>
-		You can get the previous 2.1 version of Drawpile here. Support for this will go away in the future though, so if you are having issues with 2.2, <a href="/help/">report them now</a> so that they can be resolved before that happens. You do <em>not</em> need this version to join sessions hosted with Drawpile 2.1, Drawpile 2.2 is compatible with them.
-	</p>
-	<ul>
-		<li><a href="https://github.com/drawpile/Drawpile/releases/download/2.1.20/drawpile-2.1.20-setup.exe"><span class="fab fa-windows"></span>&nbsp;Drawpile 2.1.20 Installer for Windows</a></li>
-		<li><a href="https://github.com/drawpile/Drawpile/releases/download/2.1.20/Drawpile.2.1.20.dmg"><span class="fab fa-apple"></span>&nbsp;Drawpile 2.1.20 Disk Image for macOS</a></li>
-	</ul>
-	<p>
-		For systems that require it, there's a <a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/drawpile-2.1.20-setup-w32.exe"><span class="fab fa-windows"></span>&nbsp;Drawpile 2.1.20 Installer for 32 Bit Windows</a>. Do not use this unless you know you need it.
-	</p>
 	<p>
 		All releases are tagged in the git repository. Downloads can be found in the <a href="https://github.com/drawpile/Drawpile/releases" target="_blank"><span class="fab fa-github"></span>&nbsp;Releases on GitHub</a>, in the <em>Assets</em> section at the bottom of each release.
 	</p>
