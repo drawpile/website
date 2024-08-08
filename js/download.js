@@ -2,14 +2,28 @@ import { UAParser } from "ua-parser-js";
 import { el } from "./el";
 
 document.addEventListener("DOMContentLoaded", function () {
+  const getTabHash = (element) => {
+    while (element) {
+      const hash = element.hash;
+      if (hash) {
+        return hash;
+      } else {
+        element = element.parentElement;
+      }
+    }
+    return null;
+  };
+
   document.querySelectorAll(".tab-container").forEach((tabContainer) => {
     const tabbar = tabContainer.querySelector(".tabs>ul");
     const pages = tabContainer.querySelectorAll(".tab-page");
     tabbar.onclick = (event) => {
       event.preventDefault();
 
-      const tabHash = event.srcElement.hash;
-      if (!tabHash) return;
+      const tabHash = getTabHash(event.srcElement);
+      if(!tabHash) {
+        return;
+      }
 
       const pageId = tabHash.substring(1);
       const tabId = "tab-" + tabHash.substring(1);
