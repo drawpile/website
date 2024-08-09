@@ -7,7 +7,7 @@ Author: askmeaboutloom
 
 The first public beta of Drawpile 2.2.2 is out. You can **[download it in the Beta section on the downloads page](/download/#Beta)**. If you're updating from an earlier version, simply install the new one over it.
 
-This beta is fully compatible with the previous version. You can update to it and still draw with people that are using the main version, you'll just have more features than them. For example, better selections, the ability to transform multiple layers and groups simultaneously, better tablet support and more. **<a href="" target="_blank">Here's some illustrations and videos about what's new.</a>**
+This beta is fully compatible with the previous version. You can update to it and still draw with people that are using the main version, you'll just have more features than them. For example, better selections, the ability to transform multiple layers and groups simultaneously, better tablet support and more. **<a href="https://docs.drawpile.net/devblog/2024/08/09/beta.html" target="_blank">Here's some illustrations and videos about what's new.</a>**
 
 If you find any issues, have questions or suggestions or need any help, take a look at <a href="/help/" target="_blank">the help page</a> on how to get in contact.
 
