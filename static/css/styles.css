@@ -82,3 +82,33 @@ span.avatar-placeholder {
 button.button.is-text {
 	text-decoration: none;
 }
+
+/* custom fontawesome-esque icons */
+@font-face {
+  font-family: 'drawpile';
+  src: url('../font/drawpile.eot');
+  src: url('../font/drawpile.eot#iefix') format('embedded-opentype'),
+       url('../font/drawpile.woff2') format('woff2'),
+       url('../font/drawpile.woff') format('woff'),
+       url('../font/drawpile.ttf') format('truetype'),
+       url('../font/drawpile.svg#drawpile') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "drawpile";
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-drawpile-linux-xenia:before { content: '\e801'; }

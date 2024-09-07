@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="b"
+   viewBox="0 0 256 256"
+   version="1.1"
+   sodipodi:docname="xenia.svg"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="namedview4"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.84375"
+     inkscape:cx="97.084746"
+     inkscape:cy="193.08475"
+     inkscape:window-width="1920"
+     inkscape:window-height="1060"
+     inkscape:window-x="1920"
+     inkscape:window-y="20"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="b" />
+  <path
+     d="m 144.22,169.55 c 5.1,-9.27 12.89,-12.8 19.36,-14.51 10.03,-2.65 18.93,-6.22 25.5,-12.05 0.53,-0.48 0.47,-1.33 -0.1,-1.76 -5.89,-4.42 -11.62,-10.33 -16.51,-16.69 -0.46,-0.59 -1.39,-0.2 -1.29,0.55 0.14,1.01 0.21,2.04 0.21,3.09 0,12.52 -10.18,22.7 -22.69,22.7 -0.32,0 -0.64,-0.01 -0.95,-0.02 -0.9,-0.04 -1.78,0.24 -2.51,0.76 l -1.74,1.22 c -13.16377,17.78241 -19.18551,14.39978 -31,0 l -1.74,-1.22 c -0.73,-0.52 -1.61,-0.8 -2.51,-0.76 -0.31,0.01 -0.63,0.02 -0.95,0.02 -12.51,0 -22.69,-10.18 -22.69,-22.7 0,-1.05 0.07,-2.08 0.21,-3.09 0.1,-0.75 -0.83,-1.14 -1.29,-0.55 -4.89,6.36 -10.62,12.27 -16.51,16.69 -0.57,0.43 -0.63,1.28 -0.1,1.76 6.57,5.83 15.47,9.4 25.5,12.05 6.47,1.71 14.72,5.53 19.36,14.51 0.02,0.03 0.03,0.07 0.04,0.1 2.39,5.93 -5.51,10.57 -11.57,12.61 -2.1,0.71 -4.3,1.29 -6.63,1.72 -5.04,1.2 -10.08,2.41 -15.48,5.2 -2.42,1.26 -4.29,3.36 -5.37,5.87 l -2.19,5.13 h 114.84 l -2.19,-5.13 c -1.08,-2.51 -2.95,-4.61 -5.37,-5.87 -5.4,-2.79 -10.44,-4 -15.48,-5.2 -2.33,-0.43 -4.53,-1.02 -6.63,-1.72 -6.06,-2.04 -13.96,-6.68 -11.57,-12.61 0.01,-0.03 0.02,-0.07 0.04,-0.1 z"
+     id="path1"
+     sodipodi:nodetypes="ccccccssccccccssccccccccccccccccccc" />
+  <path
+     d="m 147.64486,142.85973 c 8.75004,0 15.83928,-6.69048 15.83928,-14.93729 0,-8.24681 -7.08924,-14.93729 -15.83928,-14.93729 -7.45935,0 -13.70395,4.84791 -15.39322,11.37739 -2.24145,-2.40326 -6.26173,-2.40338 -8.50328,0 -1.68927,-6.52948 -7.93387,-11.37739 -15.39322,-11.37739 -8.750047,0 -15.839279,6.69048 -15.839279,14.93729 0,8.24681 7.089231,14.93729 15.839279,14.93729 1.23372,0 2.4295,-0.13417 3.57782,-0.38461 2.83759,-0.61717 5.39049,-1.9499 7.4119,-3.79247 0.74973,-0.67083 1.42355,-1.41322 2.01195,-2.21823 0.58839,-0.79606 1.10087,-1.64578 1.50895,-2.54918 0.37012,-0.77817 0.66432,-1.59211 0.8826,-2.4329 h 8.50328 c 0.21828,0.84079 0.51248,1.65473 0.8826,2.4329 0.40808,0.9034 0.92056,1.75312 1.50895,2.54918 0.5884,0.80501 1.26222,1.5474 2.01195,2.21823 2.02141,1.84257 4.57431,3.1753 7.4119,3.79247 1.14832,0.25044 2.3441,0.38461 3.57782,0.38461 z"
+     id="path2"
+     sodipodi:nodetypes="sssccsssccccccccccs"
+     style="stroke-width:0.921334" />
+  <path
+     d="m 85.73,114.71066 c 0.66,0.56 1.68,0.41 2.13,-0.34 3.98,-6.59 11.2,-11 19.44,-11 7.59,0 14.44,3.72 18.59,9.63 0.47,0.68 1.27,1.07 2.1,1.07 h 0.02 c 0.83,0 1.63,-0.39 2.1,-1.07 4.15,-5.91 11,-9.63 18.59,-9.63 8.24,0 15.46,4.41 19.44,11 0.45,0.75 1.47,0.9 2.13,0.34 12.82,-10.84 8.94,-19.28066 7.89,-21.55066 -0.19,-0.4 -0.37,-0.8 -0.53,-1.2 l -13.8,-34.22 c -0.25,-0.61 -1.03,-0.78 -1.51,-0.33 -2.16,2.03 -4.64,4.59 -9.28,10.85 0,0.08 -7.55,10.09 -10.57,17.29 -0.32,0.77 -1.12,1.22 -1.95,1.09 -3.57,-0.56 -7.97,-0.85 -12.52,-0.82 -4.55,-0.03 -8.95,0.26 -12.52,0.82 -0.83,0.13 -1.63,-0.32 -1.95,-1.09 C 110.51,78.35 102.96,68.34 102.96,68.26 98.32,62 95.84,59.44 93.68,57.41 93.2,56.96 92.42,57.13 92.17,57.74 l -13.8,34.22 c -0.16,0.4 -0.34,0.8 -0.53,1.2 -1.05,2.27 -4.93,10.71066 7.89,21.55066 z"
+     id="path3"
+     sodipodi:nodetypes="ccscsscscccccccccccccccccc" />
+  <path
+     d="m 131.7515,151.84747 c 1.45892,-0.93174 2.70942,-1.98609 3.38372,-3.34693 0.57621,-1.15242 -0.0245,-2.57456 -1.22599,-3.05269 -1.97383,-0.77237 -3.9354,-1.16468 -5.90923,-1.15242 -1.97383,-0.0123 -3.9354,0.38005 -5.90923,1.15242 -1.20147,0.47813 -1.8022,1.90027 -1.22599,3.05269 0.6743,1.36084 1.9248,2.41519 3.38372,3.34693 2.92323,1.8659 4.58069,1.86531 7.503,0 z"
+     id="path4"
+     sodipodi:nodetypes="cccccccc"
+     style="stroke-width:1.22598" />
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+      <cc:Work
+         rdf:about="">
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+        <dc:description>Based on an icon by Zaeroses: https://github.com/Zaeroses/refind-icons/blob/main/os_linux.svg</dc:description>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
