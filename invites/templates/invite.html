@@ -43,20 +43,20 @@
         </div>
         <div class="columns">
             <div class="column is-half is-offset-one-quarter">
-                <div class="field has-addons">
+                <div class="field">
                     <div class="control is-expanded">
                         <input id="invite-link-input" type="text" class="input is-medium" value="{{ url }}" readonly>
                     </div>
-                    <div class="control">
-                        <button id="invite-link-copy-button" class="button is-medium">
-                            <span class="icon">
-                                <i class="fa fa-copy"></i>
-                            </span>
-                            <span>Copy</span>
-                        </button>
-                    </div>
                 </div>
-                <div class="field">
+                <div class="field initial-fade-in">
+                    <button id="invite-link-copy-button" class="button is-medium is-fullwidth">
+                        <span class="icon">
+                            <i class="fa fa-copy"></i>
+                        </span>
+                        <span>Copy Join URL</span>
+                    </button>
+                </div>
+                <div id="invite-section-open" class="field initial-fade-in is-hidden">
                     <a id="invite-link-open" class="button is-primary is-medium is-fullwidth" href="{{ url }}">
                         <span class="icon">
                             <i class="fas fa-sign-in-alt"></i>
@@ -65,7 +65,7 @@
                     </a>
                 </div>
                 {% if web_url %}
-                    <div class="field">
+                    <div class="field initial-fade-in">
                         <a id="invite-link-web" class="button is-link is-medium is-fullwidth" href="{{ web_url }}">
                             <span class="icon">
                                 <i class="fas fa-globe"></i>
@@ -76,7 +76,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="columns">
+        <div class="columns initial-fade-in">
             <div class="column is-half is-offset-one-quarter">
                 <div class="content is-medium has-text-centered">
                     <p>
@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <div class="columns">
+        <div class="columns initial-fade-in">
             <div class="column is-half is-offset-one-quarter">
                 <div class="content">
                     <p>

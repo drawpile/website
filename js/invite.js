@@ -1,4 +1,11 @@
+import { UAParser } from "ua-parser-js";
+
 (function () {
+  function flickerElement(elem) {
+    elem.classList.add("is-invisible");
+    window.setTimeout(() => elem.classList.remove("is-invisible"), 100);
+  }
+
   const title = document.getElementById("invite-link-title");
   const input = document.getElementById("invite-link-input");
   const button = document.getElementById("invite-link-copy-button");
@@ -6,6 +13,19 @@
   const openLink = document.getElementById("invite-link-open");
   const webLink = document.getElementById("invite-link-web");
   const needsPasswordMessage = document.getElementById("invite-needs-password");
+
+  try {
+    const ua = new UAParser();
+    const os = ua.getOS()?.name || "";
+    const show = os.indexOf("Windows") !== -1 || os.indexOf("Linux") !== -1;
+    if (show) {
+      document
+        .getElementById("invite-section-open")
+        .classList.remove("is-hidden");
+    }
+  } catch (e) {
+    console.error(e);
+  }
 
   let link = input.value;
   const hash = window.location.hash;
@@ -43,10 +63,12 @@
       () => {
         title.textContent = "Link copied! Paste it into Drawpile.";
         title.classList = "";
+        flickerElement(title);
       },
       () => {
         title.textContent = "Copying failed, please do so manually.";
         title.classList = "has-text-danger";
+        flickerElement(title);
       },
     );
   });
