@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load page_tags %}
+
+{% block title %}Code Signing Policy - {{ block.super }}{% endblock %}
+
+{% block main %}
+
+<section class="section">
+<div class="container content">
+
+<h2>Code Signing Policy</h2>
+
+<p>Free code signing provided by <a href="https://about.signpath.io/" target="_blank">SignPath.io</a>, certificate by <a href="https://signpath.org/" target="_blank">SignPath Foundation</a>. Binaries of stable and beta releases of the Drawpile client for Windows are signed with this certificate since version 2.2.2-beta.4.</a>
+
+<p>Project roles with regards to code signing are as follows:</p>
+<ul>
+    <li><strong>Owners</strong> are the only people who can put code into the main repositories of Drawpile and issue releases. They are:</li>
+    <ul>
+        <li><a href="https://github.com/askmeaboutlo0m/" target="_blank">askmeaboutlo0m</a>, lead developer and maintainer of Drawpile</li>
+        <li><a href="https://github.com/callaa" target="_blank">callaa</a>, original author of Drawpile</li>
+    </ul>
+    <li><strong>Triagers</strong> are people who can manage issues and review pull requests, but do not have the ability to merge them or otherwise put code into the main repositories. They are:</li>
+    <ul>
+        <li><a href="https://github.com/Wade821" target="_blank">Wade821</a></li>
+        <li><a href="https://github.com/MorrowShore" target="_blank">MorrowShore</a></li>
+        <li><a href="https://github.com/csnover" target="_blank">Colin Snover</a></li>
+    </ul>
+    <li>There is also many other people who run the community servers, help support artists using Drawpile, test the software, report bugs and contribute code, but they do not have any access to the code that is signed or special permissions in the repositories.</li>
+</ul>
+
+<p>This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it.</p>
+
+</div>
+</section>
+
+{% endblock main %}
