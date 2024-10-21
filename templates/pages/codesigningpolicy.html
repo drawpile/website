@@ -32,6 +32,20 @@
 
 <p>This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it.</p>
 
+<p>The Drawpile client on Windows uses the following shared libraries:</p>
+
+<ul>
+    <li>Qt</li>
+    <li>OpenSSL</li>
+    <li>KDE Framework Archive</li>
+</ul>
+
+<p>The dependencies are pinned to known good versions and the source code for is verified against the hashes and signatures provided in their releases from upstream. SHA384 hash checks are also done for each build to ensure integrity of the source code retrieved from upstream.</p>
+
+<p>We make some patches to these dependencies when building the application, which you can find in <a href="https://github.com/drawpile/Drawpile/tree/main/.github/scripts/patches" target="_blank">the patches directory of the git repository</a>. Each patch file contains a description as to what it does.</p>
+
+<p>Information about other platforms and links to build processes, versions, upstream source URLs and hashes can be found <a href="https://github.com/drawpile/Drawpile/blob/main/README.md#client-dependencies">in the Client Dependencies section of the README</a>.</p>
+
 </div>
 </section>
 
