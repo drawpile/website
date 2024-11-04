@@ -168,3 +168,45 @@ class UserVerificationAdmin(admin.ModelAdmin):
                 "User Verification",
                 obj_ids,
             )
+
+
+@admin.register(models.MonitorWordList)
+class MonitorWordListAdmin(admin.ModelAdmin):
+    list_display = ("list_type",)
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        if webhook_url := getattr(settings, "ADMIN_REPORT_WEBHOOK", ""):
+            send_save_model_notification(
+                webhook_url,
+                request,
+                change,
+                ":newspaper2:",
+                "Monitor List",
+                self.__get_list_webhook_pretty_id(obj)
+            )
+
+    def delete_model(self, request, obj):
+        obj_id = self.__get_list_webhook_pretty_id(obj)
+        super().delete_model(request, obj)
+        if webhook_url := getattr(settings, "ADMIN_REPORT_WEBHOOK", ""):
+            send_delete_model_notification(
+                webhook_url,
+                request,
+                ":newspaper2:",
+                "Monitor List",
+                obj_id,
+            )
+
+    def delete_queryset(self, request, queryset):
+        obj_ids = list(queryset.all().values_list("id", flat=True))
+        super().delete_queryset(request, queryset)
+        if webhook_url := getattr(settings, "ADMIN_REPORT_WEBHOOK", ""):
+            send_delete_queryset_notification(
+                webhook_url, request, ":newspaper2:", "Monitor List", obj_ids
+            )
+
+    @staticmethod
+    def __get_list_webhook_pretty_id(obj):
+        list_type = getattr(obj, "list_type")
+        return obj.id if list_type is None else list_type

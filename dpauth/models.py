@@ -8,6 +8,7 @@ from .utils import UploadNameFromContent, AvatarValidator
 import datetime
 import ipaddress
 import logging
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -318,3 +319,55 @@ class UserVerification(models.Model):
 
     def __str__(self):
         return f"Verification of user ({self.user.id})"
+
+
+class MonitorWordList(models.Model):
+    WILDCARD_WORD_RE = re.compile(r"\A\*|\*\Z")
+    WILDCARD_TOO_SHORT_RE = re.compile(r"\A[a-zA-Z0-9_-]{0,2}\Z")
+
+    class Lists(models.TextChoices):
+        WORDLIST = "wordlist", "wordlist - words not allowed in SFM sessions"
+        NSFM_WORDLIST = (
+            "nsfm_wordlist",
+            "nsfm_wordlist - words not even allowed in NSFM sessions",
+        )
+        ALLOWLIST = "allowlist", "allowlist - words to ignore (verbatim)"
+        SILENT_WORDLIST = (
+            "silent_wordlist",
+            "silent_wordlist - words that trigger a silent alert",
+        )
+
+    list_type = models.CharField(
+        max_length=16,
+        choices=Lists.choices,
+        unique=True,
+    )
+    words = models.TextField(
+        help_text="Check drawpile-monitor documentation for the format.",
+    )
+
+    def clean(self):
+        words = set()
+        errors = []
+        supports_wildcards = self.list_type != self.Lists.ALLOWLIST
+        for line in self.words.splitlines():
+            word = line.strip()
+            if word and not word.startswith("#"):
+                words.add(word)
+                if supports_wildcards:
+                    w = self.WILDCARD_WORD_RE.sub("", word)
+                    if "*" in w:
+                        errors.append(f"'{word}' not allowed: * wildcard in the middle")
+                    elif "*" in word and self.WILDCARD_TOO_SHORT_RE.search(w):
+                        errors.append(
+                            f"'{word}' not allowed: too short for a * wildcard"
+                        )
+                elif "*" in word:
+                    errors.append(
+                        f"'{word}' not allowed: this list doesn't support * wildcards."
+                    )
+
+        if errors:
+            raise ValidationError({"words": errors})
+
+        self.words = "\n".join(sorted(words))

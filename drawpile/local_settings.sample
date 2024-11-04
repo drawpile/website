@@ -19,10 +19,16 @@ DRAWPILE_AUTH_FRAME_ANCESTORS = 'https://web.drawpile.net'
 
 DRAWPILE_READONLY_SITE = False
 
-# Keys that allow access to /api/ext-bans. Should be plain, random strings, one
-# per client so that they can be revoked. Leave a comment which key is for whom.
-DRAWPILE_EXT_BANS_KEYS = [
-]
+# Keys that allow access to /api/ext-bans and /api/monitor-config respectively.
+# Should be plain, random strings, one per client so that they can be revoked.
+# Leave a comment which key is for what.
+DRAWPILE_EXT_BANS_KEYS = []
+DRAWPILE_MONITOR_KEYS = []
+
+# Configuration for drawpile-monitor, equivalent [config] and [messages]
+# sections in an ini file for it. All values must be strings!
+DRAWPILE_MONITOR_CONFIG = {}
+DRAWPILE_MONITOR_MESSAGES = {}
 
 # Maximum number of total emails allowed to be sent in 24 hours.
 DRAWPILE_EMAIL_MAX_TOTAL_PER_DAY = 50
