@@ -173,6 +173,7 @@ class UserVerificationAdmin(admin.ModelAdmin):
 @admin.register(models.MonitorWordList)
 class MonitorWordListAdmin(admin.ModelAdmin):
     list_display = ("list_type",)
+    change_list_template = "admin_monitorwordlist_change_list.html"
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
