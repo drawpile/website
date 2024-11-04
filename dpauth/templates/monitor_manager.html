@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Monitor Management - {{ block.super }}{% endblock %}
+
+{% block main %}
+<section class="section">
+    <div class="container">
+		{% if messages %}
+		{% for message in messages %}
+		<div class="notification{% if message.tags %} is-light is-{% if "error" in message.tags %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}">
+			{{ message }}
+		</div>
+		{% endfor %}
+		{% endif %}
+		<h1 class="title">Monitor Management</h1>
+		<div class="content">
+			<p>
+				{% if status_returncode == 0 %}
+				Name check bot status:
+				{% else %}
+				Name check bot status check exited with {{ status_returncode }}:
+				{% endif %}
+			</p>
+			<pre>{{ status_stdout }}</pre>
+		</div>
+		{% if can_restart %}
+		<form method="POST" action="{% url 'auth:monitor-manager-restart' %}" class="disable-button-on-submit">
+			<button class="button is-link" type="submit">
+				Restart Monitor
+			</button>
+			{% csrf_token %}
+		</form>
+		{% endif %}
+    </div>
+</section>
+{% endblock %}

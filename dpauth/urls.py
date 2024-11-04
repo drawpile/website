@@ -8,4 +8,12 @@ urlpatterns = [
     path("login/", views.AuthLoginView.as_view(), name="login"),
     path("logout/", views.AuthLogoutView.as_view(), name="logout"),
     path("ban-analyzer/", views.BanAnalyzerView.as_view(), name="ban-analyzer"),
+    path(
+        "monitor-manager/", views.MonitorManagerView.as_view(), name="monitor-manager"
+    ),
+    path(
+        "monitor-manager/restart",
+        views.MonitorManagerRestartView.as_view(),
+        name="monitor-manager-restart",
+    ),
 ]

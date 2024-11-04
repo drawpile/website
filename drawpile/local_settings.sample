@@ -30,6 +30,10 @@ DRAWPILE_MONITOR_KEYS = []
 DRAWPILE_MONITOR_CONFIG = {}
 DRAWPILE_MONITOR_MESSAGES = {}
 
+# Commands to run to get drawpile-monitor status and reload it, as argv strings.
+DRAWPILE_MONITOR_STATUS_COMMAND = []
+DRAWPILE_MONITOR_RELOAD_COMMAND = []
+
 # Maximum number of total emails allowed to be sent in 24 hours.
 DRAWPILE_EMAIL_MAX_TOTAL_PER_DAY = 50
 # Maximum number of total emails allowed to be sent in one hour.

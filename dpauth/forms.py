@@ -15,3 +15,7 @@ class AuthUsernamesForm(forms.Form):
             return name
         else:
             raise forms.ValidationError(f'Username "{name}" does not exist.')
+
+
+class MonitorRestartForm(forms.Form):
+    pass
