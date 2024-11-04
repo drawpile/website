@@ -2,18 +2,17 @@ from django.db import models
 from django.conf import settings
 from django.core.validators import RegexValidator
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
-
 from .normalization import normalize_username
 from .token import make_login_token
 from .utils import UploadNameFromContent, AvatarValidator
-
 import datetime
 import ipaddress
 import logging
+
 logger = logging.getLogger(__name__)
 
 
-avatar_upload_to = UploadNameFromContent('avatar/', 'avatar')
+avatar_upload_to = UploadNameFromContent("avatar/", "avatar")
 avatar_validator = AvatarValidator(max_dims=(64, 64))
 username_pattern = r'^[^"@]{1,22}$'
 
@@ -33,37 +32,34 @@ class Username(models.Model):
     The "dpauth.ghost" permission also lets that user assign ghost status to
     usernames.
     """
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='drawpilename_set'
+        related_name="drawpilename_set",
     )
 
-    name = models.CharField(max_length=22,
+    name = models.CharField(
+        max_length=22,
         help_text="The original username",
-        validators=[RegexValidator(
-            username_pattern,
-            message="Invalid username"
-        )]
+        validators=[RegexValidator(username_pattern, message="Invalid username")],
     )
     normalized_name = models.CharField(
         max_length=255,
         unique=True,
-        blank=True, # this field gets autoassigned in the clean() method
-        help_text="Normalized username for querying"
+        blank=True,  # this field gets autoassigned in the clean() method
+        help_text="Normalized username for querying",
     )
     is_mod = models.BooleanField(
         default=False,
-        help_text="Enable moderator status for this username if the user has the moderator permission."
+        help_text="Enable moderator status for this username if the user has the moderator permission.",
     )
     avatar = models.ImageField(
-        blank=True,
-        upload_to=avatar_upload_to,
-        validators=[avatar_validator]
+        blank=True, upload_to=avatar_upload_to, validators=[avatar_validator]
     )
     is_ghost = models.BooleanField(
         default=False,
-        help_text="Enable ghost status for this username if the user has the ghost permission."
+        help_text="Enable ghost status for this username if the user has the ghost permission.",
     )
 
     class Meta:
@@ -74,7 +70,7 @@ class Username(models.Model):
             ("moderator", "Can activate moderator privileges"),
             ("ghost", "Can activate ghost privileges"),
         )
-        ordering = ['user', 'id']
+        ordering = ["user", "id"]
 
     def __str__(self):
         return self.name
@@ -93,7 +89,7 @@ class Username(models.Model):
 
     def make_primary(self):
         self.user.username = self.name
-        self.user.save(update_fields=('username',))
+        self.user.save(update_fields=("username",))
 
     @staticmethod
     def getByName(name):
@@ -102,16 +98,15 @@ class Username(models.Model):
         Returns None if no such username is found.
         """
         try:
-            return Username.objects\
-                .select_related('user')\
-                .get(normalized_name=normalize_username(name))
+            return Username.objects.select_related("user").get(
+                normalized_name=normalize_username(name)
+            )
         except Username.DoesNotExist:
             return None
 
     @staticmethod
     def exists(name, except_for=None):
-        """Check if the given name has been registered
-        """
+        """Check if the given name has been registered"""
         qs = Username.objects.filter(normalized_name=normalize_username(name))
         if except_for is not None:
             qs = qs.filter(~models.Q(pk=except_for))
@@ -137,13 +132,7 @@ class Username(models.Model):
                 logger.exception("Error reading avatar")
 
         return make_login_token(
-            self.name,
-            self.user_id,
-            flags,
-            nonce,
-            group,
-            avatar_image,
-            key=key
+            self.name, self.user_id, flags, nonce, group, avatar_image, key=key
         )
 
 
@@ -173,12 +162,12 @@ class Ban(models.Model):
     append_standard_reason = models.BooleanField(
         verbose_name="Append standard text to reason",
         default=True,
-        help_text=f"Will append the following: \"{STANDARD_TEXT}\"",
+        help_text=f'Will append the following: "{STANDARD_TEXT}"',
     )
     reaction = models.CharField(
         max_length=16,
-        choices = Reactions.choices,
-        default = Reactions.NORMAL,
+        choices=Reactions.choices,
+        default=Reactions.NORMAL,
         help_text="Shadow bans may help slow down ban evaders, not applied to IPs by default",
     )
     reaction_includes_ipbans = models.BooleanField(
@@ -213,8 +202,14 @@ class Ban(models.Model):
 
     def clean(self):
         self.reason = self.reason.strip()
-        if self.reason and self.append_standard_reason and len(f"{self.reason} {Ban.STANDARD_TEXT}") > 255:
-            raise ValidationError({"reason": "Reason plus standard text must not exceed 255 characters"})
+        if (
+            self.reason
+            and self.append_standard_reason
+            and len(f"{self.reason} {Ban.STANDARD_TEXT}") > 255
+        ):
+            raise ValidationError(
+                {"reason": "Reason plus standard text must not exceed 255 characters"}
+            )
 
 
 class BanIpRange(models.Model):
@@ -278,11 +273,13 @@ class BanSystemIdentifier(models.Model):
 
     identifier = models.CharField(
         max_length=64,
-        help_text="UUID, shown in ClientInfo server logs under \"s\"",
-        validators=[RegexValidator(
-            r'^[0-9a-fA-F]{32}$',
-            message="Must be 32 characters of 0123456789abcdef"
-        )]
+        help_text='UUID, shown in ClientInfo server logs under "s"',
+        validators=[
+            RegexValidator(
+                r"^[0-9a-fA-F]{32}$",
+                message="Must be 32 characters of 0123456789abcdef",
+            )
+        ],
     )
     ban = models.ForeignKey(Ban, on_delete=models.CASCADE)
 
