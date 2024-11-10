@@ -29,7 +29,7 @@ Where available, there'll be links with more details and illustrations if approp
 
 * Platforms:
     * Android 14 is now supported.
-    * Drawpile has been accepted into F-Droid and should show up there next week or so.
+    * Drawpile has been accepted into F-Droid. As of November 10 2024, <a href="https://f-droid.org/packages/net.drawpile/" target="_blank">it is available on the platform</a>.
 * Features:
     * <a href="https://docs.drawpile.net/devblog/2024/08/17/dev-update.html#animation-export-scaling" target="_blank">Allow scaling animation exports.</a> Thanks Hopfel for animating across a giant canvas.
     * <a href="https://docs.drawpile.net/devblog/2024/08/30/dev-update.html#color-dockage" target="_blank">Add settings button to color wheel, sliders and palette at the top-left of the dock. For the wheel, this allows changing the settings here now instead of having to go into the preferences.</a> For the sliders, you can now toggle the color space here and decide whether to show all sliders and the hex input. For the palette, this just moves the menu button that used to be in the row below. Thanks MachKerman for suggesting.
