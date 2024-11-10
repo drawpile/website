@@ -82,9 +82,18 @@ img.fdroid {
 	height: 3em;
 }
 
+img.flathub {
+	height: 3.5em;
+}
+
 .android-download-button  {
 	margin-bottom: 0.25em;
 	margin-top: 0.25em;
+}
+
+.linux-download-button  {
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
 }
 
 /* bulma adjustments */
