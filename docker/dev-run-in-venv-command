@@ -1,0 +1,3 @@
+#!/bin/sh
+. /website/env/bin/activate
+exec "$@"

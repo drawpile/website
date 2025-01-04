@@ -4,15 +4,15 @@ This is the source code to the drawpile.net website.
 
 ## Setup
 
-First, create a database for the site. (The official site uses
-PostgreSQL, but MySQL or even SQLite should also work for development)
+The easiest way to set up the site is through Docker. You should be able to just run `docker/dev-up` and everything should set itself up for you. To remove the containers again, run `docker/dev-rm`. To run a Django command inside the container, use `docker/dev-manage`.
 
-Next, create a Python 3 virtualenv for the project and run `pip install -r requirements.txt`
+For a local setup, create a Python 3 virtualenv for the project and run `pip install -r requirements.txt`
 
 Copy `drawpile/local_settings.sample` to `drawpile/local_settings.py` and
 edit to suit your environment.
 
 Run `./manage.py migrate` to initialize the database.
+
 Run `./update-assets.sh` to populate the database with the basic content.
 
 Run './manage.py dpauth' to generate a keypair for external authentication. Copy&paste

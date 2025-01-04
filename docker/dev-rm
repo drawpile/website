@@ -1,0 +1,6 @@
+#!/bin/sh
+# Stops and removes the development containers.
+set -e
+cd "$(dirname "$0")/.."
+set -x
+exec docker compose -f docker/docker-compose.dev.yml rm -s

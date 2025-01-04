@@ -1,0 +1,43 @@
+#!/bin/sh
+set -e
+cd /website
+
+if [ -e env ]; then
+    . env/bin/activate
+else
+    echo
+    echo 'Setting up container...'
+    echo
+    set -x
+    apk update
+    apk add gcc libc-dev libffi-dev python3-dev
+    rm -rf env
+    python -m venv env
+    . env/bin/activate
+    requirements_tmp="$(mktemp)"
+    grep -v 'psycopg2' requirements.txt >"$requirements_tmp"
+    pip install wheel
+    pip install -r "$requirements_tmp"
+    rm -f "$requirements_tmp"
+    set +x
+fi
+
+if ! [ -e drawpile/local_settings.py ]; then
+    echo
+    echo 'Setting up application...'
+    echo
+    set -x
+    secret_key="$(tr -dc 'a-zA-Z0-9' </dev/urandom | head -c 1)"
+    sed "s/SECRET_KEY = ''/SECRET_KEY='$secret_key'/" \
+        <drawpile/local_settings.sample >drawpile/local_settings.py
+    ./manage.py migrate
+    ./update-assets.sh
+    ./manage.py dpauth >>drawpile/local_settings.py
+    set +x
+fi
+
+echo
+echo 'Starting development server on port 8000...'
+echo
+set -x
+exec ./manage.py runserver 0.0.0.0:8000

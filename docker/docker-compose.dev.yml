@@ -1,0 +1,9 @@
+# For development only!
+services:
+  website:
+    image: 'python:3.10-alpine'
+    command: '/website/docker/dev-website-command'
+    ports:
+      - '8000:8000'
+    volumes:
+      - '..:/website'
