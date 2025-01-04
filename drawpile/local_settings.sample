@@ -5,8 +5,10 @@ DEBUG = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dpweb',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'dpweb.db',
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'dpweb',
     }
 }
 
