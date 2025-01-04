@@ -1,14 +1,12 @@
 #!/bin/sh
 for img in assets/images/*; do
-    set -x
+    echo "Importing image $img"
     ./manage.py images add "$img"
-    set +x
 done
 
 for post in assets/news/*; do
-    set -x
+    echo "Importing news $post"
     ./manage.py news import "$post"
-    set +x
 done
 
 ./manage.py templatevar VERSION 2.2.1
