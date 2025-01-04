@@ -2,6 +2,7 @@ Slug: release-2.1.10
 Title: Drawpile 2.1.10 release
 Publish: 2019-05-30 11:40:00+03:00
 Visible: True
+Author: callaa
 ---
 
 Version 2.1.10 is now out. This is a bugfix release with no new features.

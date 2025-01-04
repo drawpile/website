@@ -2,6 +2,7 @@ Slug: release-2.0.7
 Title: Drawpile 2.0.7 Release
 Publish: 2018-01-26 18:10:00+02:00
 Visible: True
+Author: callaa
 ---
 
 Version 2.0.7 is now out, a bit earlier than intended. This release fixes a couple

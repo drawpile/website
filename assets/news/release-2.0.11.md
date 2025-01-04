@@ -2,6 +2,7 @@ Slug: release-2.0.11
 Title: Drawpile 2.0.11
 Publish: 2018-08-14 22:00:00+02:00
 Visible: True
+Author: callaa
 ---
 Version 2.0.11 is now out. This is a minor bugfix release.
 

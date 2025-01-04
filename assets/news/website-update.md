@@ -2,6 +2,7 @@ Slug: website-update
 Title: Website update
 Publish: 2017-05-21 13:24:22+03:00
 Visible: True
+Author: callaa
 ---
 The website has just received a technical overhaul. While the overall layout remains the same, the site is now powered by Django. (Previously, it was a static site generated with Hyde.) This makes it possible to add dynamic features in the future, such as username registration for the public server and user galleries.
 

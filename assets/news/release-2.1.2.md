@@ -2,6 +2,7 @@ Slug: release-2.1.2
 Title: Drawpile 2.1.2 Stable release
 Publish: 2019-03-09 13:40:00+02:00
 Visible: True
+Author: callaa
 ---
 
 The first stable release of the 2.1 series is now out.

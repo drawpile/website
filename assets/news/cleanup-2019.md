@@ -2,6 +2,7 @@ Slug: cleanup-2019
 Title: End of the year cleanup
 Publish: 2019-11-16 13:45:00+02:00
 Visible: True
+Author: callaa
 ---
 
 In preparation for some changes to the web site, I'm doing a little end of the year cleanup.

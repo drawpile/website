@@ -2,6 +2,7 @@ Slug: release-2.1.13
 Title: Drawpile 2.1.13 release
 Publish: 2019-11-03 18:15:00+02:00
 Visible: True
+Author: callaa
 ---
 
 Version 2.1.13 is now out. This is a bugfix release that fixes some regressions introduced in the previous version.

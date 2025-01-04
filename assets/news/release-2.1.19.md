@@ -2,6 +2,7 @@ Slug: release-2.1.19
 Title: Version 2.1.19
 Publish: 2021-08-06 14:00:00+03:00
 Visible: True
+Author: callaa
 ---
 
 Hot on the heels of the previous release is version 2.1.19. Among other improvements, this release fixes a performance regression that got into the last version.

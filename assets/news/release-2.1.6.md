@@ -2,6 +2,7 @@ Slug: release-2.1.6
 Title: Drawpile 2.1.6 release
 Publish: 2019-04-06 12:30:00+03:00
 Visible: True
+Author: callaa
 ---
 
 Version 2.1.6 is now out. For Windows users, this release fixes the tablet problems

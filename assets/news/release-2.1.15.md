@@ -2,6 +2,7 @@ Slug: release-2.1.15
 Title: Drawpile 2.1.15 release
 Publish: 2019-12-07 12:25:00+02:00
 Visible: True
+Author: callaa
 ---
 
 Version 2.1.15 is now out. This release primarily contains improvements to the server and a couple

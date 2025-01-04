@@ -2,6 +2,7 @@ Slug: release-2.2b3
 Title: Version 2.2 beta 3, now with MyPaint brushes
 Publish: 2022-08-20 10:30:00+03:00
 Visible: True
+Author: callaa
 ---
 
 The third beta of the 2.2 series is now out. This one includes a special last minute addition courtesy of Askmeaboutloom: support for MyPaint brushes!

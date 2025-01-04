@@ -2,6 +2,7 @@ Slug: release-2.1.17
 Title: Version 2.1.17
 Publish: 2020-02-16 18:45:00+02:00
 Visible: True
+Author: callaa
 ---
 
 Version 2.1.17 is now out. This release fixes a few bugs discovered in the previous version.

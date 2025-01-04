@@ -2,6 +2,7 @@ Slug: release-2.1.1
 Title: Drawpile 2.1.1 Beta
 Publish: 2019-02-17 19:45:00+02:00
 Visible: True
+Author: callaa
 ---
 
 The second beta of the 2.1 series is here. This release fixes a large number of bugs that were discovered in 2.1.0 beta (as expected.)

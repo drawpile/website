@@ -2,6 +2,7 @@ Slug: release-2.1.11
 Title: Drawpile 2.1.11 release
 Publish: 2019-06-23 11:40:00+03:00
 Visible: True
+Author: callaa
 ---
 
 Version 2.1.11 is now out. In addition to bug fixes, this release adds one long awaited feature: the ability to detach the chat box into a separate window.

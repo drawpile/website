@@ -2,6 +2,7 @@ Slug: release-2.1.9
 Title: Drawpile 2.1.9 release
 Publish: 2019-05-19 11:00:00+03:00
 Visible: True
+Author: callaa
 ---
 
 Version 2.1.9 is now out. In addition to bug fixes, this release contains a major change to the built-in server.

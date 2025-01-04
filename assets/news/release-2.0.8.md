@@ -2,6 +2,7 @@ Slug: release-2.0.8
 Title: Drawpile 2.0.8 Release and Roadmap to 2.1.0
 Publish: 2018-02-11 15:00:00+02:00
 Visible: True
+Author: callaa
 ---
 Version 2.0.8 is now out. This will likely be the last release of the 2.0.x branch, unless more severe bugs are found. The next big release will be version 2.1.0.
 

@@ -2,6 +2,7 @@ Slug: release-2.1.14
 Title: Drawpile 2.1.14 release
 Publish: 2019-11-17 12:00:00+02:00
 Visible: True
+Author: callaa
 ---
 
 Version 2.1.14 is now out. This is another bugfix release that fixes some of the regressions that weren't fixed already in the previous version.

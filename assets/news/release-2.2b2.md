@@ -2,6 +2,7 @@ Slug: release-2.2b2
 Title: Version 2.2 beta 2
 Publish: 2022-08-11 18:00:00+03:00
 Visible: True
+Author: callaa
 ---
 
 Hot on the heels of the [first 2.2 beta](/news/release-2.2b/), the second beta release is now out!

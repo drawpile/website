@@ -2,6 +2,7 @@ Slug: release-2.0.6
 Title: Drawpile 2.0.6 Release
 Publish: 2018-01-21 19:00:00+02:00
 Visible: True
+Author: callaa
 ---
 
 Version 2.0.6 is now done! It's been 6 months since the last release, but

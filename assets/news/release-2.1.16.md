@@ -2,6 +2,7 @@ Slug: release-2.1.16
 Title: Version 2.1.16 and website changes
 Publish: 2020-02-09 15:55:00+02:00
 Visible: True
+Author: callaa
 ---
 
 Version 2.1.16 is now out. This release adds a few new features to the server, a couple of usability improvements and some bug fixes.

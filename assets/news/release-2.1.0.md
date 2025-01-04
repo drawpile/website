@@ -2,6 +2,7 @@ Slug: release-2.1.0
 Title: Drawpile 2.1.0
 Publish: 2019-02-13 19:30:00+02:00
 Visible: True
+Author: callaa
 ---
 
 After a long wait, Drawpile 2.1.0 beta is finally here.

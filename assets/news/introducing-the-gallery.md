@@ -2,6 +2,7 @@ Slug: introducing-the-gallery
 Title: User Gallery
 Publish: 2018-03-14 18:00:00+00:00
 Visible: True
+Author: callaa
 ---
 There is now a new section on the website: the Gallery.
 

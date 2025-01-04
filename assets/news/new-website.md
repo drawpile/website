@@ -2,6 +2,7 @@ Slug: new-website
 Title: New website!
 Publish: 2014-07-29 00:00:00
 Visible: True
+Author: callaa
 ---
 About 9 months ago, I (that is, the main Drawpile developer) revived the project after a much too long hiatus. Since then, development has been progressing steadily and the official 1.0 release is on the horizon. In preparation for that event, I thought it was high time time to drag the web site to this decade as well.
 

@@ -2,6 +2,7 @@ Slug: release-2.1.12
 Title: Drawpile 2.1.12 release
 Publish: 2019-10-20 18:15:00+03:00
 Visible: True
+Author: callaa
 ---
 
 Version 2.1.12 is now out. This release contains various improvements to the user interface.

@@ -2,6 +2,7 @@ Slug: release-2.2b
 Title: Version 2.2 beta
 Publish: 2022-08-04 17:30:00+03:00
 Visible: True
+Author: callaa
 ---
 
 A long time in the works, the first beta release of Drawpile 2.2 is out!
