@@ -1,3 +1,5 @@
+import { UAParser } from "ua-parser-js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const makeModal = (activationButtonId, makeContent, onOkClicked) => {
     const activationButton = document.getElementById(activationButtonId);
@@ -112,4 +114,21 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   );
+
+  const ua = new UAParser();
+  const os = ua.getOS()?.name || "";
+  const device = ua.getDevice()?.model || "";
+  // On iPad and iPhone, there's only the browser version, so don't advertise
+  // using the server browser there.
+  if (device.indexOf("iPad") === -1 && device.indexOf("iPhone") === -1) {
+    document
+      .querySelector("#community-session-notice")
+      ?.classList.remove("is-hidden");
+    // Clicking drawpile:// links only works semi-reliably on Windows.
+    if (os.indexOf("Windows") !== -1) {
+      document
+        .querySelector("#community-session-notice-link")
+        ?.classList.remove("is-hidden");
+    }
+  }
 });

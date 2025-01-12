@@ -82,15 +82,9 @@
 			</a>
 		{% endif %}
 		{% if object|can:user|use:"login" %}
-		<a class="button is-primary is-medium" href="drawpile://{{ object.drawpile_server }}/">
+		<a class="button is-primary is-medium" href="#community-session-list">
 			<span class="icon"><i class="fas fa-sign-in-alt"></i></span>
-			<span>Connect</span>
-		</a>
-		{% endif %}
-		{% if object.list_server %}
-		<a class="button is-primary is-medium" href="drawpile://{% if object|can:user|use:"login" %}{{ object.drawpile_server }}{% endif %}/?list-server={{ object.list_server }}">
-			<span class="icon"><i class="fas fa-plus"></i></span>
-			<span>Add to Drawpile</span>
+			<span>Join Session</span>
 		</a>
 		{% endif %}
 
@@ -229,13 +223,9 @@
 	<h3 class="is-size-4" style="clear: right">Sessions</h3>
 
 	{% if object|can:user|use:"login" %}
-	<div class="notification content">
-		<span class="icon is-large is-pulled-left" style="margin: 0 1em 1em 0"><i class="fas fa-3x fa-lightbulb"></i></span>
+	<div id="community-session-notice" class="notification content is-hidden">
 		<p>
-			You can <a href="drawpile://{% if object|can:user|use:"login" %}{{ object.drawpile_server }}{% endif %}/?list-server={{ object.list_server }}">add this community to Drawpile</a> to see these session listings directly on Drawpile's <strong>Browse</strong> page.
-		</p>
-		<p>
-			You can also add it manually by clicking on the <strong>Add</strong> button on the <strong>Browse</strong> page and entering <code>{{ object.list_server }}</code>
+			To add these listings to Drawpile's server browser, go to the <strong>Browse</strong> page, click <strong>Add Server</strong> at the bottom and enter <code>{{ object.list_server }}</code>. <span id="community-session-notice-link" class="is-hidden">If you have Drawpile installed, you can also <a href="drawpile://{% if object|can:user|use:"login" %}{{ object.drawpile_server }}{% endif %}/?list-server={{ object.list_server }}">click here to add it</a>.</span>
 		</p>
 	</div>
 	{% endif %}
