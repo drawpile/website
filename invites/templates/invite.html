@@ -1,13 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block extrameta %}
-<meta property="og:type" content="website">
-<meta property="og:title" content="Drawpile Session Invitation">
-<meta property="og:description" content="Join a collaborative drawing session at {{ url }}{% if web_url %} in the application or directly via your Web browser{% endif %}">
-<meta property="og:image" content="https://drawpile.net/files/og/logo.png">
-{% endblock %}
-
 {% block extrascripts %}<script src="{% static "js/invite.min.js" %}"></script>{% endblock %}
 
 {% block title %}Drawpile Session - {{ block.super }}{% endblock %}
