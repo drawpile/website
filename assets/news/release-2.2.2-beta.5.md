@@ -124,19 +124,19 @@ Some of these have videos and pictures in the development blog, click on the lin
     * Properly start recordings for sessions instantiated from a template.
 * Translations (note that only translations that are completed to a signficant degree are included in the program):
     * Arabic translation by Blozzom.
-    * Finnish translation by Ricky Tigg.
-    * German translation by askmeaboutloom.
-    * Italian translation by Albano Battistella and Kekko.
-    * French translation by Floch.
     * Brazilian Portuguese translation by Lil S.
+    * Finnish translation by Ricky Tigg.
+    * French translation by Floch.
+    * German translation by askmeaboutloom.
+    * Indonesian translation by Rayytra.
+    * Italian translation by Albano Battistella and Kekko.
     * Japanese translation by ubanis.
     * Korean translation by Skyblue Sky.
     * Russian translation by Meiren.
+    * Simplified Chinese translation by xxxx.
     * Spanish translation by natkai, ofinxaip, Paico and Rockhopper.
-    * Traditional Chinese translation by xxxx.
-    * Indonesian translation by Rayytra.
-    * Ukranian translation by Maksim Gorpinic.
     * Turkish translation by Oğuzhan Uyar.
+    * Ukranian translation by Maksim Gorpinic.
 
 ## Acknowledgements
 
