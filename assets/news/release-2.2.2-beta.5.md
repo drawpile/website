@@ -1,9 +1,11 @@
 Slug: release-2.2.2-beta.5
-Title: Version 2.2.2-beta.5
+Title: Version 2.2.2-beta.5 and Safari Fixes
 Publish: 2025-01-13 07:40:00+01:00
 Visible: True
 Author: askmeaboutloom
 ---
+
+*Update on February 15, 2025:* there's a bug in Safari 18 that prevented the web version of Drawpile from working on iPads. That's been worked around now and it should run again. Thanks grimsley and lunashadowbane for reporting and testing.
 
 The third and, if everything goes to plan, final public beta of Drawpile 2.2.2 is out. You can **[download it in the Beta section on the downloads page](/download/#Beta)**. If you're updating from an earlier version, simply install the new one over it.
 
