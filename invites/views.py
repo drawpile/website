@@ -26,7 +26,7 @@ class InviteView(TemplateView):
             quote_plus(host, safe=':[]'),
             port_suffix,
             '/',
-            quote_plus(session),
+            quote_plus(session, safe=':'),
         ])
 
         if "web" in params:
