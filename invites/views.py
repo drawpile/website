@@ -36,6 +36,8 @@ class InviteView(TemplateView):
                 quote_plus(session, safe=":"),
             ]
         )
+        if "w" in params:
+            url += "?w"
 
         if "web" in params:
             web_url = "".join(
