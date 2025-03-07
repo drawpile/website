@@ -3,15 +3,21 @@ from django.http import Http404
 from urllib.parse import quote_plus, urlencode
 import re
 
+
 class InviteView(TemplateView):
-    template_name = 'invite.html'
-    __PORT_RE = re.compile(r':([0-9]{1,5})')
+    template_name = "invite.html"
+    __PORT_RE = re.compile(r":([0-9]{1,5})")
 
     def get(self, request, host, port, session, *args, **kwargs):
-        url, web_url, nsfm, pw = InviteView.__build_url(host, port, session, request.GET)
+        url, web_url, nsfm, pw = InviteView.__build_url(
+            host, port, session, request.GET
+        )
         if url:
-            return self.render_to_response(self.get_context_data(
-                host=host, url=url, web_url=web_url, nsfm=nsfm, needs_password=pw))
+            return self.render_to_response(
+                self.get_context_data(
+                    host=host, url=url, web_url=web_url, nsfm=nsfm, needs_password=pw
+                )
+            )
         else:
             raise Http404()
 
@@ -21,21 +27,25 @@ class InviteView(TemplateView):
             port_suffix = InviteView.__parse_port(port)
         except ValueError:
             return None
-        url = ''.join([
-            'drawpile://',
-            quote_plus(host, safe=':[]'),
-            port_suffix,
-            '/',
-            quote_plus(session, safe=':'),
-        ])
+        url = "".join(
+            [
+                "drawpile://",
+                quote_plus(host, safe=":[]"),
+                port_suffix,
+                "/",
+                quote_plus(session, safe=":"),
+            ]
+        )
 
         if "web" in params:
-            web_url = ''.join([
-                'https://web.drawpile.net/?host=',
-                quote_plus(host),
-                '&session=',
-                quote_plus(session),
-            ])
+            web_url = "".join(
+                [
+                    "https://web.drawpile.net/?host=",
+                    quote_plus(host),
+                    "&session=",
+                    quote_plus(session),
+                ]
+            )
         else:
             web_url = None
 
@@ -44,10 +54,10 @@ class InviteView(TemplateView):
     @staticmethod
     def __parse_port(port):
         if not port:
-            return ''
+            return ""
 
         n = int(port[1:])
         if n < 1 or n > 65535:
-            raise ValueError('Port out of bounds')
+            raise ValueError("Port out of bounds")
 
-        return '' if n == 27750 else f':{n}'
+        return "" if n == 27750 else f":{n}"
