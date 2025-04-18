@@ -19,7 +19,7 @@ urlpatterns = [
     path('readonly/', TemplateView.as_view(template_name='readonly.html')
         if settings.DRAWPILE_READONLY_SITE
         else RedirectView.as_view(url='/', permanent=False)),
-    path('discord/', RedirectView.as_view(url='https://discord.gg/M3yyMpC', permanent=True)),
+    path('discord/', RedirectView.as_view(url='https://discord.gg/VHRDh2fKnc', permanent=True)),
     path('matrix/', RedirectView.as_view(url='https://matrix.to/#/#drawpile:matrix.org', permanent=True)),
     path('localhosthelp/', RedirectView.as_view(url='https://docs.drawpile.net/help/common/hosting#builtin-server', permanent=True)),
     path('pubrules/', RedirectView.as_view(url='/communities/drawpile.net/ccg/', permanent=True)),
