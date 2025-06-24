@@ -4,17 +4,22 @@
     "dp:4.20.1": {
       text: "2.0",
       className: "version-outdated",
-      title: "Drawpile 2.0 (not compatible with Drawpile 2.2)",
+      title: "Drawpile 2.0 (not compatible with Drawpile 2.3)",
     },
     "dp:4.21.2": {
       text: "2.1",
-      className: "version-compatible",
-      title: "Drawpile 2.1 (compatible with Drawpile 2.2)",
+      className: "version-outdated",
+      title: "Drawpile 2.1 (not compatible with Drawpile 2.3)",
     },
     "dp:4.24.0": {
       text: "2.2",
+      className: "version-compatible",
+      title: "Drawpile 2.2 (compatible with Drawpile 2.3)",
+    },
+    "dp:4.25.1": {
+      text: "2.3",
       className: "version-current",
-      title: "Drawpile 2.2",
+      title: "Drawpile 2.3",
     },
   };
 
@@ -24,12 +29,7 @@
     title: "Unknown Version",
   };
 
-  const BLOCK_WEB_VERSIONS = [
-    "dp:4.20.1",
-    "dp:4.21.2",
-    "dp:4.22.2",
-    "dp:4.23.0",
-  ];
+  const SUPPORTED_WEB_VERSIONS = ["dp:4.24.0"];
 
   const el = (name, attrs = {}, ...children) => {
     const element = document.createElement(name);
@@ -501,7 +501,10 @@
 
     setSessions(sessions) {
       for (const session of sessions) {
-        if (session.allowweb && BLOCK_WEB_VERSIONS.includes(session.protocol)) {
+        if (
+          session.allowweb &&
+          !SUPPORTED_WEB_VERSIONS.includes(session.protocol)
+        ) {
           session.allowweb = false;
         }
       }
