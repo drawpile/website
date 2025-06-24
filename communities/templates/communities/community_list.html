@@ -9,8 +9,8 @@
 <h2 class="title">Communities</h2>
 
 <div class="content">
-	<p>These are Drawpile's official community servers. You can find public sessions to join and host your own sessions on them.</p>
-	<p>When using these servers, you have to follow <a href="{% url "communities:ccg" %}">the common community guidelines</a>. The communities may also have their own additional rules listed on their pages below.</p>
+	<p>These are servers provided by the Drawpile community. You can find public sessions to join and host your own sessions on them. Note that they are external servers, refer to their rules and policies when using them!</p>
+	<p>When using these servers, you have to follow <a href="{% url "communities:ccg" %}">the common community guidelines</a>. The communities may also have their own additional rules listed on their pages below. If a community violates the common guidelines, you can report them to the administrators of drawpile.net via a bitton on their pages.</p>
 	{% if user.is_authenticated %}
 		<p>If you run your own Drawpile server and want it to become a community, you can <a href="{% url "communities:ych" %}">submit it for inclusion here</a>.</p>
 	{% else %}
