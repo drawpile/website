@@ -32,6 +32,9 @@ urlpatterns = [
 if settings.DRAWPILE_IMPRESSUM:
     urlpatterns += path('impressum/', TemplateView.as_view(template_name='impressum.html')),
 
+if settings.DRAWPILE_PRIVACY_POLICY:
+    urlpatterns += path('privacy/', TemplateView.as_view(template_name='privacy.html')),
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

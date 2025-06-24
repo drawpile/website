@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Privacy Policy{% endblock %}
+
+{% block main %}
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-three-quarters content">
+                {{ DRAWPILE_PRIVACY_POLICY|safe }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main %}
+

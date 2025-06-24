@@ -1,5 +1,8 @@
 from django.conf import settings
 
 
-def impressum(request):
-    return {"DRAWPILE_IMPRESSUM": getattr(settings, "DRAWPILE_IMPRESSUM", None)}
+def legalese(request):
+    return {
+        "DRAWPILE_IMPRESSUM": getattr(settings, "DRAWPILE_IMPRESSUM", None),
+        "DRAWPILE_PRIVACY_POLICY": getattr(settings, "DRAWPILE_PRIVACY_POLICY", None),
+    }
