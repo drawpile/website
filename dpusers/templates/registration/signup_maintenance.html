@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}Sign up - {{ block.super }}{% endblock %}
+
+{% block main %}
+
+<section class="section">
+<div class="container">
+
+<div class="columns">
+<div class="column is-half is-offset-one-quarter">
+
+	<h2 class="title has-text-centered">Maintenance</h2>
+
+	<div class="content">
+		<p>Sorry, account registration is currently undergoing maintenance.</p>
+		<p>You shouldn't need an account to use Drawpile, so continue without one if you can. If you need it, check out <a href="/help/">the help page</a> on how to get in contact, we may be able to manually create an account for you.</p>
+	</div>
+
+</div> {# ./column #}
+
+</div> {# ./columns #}
+
+</div>{# ./container #}
+</section>
+
+{% endblock %}
+
