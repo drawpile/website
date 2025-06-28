@@ -47,6 +47,10 @@ def _allow_email(email):
     return True
 
 
+def _is_email_maintenance(request):
+    return settings.DRAWPILE_EMAIL_MAINTENANCE and request.GET.get("override") != settings.DRAWPILE_EMAIL_MAINTENANCE_OVERRIDE
+
+
 class SignupView(FormView):
     """New user signup: first phase.
 
@@ -56,9 +60,14 @@ class SignupView(FormView):
     address is real.
     """
 
-    template_name = "registration/signup.html"
     form_class = SignupForm
     success_url = reverse_lazy("users:finish-signup")
+
+    def get_template_names(self):
+        if _is_email_maintenance(self.request):
+            return ["registration/signup_maintenance.html"]
+        else:
+            return ["registration/signup.html"]
 
     def form_valid(self, form):
         cd = form.cleaned_data
@@ -171,6 +180,12 @@ class EmailChangeView(LoginRequiredMixin, FormView):
     template_name = "users/email_change.html"
     form_class = EmailChangeForm
     success_url = reverse_lazy("users:profile-emailchange-confirm")
+
+    def get_template_names(self):
+        if _is_email_maintenance(self.request):
+            return ["users/email_change_maintenance.html"]
+        else:
+            return ["users/email_change.html"]
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -361,7 +376,12 @@ class DeleteAccountView(LoginRequiredMixin, FormView):
 
 
 class ResetPasswordView(auth_views.PasswordResetView):
-    template_name = "registration/reset_password.html"
     email_template_name = "registration/mail/reset_password.txt"
     success_url = reverse_lazy("users:password_reset_done")
     form_class = ResetPasswordForm
+
+    def get_template_names(self):
+        if _is_email_maintenance(self.request):
+            return ["registration/reset_password_maintenance.html"]
+        else:
+            return ["registration/reset_password.html"]

@@ -22,6 +22,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DRAWPILE_AUTH_FRAME_ANCESTORS = 'https://web.drawpile.net'
 
 DRAWPILE_READONLY_SITE = False
+# Disables all email-sending forms.
+DRAWPILE_EMAIL_MAINTENANCE = False
+# Allows showing those email-sending forms anyway by adding a ?override query
+# parameter with this value. Choose an unguessable string here. You should
+# switch the email sending to the dummy sender during the maintenance so that
+# you can copy the email stuff out of the logs and send it manually.
+DRAWPILE_EMAIL_MAINTENANCE_OVERRIDE = "tetriandoch"
 
 # Keys that allow access to /api/ext-bans and /api/monitor-config respectively.
 # Should be plain, random strings, one per client so that they can be revoked.
