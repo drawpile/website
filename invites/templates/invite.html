@@ -74,7 +74,7 @@
                 <div class="content is-medium has-text-centered">
                     <p>
                         {% if web_url %}
-                            You don't need to install anything if you join via Web browser. If you want to use the desktop or mobile application, you can <a href="/download/" target="_blank">download&nbsp;it&nbsp;here</a>.
+                            You don't need to install anything if you join via Web browser. If you want to use the desktop or mobile application, you can <a href="/download/{% if needs_beta %}#Beta{% endif %}" target="_blank">download&nbsp;it&nbsp;here</a>.
                         {% else %}
                             If you don't have Drawpile yet, you can <a href="/download/" target="_blank">download&nbsp;it&nbsp;here</a>.
                         {% endif %}

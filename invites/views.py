@@ -9,13 +9,18 @@ class InviteView(TemplateView):
     __PORT_RE = re.compile(r":([0-9]{1,5})")
 
     def get(self, request, host, port, session, *args, **kwargs):
-        url, web_url, nsfm, pw = InviteView.__build_url(
+        url, web_url, nsfm, pw, beta = InviteView.__build_url(
             host, port, session, request.GET
         )
         if url:
             return self.render_to_response(
                 self.get_context_data(
-                    host=host, url=url, web_url=web_url, nsfm=nsfm, needs_password=pw
+                    host=host,
+                    url=url,
+                    web_url=web_url,
+                    nsfm=nsfm,
+                    needs_password=pw,
+                    needs_beta=beta,
                 )
             )
         else:
@@ -36,22 +41,32 @@ class InviteView(TemplateView):
                 quote_plus(session, safe=":"),
             ]
         )
-        if "w" in params:
-            url += "?w"
+
+        suffixes = []
+        for v in ["v1", "v0"]:
+            if v in params:
+                suffixes.append(v)
+                break
 
         if "web" in params:
             web_url = "".join(
                 [
                     "https://web.drawpile.net/?host=",
                     quote_plus(host),
-                    "&session=",
-                    quote_plus(session),
+                    "&",
+                    "&".join(["session=" + quote_plus(session), *suffixes]),
                 ]
             )
         else:
             web_url = None
 
-        return (url, web_url, "nsfm" in params, "pw" in params)
+        if "w" in params:
+            suffixes.append("w")
+
+        if suffixes:
+            url += "?" + "&".join(suffixes)
+
+        return (url, web_url, "nsfm" in params, "pw" in params, "v1" in params)
 
     @staticmethod
     def __parse_port(port):
