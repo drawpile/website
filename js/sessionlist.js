@@ -15,11 +15,13 @@
       text: "2.2",
       className: "version-compatible",
       title: "Drawpile 2.2 (compatible with Drawpile 2.3)",
+      inviteVersion: "v0",
     },
     "dp:4.25.1": {
       text: "2.3",
       className: "version-current",
       title: "Drawpile 2.3",
+      inviteVersion: "v1",
     },
   };
 
@@ -29,7 +31,7 @@
     title: "Unknown Version",
   };
 
-  const SUPPORTED_WEB_VERSIONS = ["dp:4.24.0"];
+  const SUPPORTED_WEB_VERSIONS = ["dp:4.24.0", "dp:4.25.1"];
 
   const el = (name, attrs = {}, ...children) => {
     const element = document.createElement(name);
@@ -248,6 +250,10 @@
     const encodedHost = encodeURIComponent(host);
     const encodedId = encodeURIComponent(session.id);
     const params = [];
+    const inviteVersion = VERSION_FLAIR[session.protocol]?.inviteVersion;
+    if(inviteVersion) {
+      params.push(inviteVersion);
+    }
     if (session.allowweb) {
       params.push("web");
     }
