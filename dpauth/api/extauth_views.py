@@ -89,16 +89,13 @@ class ExtAuthView(APIView):
         This request is made by the server when guest logins are enabled.
 
         If guest logins are not enabled on this side, this will always
-        return "auth" (except for banned users.)
+        return "auth".
         """
         serializer = AccountQuerySerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 
         user = Username.getByName(data["username"])
-
-        if user and not user.user.is_active:
-            return {"status": "banned"}
 
         if extauth_settings["GUEST_LOGINS"]:
             return {
