@@ -1,5 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 from rest_framework.response import Response
 
 from django.urls import reverse
@@ -17,7 +19,14 @@ from .serializers import (
 from communities.models import Community, Membership
 from communities.webhooks import send_abusereport
 
+class ReportAbuseAnonRateThrottle(AnonRateThrottle):
+    rate = "1/minute"
+
+class ReportAbuseUserRateThrottle(UserRateThrottle):
+    rate = "1/minute"
+
 class CommunityViewSet(viewsets.ReadOnlyModelViewSet):
+    REPORT_ABUSE_CACHE_KEY = "drawpile_community_report_abuse"
     lookup_field = 'slug'
 
     def get_queryset(self):
@@ -37,7 +46,12 @@ class CommunityViewSet(viewsets.ReadOnlyModelViewSet):
 
         return CommunityDetailSerializer
 
-    @action(detail=True, methods=('post',))
+    @action(
+        detail=True,
+        methods=("post",),
+        permission_classes=(AllowAny,),
+        throttle_classes=(ReportAbuseAnonRateThrottle, ReportAbuseUserRateThrottle),
+    )
     def report_abuse(self, request, slug):
         url = getattr(settings, 'ADMIN_REPORT_WEBHOOK', '')
         if not url:

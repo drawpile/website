@@ -127,10 +127,7 @@ class CommunityPage(DetailView):
                 'comment': obj.review_message
             })
 
-        if (
-            getattr(settings, 'ADMIN_REPORT_WEBHOOK', '') and
-            self.request.user.is_authenticated
-        ):
+        if getattr(settings, 'ADMIN_REPORT_WEBHOOK', ''):
             ctx['can_report'] = True
 
         return ctx
