@@ -138,6 +138,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000);
   }
 
+  const listView = document.getElementById("community-session-list-view");
+  const listButton = listView?.querySelector("button");
+  if (listButton) {
+    listButton.setAttribute("disabled", "");
+    window.setTimeout(() => {
+      listButton.addEventListener("click", () => {
+        listView.innerHTML = "";
+
+        const dsl = document.createElement("drawpile-session-list");
+        dsl.setAttribute("list-url", listView.dataset.url);
+        listView.append(dsl);
+
+        listView.append(document.createElement("hr"));
+
+        if(listView.dataset.nsfmopt) {
+          const a = document.createElement("a");
+          a.href = "?nsfm";
+          a.textContent = "Enable NSFM sessions";
+
+          const p = document.createElement("p");
+          p.classList.add("has-text-right");
+          p.append(a);
+
+          listView.append(p);
+        }
+      });
+      const iconClasses = listButton.querySelector(".icon > *").classList;
+      iconClasses.remove("fa-spin");
+      iconClasses.replace("fa-circle-notch", "fa-bars");
+      listButton.removeAttribute("disabled");
+    }, 1000);
+  }
+
   const ua = new UAParser();
   const os = ua.getOS()?.name || "";
   const device = ua.getDevice()?.model || "";

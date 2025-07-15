@@ -241,13 +241,13 @@
 	</div>
 	{% endif %}
 
-	<drawpile-session-list list-url="{{ object.list_server }}/sessions/{% if object.content_rating != 'sfw' and am_adult %}?nsfm=true{% endif %}"></drawpile-session-list>
-	<hr>
-	{% if object.content_rating == 'mixed' and not am_adult %}
-		<p class="has-text-right">
-			<a href="?nsfm">Enable NSFM sessions</a>
-		</p>
-	{% endif %}
+	<div id="community-session-list-view" class="has-text-centered" data-url="{{ object.list_server }}/sessions/{% if object.content_rating != 'sfw' and am_adult %}?nsfm=true{% endif %}" {% if object.content_rating == 'mixed' and not am_adult %}data-nsfmopt="true"{% endif %}>
+		<button class="button is-link" disabled>
+			<span class="icon"><span class="fa fa-circle-notch fa-spin"></span></span>
+			<span>Show Sessions</span>
+		</button>
+		<p class="help">This will load sessions from this community's external server.</p>
+	</div>
 </div>
 {% endif %}
 
