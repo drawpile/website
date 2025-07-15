@@ -6,7 +6,15 @@
 
 <div class="has-text-centered content">
 
-<h2><em>{{ object.title }}</em> is an adults only community</h2>
+<h2>
+	{% if content_rating == "adult" %}
+		<em>{{ object.title }}</em> is an NSFM-only community
+	{% else %}
+		Show NSFM sessions of <em>{{ object.title }}</em>
+	{% endif %}
+</h2>
+
+<p>Sessions hosted here may contain artwork with serious topics that are not suitable for minors.</p>
 
 <p>You must be at least eighteen years old to access it.</p>
 
@@ -14,7 +22,11 @@
 <p class="has-text-centered">
 	{% csrf_token %}
 	<button type="submit" class="button is-large is-danger is-outlined">I am over 18 years old</button>
-	<a href="{% url "communities:frontpage" %}" class="button is-large">Go back</a>
+	{% if content_rating == "adult" %}
+		<a href="{% url "communities:frontpage" %}" class="button is-large">Go back</a>
+	{% else %}
+		<a href="{% url "communities:community" slug=object.slug %}" class="button is-large">Go back</a>
+	{% endif %}
 </p>
 </form>
 

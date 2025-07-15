@@ -90,7 +90,7 @@
                 el(
                   "label",
                   { for: "filter-nsfm" },
-                  "🔞 Not suitable for minors (NSFM)"
+                  "⛔ Not suitable for minors (NSFM)"
                 )
               ),
             ]
@@ -227,7 +227,7 @@
       opts.push(el("span", { title: "Closed (block new logins)" }, "🚪"));
     }
     if (session.nsfm) {
-      opts.push(el("span", { title: "Not suitable for minors (NSFM)" }, "🔞"));
+      opts.push(el("span", { title: "Not suitable for minors (NSFM)" }, "⛔"));
     }
     if (session.allowweb) {
       opts.push(el("span", { title: "Can join via Web browser" }, "🌐"));

@@ -84,7 +84,7 @@ class CommunityPage(DetailView):
     def get_template_names(self):
         obj = self.get_object()
         if (
-            obj.content_rating == Community.CONTENT_ADULT and
+            (obj.content_rating == Community.CONTENT_ADULT or "nsfm" in self.request.GET) and
             obj.my_membership is None and
             not self.request.session.get('am_adult', False)
         ):
@@ -129,6 +129,8 @@ class CommunityPage(DetailView):
 
         if getattr(settings, 'ADMIN_REPORT_WEBHOOK', ''):
             ctx['can_report'] = True
+
+        ctx['am_adult'] = self.request.session.get('am_adult', False)
 
         return ctx
 

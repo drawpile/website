@@ -46,6 +46,12 @@
 <section class="section">
 <div class="container">
 
+<div class="notification content">
+	<p>
+		Community servers are <em>external servers and drawing sessions</em> not provided by Drawpile itself. Check their rules and policies before using them. If a community or session violates any guidelines, use <a href="#abuse-report-button">the "report community" button below</a> or any of the contact options <a href="/help/">on the help page</a> to report it.
+	</p>
+</div>
+
 <div class="content">
 	<p><a href="{% url "communities:frontpage" %}">&larr; Back to community list</a></p>
 </div>
@@ -76,15 +82,15 @@
 
 	<div class="box-section has-text-centered">
 		{% if object.homepage %}
-		<a class="button is-link is-medium" href="{{ object.homepage }}">
+		<a class="button is-link is-medium" href="{{ object.homepage }}{% if object.content_rating != 'sfw' and am_adult %}{% if "?" in object.homepage %}&{% else %}?{% endif %}nsfm=true{% endif %}">
 			<span class="icon"><i class="fas fa-home"></i></span>
-			<span>Home</span>
+			<span>Website</span>
 			</a>
 		{% endif %}
 		{% if object|can:user|use:"login" %}
 		<a class="button is-primary is-medium" href="#community-session-list">
 			<span class="icon"><i class="fas fa-sign-in-alt"></i></span>
-			<span>Join Session</span>
+			<span>Sessions</span>
 		</a>
 		{% endif %}
 
@@ -134,9 +140,9 @@
 		</p>
 	</div>
 
-	{% if object.content_rating == 'sfw' %} <div class="box-section content-rating sfw">Adult content forbidden</div>
-	{% elif object.content_rating == 'mixed' %}<div class="box-section content-rating mixed">Adult content permitted in sessions marked not suitable for minors (NSFM)</div>
-	{% else %}<div class="box-section content-rating nsfw">This is an adults-only community</div>
+	{% if object.content_rating == 'sfw' %} <div class="box-section content-rating sfw">NSFM forbidden</div>
+	{% elif object.content_rating == 'mixed' %}<div class="box-section content-rating mixed">NSFM permitted if marked</div>
+	{% else %}<div class="box-section content-rating nsfw">NSFM only</div>
 	{% endif %}
 
 	{% if user.is_authenticated %}
@@ -211,7 +217,7 @@
 	<div class="has-text-centered">
 		<p><button disabled class="button is-text" id="abuse-report-button" data-url="{% url "api:community-report-abuse" slug=object.slug %}">
 			<span class="icon"><i class="fas fa-circle-notch fa-spin"></i></span>
-			<span>Report community to site admins</span>
+			<span>Report community</span>
 		</button></p>
 	</div>
 	{% endif %}
@@ -230,7 +236,13 @@
 	</div>
 	{% endif %}
 
-	<drawpile-session-list list-url="{{ object.list_server }}/sessions/{% if object.content_rating != 'sfw' %}?nsfm=true{% endif %}"></drawpile-session-list>
+	<drawpile-session-list list-url="{{ object.list_server }}/sessions/{% if object.content_rating != 'sfw' and am_adult %}?nsfm=true{% endif %}"></drawpile-session-list>
+	<hr>
+	{% if object.content_rating == 'mixed' and not am_adult %}
+		<p class="has-text-right">
+			<a href="?nsfm">Enable NSFM sessions</a>
+		</p>
+	{% endif %}
 </div>
 {% endif %}
 

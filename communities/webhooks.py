@@ -2,15 +2,22 @@ import requests
 import logging
 
 logger = logging.getLogger(__name__)
- 
+
 def send_abusereport(webhook_url, community, comment, user):
-    logger.info(
-        "Sending abuse report about %s by %s (#%d): %s",
-        community.slug,
-        user.username,
-        user.id,
-        comment
-    )
+    if user.is_anonymous:
+        logger.info(
+            "Sending abuse report about %s by anonymous user: %s",
+            community.slug,
+            comment
+        )
+    else:
+        logger.info(
+            "Sending abuse report about %s by %s (#%d): %s",
+            community.slug,
+            user.username,
+            user.id,
+            comment
+        )
 
     # we could support other webhook formats here too
     message = {

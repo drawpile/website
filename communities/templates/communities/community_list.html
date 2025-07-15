@@ -9,8 +9,9 @@
 <h2 class="title">Communities</h2>
 
 <div class="content">
-	<p>These are servers provided by the Drawpile community. You can find public sessions to join and host your own sessions on them. Note that they are external servers, refer to their rules and policies when using them!</p>
-	<p>When using these servers, you have to follow <a href="{% url "communities:ccg" %}">the common community guidelines</a>. The communities may also have their own additional rules listed on their pages below. If a community violates the common guidelines, you can report them to the administrators of drawpile.net via a bitton on their pages.</p>
+	<p>These are servers provided by the Drawpile community. You can find public sessions to join and host your own sessions on them. Note that <em>these are external servers and drawing sessions</em> not provided by Drawpile itself, refer to their rules and policies when using them!</p>
+	<p>When using these servers, you have to follow <a href="{% url "communities:ccg" %}">the common community guidelines</a>. The communities may also have their own additional rules listed on their pages below.</p>
+	<p>If you find any community or session to be in violation of any guidelines, use the "report community" button on their respective pages or by getting into contact via the places listed <a href="/help/">on the help page</a>.</p>
 	{% if user.is_authenticated %}
 		<p>If you run your own Drawpile server and want it to become a community, you can <a href="{% url "communities:ych" %}">submit it for inclusion here</a>.</p>
 	{% else %}
@@ -71,19 +72,19 @@
 		{% endif %}
 
 		{% if object.content_rating == 'sfw' %}
-			<div title="This server does not allow any adult content.">
+			<div title="This server does not allow artwork not suitable for minors (NSFM).">
 				<span class="fas fa-tags"></span>
-				adult content forbidden
+				NSFM forbidden
 			</div>
 		{% elif object.content_rating == 'mixed' %}
-			<div title="This server allows adult content, but such sessions must be marked not safe for minors (NSFM).">
+			<div title="Sessions containing artwork not suitable for minors must be (NSFM).">
 				<span class="fas fa-tags"></span>
-				adult content permitted if marked
+				NSFM permitted if marked
 			</div>
 		{% else %}
-			<div title="This server is only for users age 18 and over. All sessions must be marked not safe for minors (NSFM).">
+			<div title="This server is only for users age 18 and over, regardless of artwork being drawn. All sessions must be marked not suitable for minors (NSFM).">
 				<span class="fas fa-tags"></span>
-				adults-only
+				NSFM only
 			</div>
 		{% endif %}
 
