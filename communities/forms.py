@@ -51,7 +51,7 @@ class EditCommunityForm(forms.ModelForm):
         model = Community
         fields = (
             'title', 'slug', 'short_description', 'full_description', 'badge',
-            'rules', 'group_policy', 'memberlist_visibility',
+            'region', 'rules', 'group_policy', 'memberlist_visibility',
             'drawpile_server', 'list_server', 'homepage',
             'guests_allowed', 'host_policy', 'trust_members',
             'content_rating', 'web_policy',

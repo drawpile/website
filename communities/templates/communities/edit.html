@@ -89,6 +89,8 @@ allows you to limit the allowed user accounts to those who have joined your grou
 	</div>
 </div>
 
+{% include "components/field.html" with field=form.region placeholder="Europe, North America etc." %}
+
 {% include "components/field.html" with field=form.homepage placeholder="https://example.com/" %}
 
 {% include "components/radio-field.html" with field=form.guest_policy %}

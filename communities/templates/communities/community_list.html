@@ -128,6 +128,13 @@
 				no accounts
 			</div>
 		{% endif %}
+
+		{% if object.region %}
+			<div title="Server region of this community, closer ones to you may give better latency.">
+				<span class="far fa-map"></span>
+				{{ object.region }}
+			</div>
+		{% endif %}
 	</div>
 	<div class="card-content">
 		<h3><a href="{{ community_url }}">{{ object.title }}</a></h3>

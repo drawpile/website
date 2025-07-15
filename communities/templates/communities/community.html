@@ -138,6 +138,11 @@
 				This server does not support joining sessions via web browser.
 			{% endif %}
 		</p>
+		{% if object.region %}
+			<p>
+				Server region: {{ object.region }}. Regions closer to you may have better latency.
+			</p>
+		{% endif %}
 	</div>
 
 	{% if object.content_rating == 'sfw' %} <div class="box-section content-rating sfw">NSFM forbidden</div>

@@ -155,6 +155,12 @@ class Community(models.Model):
         default=WEB_DISABLED,
     )
 
+    region = models.CharField(
+        verbose_name="What's the rough region(s) of your server(s)?",
+        max_length=255,
+        default="",
+    )
+
     class Meta:
         verbose_name_plural = "communities"
 
