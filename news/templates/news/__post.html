@@ -6,7 +6,7 @@
 		<a href="{{ post.get_absolute_url }}" title="Show full post">{{ post.title }}</a>
 		{% endif %}
 	</h1>
-	<h2 class="subtitle">{{ post.publish|date }} by {{ post.author_name }}</h2>
+	<h2 class="subtitle">{{ post.publish|date }}{% if post.show_author %} by {{ post.author_name }}{% endif %}</h2>
 	<div class="content">
 	{{ post.intro|commonmark_full }}
 	{% if readmore %}
