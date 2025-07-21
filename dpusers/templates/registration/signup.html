@@ -48,7 +48,7 @@
 			<div class="control">
 				<label class="checkbox">
 					{{ form.accept_tos }}
-					I accept the <a class="toslink" href="{% url 'users:tos' %}" target="_blank">terms of service</a>
+					I accept the <a href="/tos/" target="_blank">terms of service</a> and <a href="/privacy/" target="_blank">privacy policy</a>.
 				</label>
 			</div>
 			{% if form.errors.accept_tos %}<div class="help is-danger">{{ form.errors.accept_tos }}</div>{% endif %}

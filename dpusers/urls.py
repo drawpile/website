@@ -9,7 +9,7 @@ from . import views
 
 app_name = 'users'
 urlpatterns = [
-    path('tos/', TemplateView.as_view(template_name='registration/tos.html'), name='tos'),
+    path('tos/', RedirectView.as_view(url='/tos/', permanent=False)),
 ]
 
 if settings.DRAWPILE_READONLY_SITE:

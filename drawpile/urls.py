@@ -29,11 +29,14 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='pages/index.html')),
 ]
 
-if settings.DRAWPILE_IMPRESSUM:
+if hasattr(settings, "DRAWPILE_IMPRESSUM"):
     urlpatterns += path('impressum/', TemplateView.as_view(template_name='impressum.html')),
 
-if settings.DRAWPILE_PRIVACY_POLICY:
+if hasattr(settings, "DRAWPILE_PRIVACY_POLICY"):
     urlpatterns += path('privacy/', TemplateView.as_view(template_name='privacy.html')),
+
+if hasattr(settings, "DRAWPILE_TOS"):
+    urlpatterns += path('tos/', TemplateView.as_view(template_name='tos.html')),
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
