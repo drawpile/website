@@ -72,6 +72,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'drawpile.context_processors.legalese',
+                'drawpile.context_processors.fedi',
             ],
         },
     },

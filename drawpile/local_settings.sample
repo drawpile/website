@@ -59,3 +59,7 @@ DRAWPILE_EMAIL_REJECTIONS = []
 # CORS Headers
 # Allow requests from the web client.
 CORS_ALLOWED_ORIGINS = ["https://web.drawpile.net"]
+
+DRAWPILE_FEDI_LINKS = [
+    (None, ["https://example.com/@drawpile"]),
+]

@@ -12,7 +12,7 @@
 	<link rel="icon" type="image/png" href="{% static "favicon/32x32.png" %}" sizes="32x32">
 	<link rel="icon" type="image/png" href="{% static "favicon/48x48.png" %}" sizes="48x48">
 	<link rel="icon" type="image/png" href="{% static "favicon/64x64.png" %}" sizes="64x64">
-
+	{% for fedi_link in DRAWPILE_FEDI_LINKS %}<link rel="me" href="{{ fedi_link }}">{% endfor %}
 	{% block extrahead %}{% endblock %}
 </head>
 <body>
