@@ -30,10 +30,16 @@
 		<div id="navbar-menu" class="navbar-menu">
 			<div class="navbar-start">
 				{% navilink '/news/' 'News' classes='navbar-item' %}
-				{% navilink '/about/' 'About' classes='navbar-item' %}
+				{% navilink '/about/' 'About' classes='navbar-item is-hidden-desktop-only' %}
 				{% navilink '/download/' 'Download' classes='navbar-item' %}
 				{% navilink '/help/' 'Help' classes='navbar-item' %}
 				{% navilink '/communities/' 'Communities' classes='navbar-item' %}
+				<div class="navbar-item">
+					<a href="https://donate.drawpile.org/" target="_blank" class="button is-info">
+						<span class="icon"><span class="fas fa-heart"></span></span>
+						<span>Donate</span>
+					</a>
+				</div>
 			</div>
 			<div class="navbar-end">
 				{% if user.is_authenticated %}

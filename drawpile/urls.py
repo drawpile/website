@@ -6,6 +6,18 @@ from django.conf import settings
 
 from templatepages.views import DocumentationDetailView, TemplatePageView
 
+
+class DonationRedirectView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        try:
+            lang = self.request.GET["lang"]
+            if lang and lang.startswith("de_"):
+                return self.url + "de/"
+        except:
+            pass
+        return self.url
+
+
 urlpatterns = [
     path('_admin/', admin.site.urls),
     path('api/', include('drawpile.api_urls')),
@@ -27,6 +39,7 @@ urlpatterns = [
     path('sharedarraybufferhelp/', RedirectView.as_view(url='https://docs.drawpile.net/help/tech/browser#sharedarraybuffer-issues', permanent=True)),
     path('lgm/', TemplateView.as_view(template_name='lgm.html')),
     path('namecheckbot/', TemplateView.as_view(template_name='namecheckbot.html')),
+    path('donate/', DonationRedirectView.as_view(url="https://donate.drawpile.org/", permanent=True)),
     path('', TemplateView.as_view(template_name='pages/index.html')),
 ]
 

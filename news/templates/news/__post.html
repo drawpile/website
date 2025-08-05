@@ -1,12 +1,23 @@
 <article>{% load commonmark %}
-	<h1 class="title">
-		{% if readmore %}
-		{{ post.title }}
-		{% else %}
-		<a href="{{ post.get_absolute_url }}" title="Show full post">{{ post.title }}</a>
-		{% endif %}
-	</h1>
-	<h2 class="subtitle">{{ post.publish|date }}{% if post.show_author %} by {{ post.author_name }}{% endif %}</h2>
+	{% if post_latest %}
+		<h2 class="title">
+			{% if readmore %}
+			Latest News: {{ post.title }}
+			{% else %}
+			<a href="{{ post.get_absolute_url }}" title="Show full post">Latest News: {{ post.title }}</a>
+			{% endif %}
+		</h2>
+		<h3 class="subtitle">{{ post.publish|date }}{% if post.show_author %} by {{ post.author_name }}{% endif %}</h3>
+	{% else %}
+		<h1 class="title">
+			{% if readmore %}
+			{{ post.title }}
+			{% else %}
+			<a href="{{ post.get_absolute_url }}" title="Show full post">{{ post.title }}</a>
+			{% endif %}
+		</h1>
+		<h2 class="subtitle">{{ post.publish|date }}{% if post.show_author %} by {{ post.author_name }}{% endif %}</h2>
+	{% endif %}
 	<div class="content">
 	{{ post.intro|commonmark_full }}
 	{% if readmore %}

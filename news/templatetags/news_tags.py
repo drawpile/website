@@ -12,11 +12,13 @@ class NewsNode(template.Node):
         slug = self.post.resolve(context)
 
         if slug == '_latest':
+            latest = True
             try:
                 post = Post.objects.visible()[0]
             except IndexError:
                 post = None
         else:
+            latest = False
             try:
                 post = Post.objects.visible().get(slug=slug)
             except Post.DoesNotExist:
@@ -24,6 +26,7 @@ class NewsNode(template.Node):
 
         context.push()
         context['post'] = post
+        context['post_latest'] = latest
         out = self.nodelist.render(context)
         context.pop()
         return out

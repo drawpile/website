@@ -15,29 +15,50 @@
 
 {% block main %}
 
-{# Hero section #}
 <section class="hero is-light">
 	<div class="hero-body">
 		<div class="container">
 			<div class="content is-large">
-				<strong>Drawpile</strong> is a collaborative drawing program
-				that lets multiple people draw, sketch, paint and animate on the
-				same canvas simultaneously. It's Free and Open Source software
-				available for Windows, macOS, Linux and Android. There's also a
-				Web version that you can run directly in your browser, which
-				works on all platforms, including iPads.
+				<p><strong>Drawpile</strong> is a collaborative drawing program that lets multiple people draw, sketch, paint and animate on the same canvas simultaneously. It's Free and Open Source software available for Windows, macOS, Linux and Android. There's also a Web version that you can run directly in your browser, which works on all platforms, including iPads.</p>
 			</div>
-			<a href="/download/" class="button is-link is-large">
-				<span class="fa fa-download"></span>&nbsp;Download&nbsp;Drawpile
-			</a>
-			<a href="https://web.drawpile.net/" class="button is-large">
-				<span class="fa fa-globe"></span>&nbsp;Launch&nbsp;Drawpile&nbsp;Web
-			</a>
+			<div class="columns is-multiline">
+				<div class="column is-narrow">
+					<a href="/download/" class="button is-link is-large is-fullwidth">
+						<span class="icon"><span class="fas fa-download"></span></span>
+						<span>Download Drawpile</span>
+					</a>
+				</div>
+				<div class="column is-narrow">
+					<a href="https://web.drawpile.net/" class="button is-large is-light is-inverted is-fullwidth">
+						<span class="icon"><span class="fas fa-globe"></span></span>
+						<span>Launch Drawpile Web</span>
+					</a>
+				</div>
+			</div>
+			<div class="columns is-multiline">
+				<div class="column is-narrow">
+					<a href="/about/" class="button is-fullwidth">
+						<span class="icon"><span class="fas fa-info-circle"></span></span>
+						<span>Learn More</span>
+					</a>
+				</div>
+				<div class="column is-narrow">
+					<a href="/help/" class="button is-fullwidth">
+						<span class="icon"><span class="fas fa-question-circle"></span></span>
+						<span>Help, Feedback, Bug Reports</span>
+					</a>
+				</div>
+				<div class="column is-narrow">
+					<a href="https://donate.drawpile.org/" target="_blank" class="button is-info is-fullwidth">
+						<span class="icon"><span class="fas fa-heart"></span></span>
+						<span>Donate</span>
+					</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
 
-{# Show latest news post #}
 <section class="section">
 <div class="container">
 
