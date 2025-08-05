@@ -16,27 +16,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.querySelectorAll(".tab-container").forEach((tabContainer) => {
     const tabbar = tabContainer.querySelector(".tabs>ul");
+    const buttons = tabContainer.querySelector(".download-buttons>.buttons");
     const pages = tabContainer.querySelectorAll(".tab-page");
     tabbar.onclick = (event) => {
       event.preventDefault();
 
       const tabHash = getTabHash(event.srcElement);
-      if(!tabHash) {
+      if (!tabHash) {
         return;
       }
 
       const pageId = tabHash.substring(1);
-      const tabId = "tab-" + tabHash.substring(1);
 
       pages.forEach((p) =>
         p.id === pageId
-          ? p.classList.remove("is-hidden-tablet")
-          : p.classList.add("is-hidden-tablet")
+          ? p.classList.remove("is-hidden")
+          : p.classList.add("is-hidden")
       );
       tabbar.childNodes.forEach((c) =>
-        c.id === tabId
+        c.id === `tab-${pageId}`
           ? c.classList.add("is-active")
           : c.classList.remove("is-active")
+      );
+      buttons.childNodes.forEach((c) =>
+        c.id === `button-${pageId}`
+          ? c.classList.add("is-active", "is-light", "is-inverted")
+          : c.classList.remove("is-active", "is-light", "is-inverted")
       );
 
       if (history.pushState && window.location.hash != tabHash) {
@@ -50,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     pages.forEach((page) => {
       const header = page.querySelector("h1,h2,h3");
-      header.classList.add("is-hidden-tablet");
+      header.classList.add("is-hidden");
       tabbar.appendChild(
         el(
           "li",
@@ -63,8 +68,20 @@ document.addEventListener("DOMContentLoaded", function () {
               { class: "icon" },
               el("i", { class: header.dataset.icon })
             ),
-            header.textContent
+            el("span", {}, header.textContent)
           )
+        )
+      );
+      buttons.appendChild(
+        el(
+          "a",
+          { id: `button-${page.id}`, href: `#${page.id}`, class: "button" },
+          el(
+            "span",
+            { class: "icon" },
+            el("span", { class: header.dataset.icon })
+          ),
+          el("span", {}, header.textContent)
         )
       );
     });
