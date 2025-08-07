@@ -124,7 +124,7 @@
 	</p>
 	<div class="columns is-multiline">
 		<div class="column is-narrow">
-			<a href="https://f-droid.org/packages/net.drawpile" class="button is-dark is-medium is-fullwidth"><span class="icon"><img src="{% static "images/fdroid-monochrome.svg" %}" alt="F-Droid Logo"></span><span>Get it on F-Droid</span></a>
+			<a href="https://f-droid.org/packages/net.drawpile" target="_blank" class="button is-dark is-medium is-fullwidth"><span class="icon"><img src="{% static "images/fdroid-monochrome.svg" %}" alt="F-Droid Logo"></span><span>Get it on F-Droid</span></a>
 		</div>
 		<div class="column is-narrow">
 			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-30-34-arm64-v8a.apk" class="button is-link is-medium is-fullwidth"><span class="icon"><span class="fab fa-android"></span></span><span>Drawpile {{ VERSION }} APK</span></a>
@@ -257,7 +257,7 @@
 		It should be <strong>stable and ready for general use</strong>, but things may still be added or changed significantly until the final release. Try it out now and let us know if there is anything to improve before that, <a href="/help/">take a look at the help pages</a> on how to do so!
 	</p>
 	<p>
-		Also, <a href="https://docs.drawpile.net/help/common/2x3x0" target="_blank">take a look at this illustrated guide</a> to find out what's new in this version and information on how to install both versions side by side.
+		Take a look at <strong><a href="https://docs.drawpile.net/help/common/2x3x0" target="_blank">this illustrated guide</a> to find out what's new</strong> in this version. There is also instructions <a href="https://docs.drawpile.net/help/tech/sidebyside" target="_blank">how to install both versions side by side</a>.
 	</p>
 
 	<h3 id="beta-windows" class="title">
@@ -326,14 +326,14 @@
 	</h3>
 	<div class="columns is-multiline">
 		<div class="column is-narrow">
-			<a href="https://flathub.org/apps/net.drawpile.drawpile" target="_blank" class="button is-dark is-medium is-fullwidth"><span class="icon"><img src="{% static "images/flathub-monochrome.svg" %}" alt="Flathub Logo"></span><span>Get it on Flathub</span></a>
+			<a href="https://docs.drawpile.net/help/tech/sidebyside#linux-flatpak" target="_blank" class="button is-dark is-medium is-fullwidth"><span class="icon"><img src="{% static "images/flathub-monochrome.svg" %}" alt="Flathub Logo"></span><span>Get it on Flathub</span></a>
 		</div>
 		<div class="column is-narrow">
 			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-x86_64.AppImage" class="button is-link is-medium is-fullwidth"><span class="icon"><span class="icon-drawpile-linux-xenia"></span></span><span>Drawpile {{ BETAVERSION }} AppImage</span></a>
 		</div>
 	</div>
 	<p>
-		Flatpak comes pre-installed on some Linux distributions and is generally easy to set up. Take a look at <a href="https://flathub.org/setup" target="_blank">the Flathub setup page</a> for how to install it. It does not include the dedicated server or command-line tools. The AppImage is self-contained, but needs to be downloaded and updated manually. To find out how to use it take a look at <a href="https://docs.appimage.org/introduction/quickstart.html" target="_blank">the AppImage manual</a> and <a href="https://docs.appimage.org/user-guide/troubleshooting/fuse.html" target="_blank">troubleshooting page</a>. It includes the client, server and command line tools, run it with <code>--help</code> to see what's included.
+		To install the beta version through Flatpak, <a href="https://docs.drawpile.net/help/tech/sidebyside#linux-flatpak" target="_blank">see these instructions</a>.
 	</p>
 
 	<h3 id="beta-android" class="title">
@@ -345,6 +345,9 @@
 		</span>
 	</h3>
 	<div class="columns is-multiline">
+		<div class="column is-narrow">
+			<a href="https://docs.drawpile.net/help/tech/sidebyside#android-f-droid" target="_blank"  class="button is-dark is-medium is-fullwidth"><span class="icon"><img src="{% static "images/fdroid-monochrome.svg" %}" alt="F-Droid Logo"></span><span>Get it on F-Droid</span></a>
+		</div>
 		<div class="column is-narrow">
 			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-30-34-arm64-v8a.apk" class="button is-link is-medium is-fullwidth"><span class="icon"><span class="fab fa-android"></span></span><span>Drawpile {{ BETAVERSION }} APK</span></a>
 		</div>
@@ -416,7 +419,7 @@
 			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-arm64.msi" class="button is-fullwidth"><span class="icon"><span class="fab fa-windows"></span></span><span>Drawpile {{ BETAVERSION }} ARM Installer</span></a>
 		</div>
 		<div class="column is-narrow">
-			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-arm65.zip" class="button is-fullwidth"><span class="icon"><span class="fab fa-windows"></span></span><span>Drawpile {{ BETAVERSION }} ARM Portable ZIP</span></a>
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-arm64.zip" class="button is-fullwidth"><span class="icon"><span class="fab fa-windows"></span></span><span>Drawpile {{ BETAVERSION }} ARM Portable ZIP</span></a>
 		</div>
 	</div>
 	<p>
@@ -458,7 +461,7 @@
 			<span class="icon">
 				<span class="fab fa-android"></span>
 			</span>
-			<span>Android 10 and Older</span>
+			<span>Android 32 Bit</span>
 		</span>
 	</h3>
 	<div class="columns is-multiline">
@@ -474,6 +477,21 @@
 			<strong>Note:</strong> For the APK, you have to enable apps from unknown sources. How exactly this works depends on your device, but it should be in the settings somewhere. To get rid of this, we'd have to pay Google money.
 		</p>
 	</div>
+
+	<h3 id="beta-checksums" class="title">
+		<span class="icon-text">
+			<span class="icon">
+				<span class="fas fa-archive"></span>
+			</span>
+			<span>Checksums</span>
+		</span>
+	</h3>
+	<ul>
+		<li><a href="https://github.com/drawpile/Drawpile/tree/main/pkg/checksums">Checksums by version on GitHub</a></li>
+		<li><a href="/files/checksums/{{ BETAVERSION }}/sha256sums.txt">Drawpile {{ VERSION }} SHA256 checksums</a> (for use with sha256sum)</li>
+		<li><a href="/files/checksums/{{ BETAVERSION }}/sha384sums.txt">Drawpile {{ VERSION }} SHA384 checksums</a> (for use with sha384sum)</li>
+		<li><a href="/files/checksums/{{ BETAVERSION }}/b2sums.txt">Drawpile {{ VERSION }} BLAKE2b checksums</a> (for use with b2sum)</li>
+	</ul>
 </div>
 {% endif %}
 
