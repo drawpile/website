@@ -1,13 +1,13 @@
-Slug: release-2.3.0-beta.1
-Title: Version 2.3.0-beta.1 and Donations
-Publish: 2025-08-06 12:00:00+02:00
+Slug: release-2.3.0-beta.2
+Title: Version 2.3.0-beta.2 and Donations
+Publish: 2025-08-07 12:00:00+02:00
 Visible: True
 Author: askmeaboutloom
 ---
 
-The first beta of Drawpile version 2.3.0 is out now. It has many new features, such as **layer clipping**, **lasso fills**, **a gradient tool**, **realistic pigment blending**, **OKLAB mode**, **pixel-perfect mode**, **a new file format that's 3000% faster** and much more. There is also **a version for Windows on ARM** now, if you have such a device. And of course numerous fixes and stability improvements. It is **backward-compatible**, so you can join sessions hosted with the previous version.
+The first beta of Drawpile version 2.3.0 is out now (with a small hotfix, so it's beta.2). It has many new features, such as **layer clipping**, **lasso fills**, **a gradient tool**, **realistic pigment blending**, **OKLAB mode**, **pixel-perfect mode**, **a new file format that's 3000% faster** and much more. There is also **a version for Windows on ARM** now, if you have such a device. And of course numerous fixes and stability improvements. It is **backward-compatible**, so you can join sessions hosted with the previous version.
 
-**[Click here to download and install it](/download/#Beta)**. You can use both the current and the beta version side by side, the beta uses a different icon so you can tell them apart. <a href="https://docs.drawpile.net/help/tech/sidebyside" target="_blank">See here for how to that</a>.
+**[Click here to download and install it](/download/#Beta)**. You can use both the current and the beta version side by side. <a href="https://docs.drawpile.net/help/tech/sidebyside" target="_blank">See here for how to that</a>.
 
 To find out what's new, <a href="https://docs.drawpile.net/help/common/update2x3x0" target="_blank">take a look at this page</a>. It has videos and pictures showing everything off.
 
@@ -19,13 +19,13 @@ If you have questions, feedback or trouble using the new version – especially 
 
 You can **[download Drawpile from here](/download/#Beta)** and simply install it over the current version. This will update it. The new version is backward-compatible, so you can still join sessions hosted with the previous version.
 
-Alternatively, you can run both versions side-by-side. The beta uses a different icon so that you can tell the two apart. <a href="https://docs.drawpile.net/help/tech/sidebyside" target="_blank">See here for how to do that on different operating systems</a>.
+Alternatively, you can run both versions side-by-side. <a href="https://docs.drawpile.net/help/tech/sidebyside" target="_blank">See here for how to do that on different operating systems</a>.
 
 On the server side, everything is both back- and forward-compatible. Server owners can update if they want, but it's not necessary, people can use any version they wish to host sessions.
 
 ## Changes in this Release
 
-Drawpile 2.3.0-beta.1 represents a bit over 4 months of development since version 2.2.2. Many people contributed with suggestions and bug reports and are listed below. If you find any issues, please <a href="/help/" target="_blank">report them</a>!
+Drawpile 2.3.0-beta.2 represents a bit over 4 months of development since version 2.2.2 (and just a few hours from beta.1, since it's just a small fix). Many people contributed with suggestions and bug reports and are listed below. If you find any issues, please <a href="/help/" target="_blank">report them</a>!
 
 For an illustrated list of the major changes, take a look at <a href="https://docs.drawpile.net/help/common/update2x3x2" target="_blank">this page</a>.
 
