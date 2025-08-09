@@ -214,9 +214,9 @@
 	<ul>
 		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-x86.msi"><span class="icon-text"><span class="icon"><span class="fab fa-windows"></span></span><span>Drawpile {{ VERSION }} Installer for 32 Bit Windows</span></a></li>
 		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-x86.zip"><span class="icon-text"><span class="icon"><span class="fab fa-windows"></span></span><span>Drawpile {{ VERSION }} Portable ZIP for 32 Bit Windows</span></a></li>
+		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION  }}/Drawpile-{{ VERSION }}-Qt5-x86_64.dmg"><span class="icon-text"><span class="icon"><span class="fab fa-apple"></span></span><span>Drawpile {{ VERSION }} for macOS older than 12 (Monterey)</span></a></li>
 		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-23-23-arm64-v8a.apk"><span class="icon-text"><span class="icon"><span class="fab fa-android"></span></span><span>Drawpile {{ VERSION }} APK for Android 10 and older</span></a></li>
 		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION  }}/Drawpile-{{ VERSION }}-23-23-armeabi-v7a.apk"><span class="icon-text"><span class="icon"><span class="fab fa-android"></span></span><span>Drawpile {{ VERSION }} APK for 32 Bit Android</span></a></li>
-		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION  }}/Drawpile-{{ VERSION }}-Qt5-x86_64.dmg"><span class="icon-text"><span class="icon"><span class="fab fa-apple"></span></span><span>Drawpile {{ VERSION }} for macOS older than 12 (Monterey)</span></a></li>
 	</ul>
 	<p>
 		Free code signing for the Windows client is provided by <a href="https://about.signpath.io/" target="_blank">SignPath.io</a>, certificate by <a href="https://signpath.org/" target="_blank">SignPath Foundation</a>. See the <a href="/codesigningpolicy/">code signing policy</a> for details.
@@ -305,7 +305,7 @@
 		</div>
 	</div>
 	<p>
-		A version for older macOS versions will be available later.
+		If your Mac is too old, there is also <a href="#beta-macos-old" class="has-text-weight-bold"><span class="icon-text"><span class="icon"><span class="fab fa-apple"></span></span><span>a version for macOS older than 12 (Monterey)</span></span></a>.
 	</p>
 	<div class="notification">
 		<p>
@@ -431,6 +431,28 @@
 	<div class="notification">
 		<p>
 			<strong>Note:</strong> If you get an error about missing the Visual Studio Redistributable or a VCRUNTIME DLL, you need to install those first. They are provided by Microsoft, you can <a href="https://aka.ms/vs/17/release/vc_redist.arm64.exe">download them here</a>.
+		</p>
+	</div>
+
+	<h3 id="beta-macos-old" class="title">
+		<span class="icon-text">
+			<span class="icon">
+				<span class="fab fa-apple"></span>
+			</span>
+			<span>macOS older than 12 (Monterey)</span>
+		</span>
+	</h3>
+	<div class="columns is-multiline">
+		<div class="column is-narrow">
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ BETAVERSION }}/Drawpile-{{ BETAVERSION }}-Qt5-x86_64.dmg" class="button is-link is-medium is-fullwidth"><span class="icon"><span class="fab fa-apple"></span></span><span>Drawpile {{ BETAVERSION }} for macOS older than 12 (Monterey)</span></a>
+		</div>
+	</div>
+	<p>
+		<strong>This is only for macOS versions older than 12 (Monterey).</strong> If you're not sure whether your macOS is that old: it's probably not, <a href="#beta-windows" class="has-text-weight-bold"><span class="icon-text"><span class="icon"><span class="fab fa-apple"></span></span><span>use the regular macOS version instead</span></span></a>.
+	</p>
+	<div class="notification">
+		<p>
+			<strong>Note:</strong> On macOS, you will probably get a message saying that Drawpile could not be opened because we are not verified by Apple. To get rid of this, we'd have to pay them money. See <a href="https://docs.drawpile.net/help/tech/installation#macos" target="_blank">these installation instructions</a> on how to open it anyway.
 		</p>
 	</div>
 
