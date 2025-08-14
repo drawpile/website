@@ -27,7 +27,7 @@ On the server side, everything is both back- and forward-compatible. Server owne
 
 Drawpile 2.3.0-beta.2 represents a bit over 4 months of development since version 2.2.2 (and just a few hours from beta.1, since it's just a small fix). Many people contributed with suggestions and bug reports and are listed below. If you find any issues, please <a href="/help/" target="_blank">report them</a>!
 
-For an illustrated list of the major changes, take a look at <a href="https://docs.drawpile.net/help/common/update2x3x2" target="_blank">this page</a>.
+For an illustrated list of the major changes, take a look at <a href="https://docs.drawpile.net/help/common/update2x3x0" target="_blank">this page</a>.
 
 ---
 
