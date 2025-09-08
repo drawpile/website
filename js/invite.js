@@ -32,7 +32,8 @@ import { UAParser } from "ua-parser-js";
   const havePassword = hash && hash.length > 1;
   if (checked.value === "") {
     if (havePassword) {
-      link += `?p=${hash.substring(1)}`;
+      const separator = link.indexOf("?") === -1 ? "?" : "&";
+      link += `${separator}p=${hash.substring(1)}`;
     }
     input.value = link;
     checked.value = "1";
