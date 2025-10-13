@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% load page_tags %}
+
+{% block title %}Help - {{ block.super }}{% endblock %}
+
+{% block main %}
+
+<section class="section">
+<div class="container">
+<div class="columns">
+
+<div class="column is-three-quarters">
+{% block content %}{% endblock %}
+</div>
+
+<div class="column is-one-quarter">
+<aside class="menu">
+<p class="menu-label"><a href="https://docs.drawpile.net/help/common">Common Topics</a></p>
+<ul class="menu-list">
+  <li><a href="https://docs.drawpile.net/help/common/faq">Frequently Asked Questions</a></li>
+  <li><a href="https://docs.drawpile.net/help/common/hosting">Hosting Sessions</a></li>
+  <li><a href="https://docs.drawpile.net/help/common/joining">Joining Sessions</a></li>
+  <li><a href="https://docs.drawpile.net/help/common/update2x2x2">What's New in 2.2.2</a></li>
+  <li><a href="https://docs.drawpile.net/help/common/update2x3x0">What's New in 2.3.0 (Beta)</a></li>
+</ul>
+<p class="menu-label"><a href="https://docs.drawpile.net/help/draw">Drawing and Tools</a></p>
+<ul class="menu-list">
+  <li><a href="https://docs.drawpile.net/help/draw/clipping">Alpha Preserve, Clipping Groups, Masks, Alpha Lock</a></li>
+  <li><a href="https://docs.drawpile.net/help/draw/animation">Animation</a></li>
+  <li><a href="https://docs.drawpile.net/help/draw/brushsettings">Brush Settings</a></li>
+  <li><a href="https://docs.drawpile.net/help/draw/floodfill">Flood Fill Tool</a></li>
+  <li><a href="https://docs.drawpile.net/help/draw/mypaint">MyPaint Brush Settings</a></li>
+  <li><a href="https://docs.drawpile.net/help/draw/brushsharing">Sharing Brushes</a></li>
+  <li><a href="https://docs.drawpile.net/help/draw/stabilization">Stabilization</a></li>
+</ul>
+<p class="menu-label"><a href="https://docs.drawpile.net/help/server">Server Hosting</a></p>
+<ul class="menu-list">
+  <li><a href="https://docs.drawpile.net/help/server/dedicatedserver">Dedicated Server</a></li>
+  <li><a href="https://docs.drawpile.net/help/server/sessionoperation">Running Public Sessions</a></li>
+  <li><a href="https://docs.drawpile.net/help/server/serverconfig">Server Configuration</a></li>
+  <li><a href="https://docs.drawpile.net/help/server/docker">Server Setup with Docker</a></li>
+  <li><a href="https://docs.drawpile.net/help/server/websocket">WebSocket Server Setup</a></li>
+</ul>
+<p class="menu-label"><a href="https://docs.drawpile.net/help/tech">Technical Issues</a></p>
+<ul class="menu-list">
+  <li><a href="https://docs.drawpile.net/help/tech/customassets">Customizing Sounds, Icons and Themes</a></li>
+  <li><a href="https://docs.drawpile.net/help/tech/crashdumps">Enabling Crash Dumps</a></li>
+  <li><a href="https://docs.drawpile.net/help/tech/extauth">External Authentication</a></li>
+  <li><a href="https://docs.drawpile.net/help/tech/installation">Installation Issues</a></li>
+  <li><a href="https://docs.drawpile.net/help/tech/sidebyside">Installing Alpha and Beta Versions</a></li>
+  <li><a href="https://docs.drawpile.net/help/tech/tablet">Tablet Setup and Troubleshooting</a></li>
+  <li><a href="https://docs.drawpile.net/help/tech/browser">Web Browser Client</a></li>
+</ul>
+<p class="menu-label"><a href="https://docs.drawpile.net/help/development">Development</a></p>
+<ul class="menu-list">
+  <li><a href="https://docs.drawpile.net/help/development/architecture">Architecture</a></li>
+  <li><a href="https://docs.drawpile.net/help/development/buildingfromsource">Building from Source</a></li>
+  <li><a href="https://docs.drawpile.net/help/development/codingguidelines">Coding Guideline</a></li>
+  <li><a href="https://docs.drawpile.net/help/development/contributing">Contributing</a></li>
+  <li><a href="https://docs.drawpile.net/help/development/protocol">Network Protocol</a></li>
+  <li><a href="https://docs.drawpile.net/help/development/packaging">Notes for Packagers</a></li>
+  <li><a href="https://docs.drawpile.net/help/development/releases">Testing Releases</a></li>
+  <li><a href="https://docs.drawpile.net/help/development/versioncompatibility">Version Compatibility</a></li>
+</ul>
+</aside>
+</div>
+
+</div>{# ./columns #}
+</div>{# ./container #}
+</section>
+
+{% endblock %}
+
