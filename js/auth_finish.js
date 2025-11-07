@@ -56,7 +56,7 @@
         console.error("Unknown message type", e);
       }
     } else {
-      console.warning("Origin not allowed", e);
+      console.error("Origin not allowed", e);
     }
   });
 
