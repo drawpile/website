@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import FormView, TemplateView
 import logging
@@ -36,6 +37,13 @@ class AuthUsernamesView(LoginRequiredMixin, FormView):
     login_url = "auth:login"
     redirect_field_name = None
     template_name = "auth_usernames.html"
+
+    def get(self, request, *args, **kwargs):
+        name = request.GET.get("name")
+        if name and request.user.drawpilename_set.filter(name=name).exists():
+            return redirect("auth:finish", name)
+        else:
+            return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
