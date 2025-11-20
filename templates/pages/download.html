@@ -48,7 +48,7 @@
 		something, <a href="/help/">take a look at the help pages</a>!
 	</p>
 	<p>
-		A 32 Bit version as well as the dedicated server and command-line tools are available under <a href="#Archive"><span class="icon-text"><span class="icon"><span class="fas fa-archive"></span></span><span>Extras</span></a>.
+		A version for Windows on ARM processors, a 32 Bit version as well as the dedicated server and command-line tools are available under <a href="#Archive"><span class="icon-text"><span class="icon"><span class="fas fa-archive"></span></span><span>Extras</span></a>.
 	</p>
 	<p>
 		Free code signing is provided by <a href="https://about.signpath.io/" target="_blank">SignPath.io</a>, certificate by <a href="https://signpath.org/" target="_blank">SignPath Foundation</a>. See the <a href="/codesigningpolicy/">code signing policy</a> for details.
@@ -127,7 +127,7 @@
 			<a href="https://f-droid.org/packages/net.drawpile" target="_blank" class="button is-dark is-medium is-fullwidth"><span class="icon"><img src="{% static "images/fdroid-monochrome.svg" %}" alt="F-Droid Logo"></span><span>Get it on F-Droid</span></a>
 		</div>
 		<div class="column is-narrow">
-			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-30-34-arm64-v8a.apk" class="button is-link is-medium is-fullwidth"><span class="icon"><span class="fab fa-android"></span></span><span>Drawpile {{ VERSION }} APK</span></a>
+			<a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-30-35-arm64-v8a.apk" class="button is-link is-medium is-fullwidth"><span class="icon"><span class="fab fa-android"></span></span><span>Drawpile {{ VERSION }} APK</span></a>
 		</div>
 	</div>
 	<p>
@@ -207,11 +207,13 @@
 	<p>
 		Instructions for the dedicated server can be found on <a href="https://docs.drawpile.net/help/server/dedicatedserver">the dedicated server help page</a>.
 	</p>
-	<h3>32 Bit and Unsupported OS Versions</h3>
+	<h3>ARM, 32 Bit and Old OS Versions</h3>
 	<p>
-		32 bit versions are available for Windows and Android. There's also a version for old macOS systems.
+		These are versions of Drawpile for more unusual or ancient devices (20+ years old for PCs, 10+ years old for Apple or Android.) If you're not sure whether you need them, you probably don't!
 	</p>
 	<ul>
+		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-arm64.msi"><span class="icon-text"><span class="icon"><span class="fab fa-windows"></span></span><span>Drawpile {{ VERSION }} Installer for ARM Windows</span></a></li>
+		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-arm64.zip"><span class="icon-text"><span class="icon"><span class="fab fa-windows"></span></span><span>Drawpile {{ VERSION }} Portable ZIP for ARM Windows</span></a></li>
 		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-x86.msi"><span class="icon-text"><span class="icon"><span class="fab fa-windows"></span></span><span>Drawpile {{ VERSION }} Installer for 32 Bit Windows</span></a></li>
 		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION }}/Drawpile-{{ VERSION }}-x86.zip"><span class="icon-text"><span class="icon"><span class="fab fa-windows"></span></span><span>Drawpile {{ VERSION }} Portable ZIP for 32 Bit Windows</span></a></li>
 		<li><a href="https://github.com/drawpile/Drawpile/releases/download/{{ VERSION  }}/Drawpile-{{ VERSION }}-Qt5-x86_64.dmg"><span class="icon-text"><span class="icon"><span class="fab fa-apple"></span></span><span>Drawpile {{ VERSION }} for macOS older than 12 (Monterey)</span></a></li>
@@ -223,7 +225,7 @@
 	</p>
 	<div class="notification">
 		<p>
-			<strong>Note 1:</strong> Only use these versions if you <em>know</em> that your device needs them. If not, use the regular Windows or Android versions, those are faster and more stable.
+			<strong>Note 1:</strong> Only use these versions if you <em>know</em> that your device needs them. If not, use the regular versions, those are faster and more stable.
 		</p>
 		<p>
 			<strong>Note 2:</strong> If you get an error on Windows about missing the Visual Studio Redistributable or a VCRUNTIME DLL, you need to install those first. They are provided by Microsoft, you can <a href="https://aka.ms/vs/17/release/vc_redist.x86.exe">download them here</a>.
