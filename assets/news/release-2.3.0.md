@@ -1,5 +1,5 @@
 Slug: release-2.3.0
-Title: Version 2.3.0
+Title: Version 2.3.0 (Updated)
 Publish: 2025-11-20 19:30:00+01:00
 Visible: True
 Author: askmeaboutloom
@@ -14,6 +14,8 @@ If you want to support Drawpile's continued development, consider <strong><a hre
 To find out what changed, <strong><a href="https://docs.drawpile.net/help/common/update2x3x0" target="_blank">take a look at this illustrated guide</a></strong>. It has many pictures and videos to show off the new stuff.
 
 If you have questions, feedback or trouble using the new version, take a look at <a href="/help/" target="_blank">the help page</a> on how to get in contact.
+
+**Update on November 22 2025:** The macOS version has been revised. If Drawpile's window was updating very slowly or not at all for you, try getting this version. Thanks A Scanner Sparkly and Pupuptea for reporting this.
 
 ## Updating
 
