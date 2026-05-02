@@ -40,6 +40,7 @@ urlpatterns = [
     path('lgm/', TemplateView.as_view(template_name='lgm.html')),
     path('namecheckbot/', TemplateView.as_view(template_name='namecheckbot.html')),
     path('donate/', DonationRedirectView.as_view(url="https://donate.drawpile.org/", permanent=True)),
+    path('help/FAQ/', RedirectView.as_view(url='https://docs.drawpile.net/help/common/faq', permanent=True)),
     path('', TemplateView.as_view(template_name='pages/index.html')),
 ]
 
