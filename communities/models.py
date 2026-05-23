@@ -283,10 +283,23 @@ class Membership(models.Model):
         return self.status in self.MEMBER_STATUSES
 
     def get_mod_username(self):
-        """Return the first Username associated with this
-        user that has the Mod flag set, or the primary username
-        if there is none.
         """
-        return self.user.drawpilename_set\
-            .filter(models.Q(name=self.user.username)|models.Q(is_mod=True))\
-            .order_by('-is_mod')[0]
+        Return the most reasonable mod username for this user. That is either
+        their primary username, if that is a mod, or the first non-ghost mod
+        username or the primary username again as a fallback.
+        """
+        primary_username = None
+        first_mod_username = None
+        for username in self.user.drawpilename_set.filter(name=self.user.username):
+            if username.is_mod and not username.is_ghost:
+                if username.is_primary:
+                    return username
+                else:
+                    first_mod_username = username
+            elif username.is_primary:
+                primary_username = username
+
+        if first_mod_username:
+            return first_mod_username
+        else:
+            return primary_username
