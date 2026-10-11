@@ -35,8 +35,8 @@ import { UAParser } from "ua-parser-js";
       const separator = link.indexOf("?") === -1 ? "?" : "&";
       const passwordQuery = hash
         .substring(1)
-        .replace("&", "%26")
-        .replace("#", "%23");
+        .replaceAll("&", "%26")
+        .replaceAll("#", "%23");
       link += `${separator}p=${passwordQuery}`;
     }
     input.value = link;
